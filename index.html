@@ -61,13 +61,14 @@
         <div class="card heroCard">
           <h2>Quick definition</h2>
           <p>
-            Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level (UL)</strong> optimization problem is constrained by the optimal response of a <strong> lower-level (LL)</strong> optimization problem \cite{colson2007overview}. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on LL optimality, the induced feasible set is typically nonconvex and can be disconnected, and solution quality can be sensitive to LL solution multiplicity and tie-breaking. </p>
+            Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level (UL)</strong> optimization problem is constrained by the optimal response of a <strong> lower-level (LL)</strong> optimization problem <a href="#ref-colson2007overview" class="cite">[1]</a>. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on LL optimality, the induced feasible set is typically nonconvex and can be disconnected, and solution quality can be sensitive to LL solution multiplicity and tie-breaking. </p>
             
 <p>Over the past decades, BLO has been studied from both theoretical and applied perspectives. Classical approaches exploit analytical structure through techniques such as Karush–Kuhn–Tucker (KKT)–based reformulations, penalty and value-function methods, and exact algorithms, such as branch-and-bound. While these methods can be effective for structured instances (e.g., smooth or convex LL problems), their applicability is often limited in practice by nonsmoothness, nonconvexity, discrete variables, or the lack of reliable gradients—especially when the LL problem is non-differentiable or only accessible through a black-box solver.</p>
 
-<p>To address these limitations, the evolutionary computation community has developed metaheuristic and population-based approaches for BLO. Evolutionary algorithms (EAs)—including genetic algorithms (GA), differential evolution (DE), particle swarm optimization (PSO), and co-evolutionary strategies—are attractive for complex, multimodal, and black-box settings because they are derivative-free and can explore diverse regions of the search space \cite{7942105}. However, their flexibility comes at a cost: EAs often require many function evaluations, and the nested evaluation of LL optima can make them computationally expensive when LL solves are costly.</p>
+<p>To address these limitations, the evolutionary computation community has developed metaheuristic and population-based approaches for BLO. Evolutionary algorithms (EAs)—including genetic algorithms (GA), differential evolution (DE), particle swarm optimization (PSO), and co-evolutionary strategies—are attractive for complex, multimodal, and black-box settings because they are derivative-free and can explore diverse regions of the search space <a href="#ref-7942105" class="cite">[2]</a>. However, their flexibility comes at a cost: EAs often require many function evaluations, and the nested evaluation of LL optima can make them computationally expensive when LL solves are costly.</p>
 
-<p>More recently, BLO has seen rapid growth at the intersection with machine learning \cite{zhang2023introductionbileveloptimizationfoundations}. Enabled by larger datasets, advances in automatic differentiation, and the need for scalable optimization pipelines, ML-based BLO methods include surrogate modeling (supervised learning), reinforcement learning for policy-level bilevel tasks, and deep learning–driven formulations for neural architecture search and hyperparameter optimization. In particular, differentiable bilevel frameworks—via implicit differentiation or unrolled optimization—can provide efficient gradient-based updates across both levels for suitable problem classes, substantially improving scalability and practical performance.</p>
+<p>More recently, BLO has seen rapid growth at the intersection with machine learning <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[3]</a>. Enabled by larger datasets, advances in automatic differentiation, and the need for scalable optimization pipelines, ML-based BLO methods include surrogate modeling (supervised learning), reinforcement learning for policy-level bilevel tasks, and deep learning–driven formulations for neural architecture search and hyperparameter optimization. In particular, differentiable bilevel frameworks—via implicit differentiation or unrolled optimization—can provide efficient gradient-based updates across both levels for suitable problem classes, substantially improving scalability and practical performance.</p>
+          
           <div class="equation">
             <div class="mono">
               minimize<sub>x</sub> F(x, y) <br/>
@@ -168,6 +169,28 @@
         </div>
       </div>
     </section>
+    <!--References Section  -->
+  <section class="container section" id="references">
+  <div class="card">
+    <h2>References</h2>
+    <ol class="refs">
+      <li id="ref-colson2007overview">
+        B. Colson, P. Marcotte, and G. Savard, “An overview of bilevel optimization,”
+        <i>Annals of Operations Research</i>, vol. 153, pp. 235–256, 2007.
+      </li>
+
+      <li id="ref-7942105">
+        A. Sinha, P. Malo, and K. Deb, “A Review on Bilevel Optimization: From Classical to Evolutionary Approaches and Applications,”
+        <i>IEEE Transactions on Evolutionary Computation</i>, vol. 22, no. 2, pp. 276–295, 2018, doi: 10.1109/TEVC.2017.2712906.
+      </li>
+
+      <li id="ref-zhang2023introductionbileveloptimizationfoundations">
+        Y. Zhang, P. Khanduri, I. Tsaknakis, Y. Yao, M. Hong, and S. Liu, “An introduction to bilevel optimization: Foundations and applications in signal processing and machine learning,”
+        <i>IEEE Signal Processing Magazine</i>, vol. 41, no. 1, pp. 38–59, 2024.
+      </li>
+    </ol>
+  </div>
+</section>
 
     <footer class="footer">
       <div class="container">
