@@ -70,13 +70,13 @@
 <p>More recently, BLO has seen rapid growth at the intersection with machine learning (ML) <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[3]</a>. Enabled by larger datasets, advances in automatic differentiation, and the need for scalable optimization pipelines, ML-based BLO methods include surrogate modeling (supervised learning), reinforcement learning for policy-level bilevel tasks, and deep learning–driven formulations for neural architecture search and hyperparameter optimization. In particular, differentiable bilevel frameworks, via implicit differentiation or unrolled optimization, can provide efficient gradient-based updates across both levels for suitable problem classes, substantially improving scalability and practical performance.</p>
           
           <div class="equation">
-  \[
-  \begin{aligned}
-  \min_{x_u}\;& F(x_u, x_l) \\
-  \text{s.t. }\;& G(x_u, x_l)\le 0 \\
-  & x_l \in \arg\min_{x_l}\{ f(x_u, x_l): g(x_u, x_l)\le 0 \},\; X\ \text{constraints}
-  \end{aligned}
-  \]
+  \begin{align}
+			  \begin{cases}
+  \min_{x_u}\; F(x_u, x_l) \\
+  \text{s.t. }\; G(x_u, x_l)\le 0 \\
+   x_l \in \arg\min_{x_l}\{ f(x_u, x_l): g(x_u, x_l)\le 0 \},\; X\ \text{constraints}
+			  \end{cases}
+  \end{align}
 </div>
 
           <p class="muted">
