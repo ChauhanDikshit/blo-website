@@ -1,93 +1,78 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.1">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Papers · BLO Hub</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
+
 <body>
-<p class="p1">&lt;!doctype html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Papers · BLO Hub&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="stylesheet" href="assets/style.css" /&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;header class="topbar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container topbar-inner"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a class="brand" href="index.html"&gt;BLO Hub&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;nav class="nav"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;a class="navlink" href="index.html"&gt;Home&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;a class="navlink" href="taxonomy.html"&gt;Taxonomy&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;a class="navlink active" href="papers.html"&gt;Papers&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="menuBtn" id="menuBtn" aria-label="Toggle menu"&gt;☰&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mobileNav container" id="mobileNav"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a href="index.html"&gt;Home&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a href="taxonomy.html"&gt;Taxonomy&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a href="papers.html"&gt;Papers&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;main class="container section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="pageHead"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;Papers&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="muted"&gt;Edit &lt;span class="mono"&gt;data/papers.json&lt;/span&gt; to add papers. Filters update automatically.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="rightTools"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;a class="btn" href="data/papers.json" target="_blank" rel="noreferrer"&gt;View JSON&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="filters"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input id="q" class="input" placeholder="Search title / authors / venue / tags…" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="tier" class="select"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value=""&gt;All tiers&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="A"&gt;Tier A&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="B"&gt;Tier B&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value="C"&gt;Tier C&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="family" class="select"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value=""&gt;All method families&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;select id="ptype" class="select"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;option value=""&gt;All problem types&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tableWrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;table class="table" id="papersTable"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;th&gt;Year&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;th&gt;Title&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;th&gt;Authors&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;th&gt;Venue&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;th&gt;Tags&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;th&gt;Tier&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;tbody id="papersBody"&gt;&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="muted small" id="countRow"&gt;—&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="assets/app.js"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">BLO Hub</a>
+      <nav class="nav">
+        <a class="navlink" href="index.html">Home</a>
+        <a class="navlink" href="taxonomy.html">Taxonomy</a>
+        <a class="navlink active" href="papers.html">Papers</a>
+      </nav>
+      <button class="menuBtn" id="menuBtn" aria-label="Toggle menu">☰</button>
+    </div>
+    <div class="mobileNav container" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="taxonomy.html">Taxonomy</a>
+      <a href="papers.html">Papers</a>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="pageHead">
+      <div>
+        <h1>Papers</h1>
+        <p class="muted">Edit <span class="mono">data/papers.json</span> to add papers. Filters update automatically.</p>
+      </div>
+      <div class="rightTools">
+        <a class="btn" href="data/papers.json" target="_blank" rel="noreferrer">View JSON</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="filters">
+        <input id="q" class="input" placeholder="Search title / authors / venue / tags…" />
+        <select id="tier" class="select">
+          <option value="">All tiers</option>
+          <option value="A">Tier A</option>
+          <option value="B">Tier B</option>
+          <option value="C">Tier C</option>
+        </select>
+        <select id="family" class="select">
+          <option value="">All method families</option>
+        </select>
+        <select id="ptype" class="select">
+          <option value="">All problem types</option>
+        </select>
+      </div>
+
+      <div class="tableWrap">
+        <table class="table" id="papersTable">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Title</th>
+              <th>Authors</th>
+              <th>Venue</th>
+              <th>Tags</th>
+              <th>Tier</th>
+            </tr>
+          </thead>
+          <tbody id="papersBody"></tbody>
+        </table>
+      </div>
+
+      <div class="muted small" id="countRow">—</div>
+    </div>
+  </main>
+
+  <script src="assets/app.js"></script>
 </body>
 </html>
