@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bilevel Optimization (BLO) Hub</title>
   <meta name="description" content="A community-oriented hub for bilevel optimization: definitions, taxonomy, methods, papers, and applications." />
+	<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <!-- <link rel="stylesheet" href="assets/style.css" /> -->
 </head>
 <body>
@@ -60,8 +61,7 @@
 
         <div class="card heroCard">
           <h2>Quick definition</h2>
-          <p>
-            Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level (UL)</strong> optimization problem is constrained by the optimal response of a <strong> lower-level (LL)</strong> optimization problem <a href="#ref-colson2007overview" class="cite">[1]</a>. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on LL optimality, the induced feasible set is typically nonconvex and can be disconnected, and solution quality can be sensitive to LL solution multiplicity and tie-breaking. </p>
+          <p>Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level (UL)</strong> optimization problem is constrained by the optimal response of a <strong> lower-level (LL)</strong> optimization problem <a href="#ref-colson2007overview" class="cite">[1]</a>. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on LL optimality, the induced feasible set is typically nonconvex and can be disconnected, and solution quality can be sensitive to LL solution multiplicity and tie-breaking. </p>
             
 <p>Over the past decades, BLO has been studied from both theoretical and applied perspectives. Classical approaches exploit analytical structure through techniques such as Karush–Kuhn–Tucker (KKT)–based reformulations, penalty and value-function methods, and exact algorithms, such as branch-and-bound. While these methods can be effective for structured instances (e.g., smooth or convex LL problems), their applicability is often limited in practice by nonsmoothness, nonconvexity, discrete variables, or the lack of reliable gradients, especially when the LL problem is non-differentiable or only accessible through a black-box solver.</p>
 
@@ -70,12 +70,15 @@
 <p>More recently, BLO has seen rapid growth at the intersection with machine learning (ML) <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[3]</a>. Enabled by larger datasets, advances in automatic differentiation, and the need for scalable optimization pipelines, ML-based BLO methods include surrogate modeling (supervised learning), reinforcement learning for policy-level bilevel tasks, and deep learning–driven formulations for neural architecture search and hyperparameter optimization. In particular, differentiable bilevel frameworks, via implicit differentiation or unrolled optimization, can provide efficient gradient-based updates across both levels for suitable problem classes, substantially improving scalability and practical performance.</p>
           
           <div class="equation">
-            <div class="mono">
-              minimize<sub>x_u</sub> F(x_u, x_l) <br/>
-              subject to G(x_u, x_l)\leq 0 <\br/>
-                x_l ∈ argmin<sub>x_l</sub> { f(x_u, x_l) : g(x_u, x_l) ≤ 0 },  X constraints
-            </div>
-          </div>
+  \[
+  \begin{aligned}
+  \min_{x_u}\;& F(x_u, x_l) \\
+  \text{s.t. }\;& G(x_u, x_l)\le 0 \\
+  & x_l \in \arg\min_{x_l}\{ f(x_u, x_l): g(x_u, x_l)\le 0 \},\; X\ \text{constraints}
+  \end{aligned}
+  \]
+</div>
+
           <p class="muted">
             This nested structure makes BLO difficult: nonconvexity, nonsmoothness, implicit constraints,
             and multiple local/global follower optima.
