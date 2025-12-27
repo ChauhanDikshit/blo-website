@@ -7,7 +7,6 @@
   <meta name="description" content="A community-oriented hub for bilevel optimization: definitions, taxonomy, methods, papers, and applications." />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
-
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
@@ -38,7 +37,6 @@
             <strong>definitions</strong>, <strong>complexity</strong>, <strong>taxonomy</strong>,
             <strong>solution methods</strong> (classical / evolutionary / ML), and <strong>papers</strong>.
           </p>
-
           <div class="ctaRow">
             <a class="btn primary" href="papers.html">Browse Papers</a>
             <a class="btn" href="taxonomy.html">Explore Taxonomy</a>
@@ -69,7 +67,7 @@
           <div class="equation">
             <div class="mono">
               minimize<sub>x</sub> F(x, y) <br/>
-              subject to y ∈ argmin<sub>y</sub> { f(x, y) : g(x, y) ≤ 0 }, X constraints
+              subject to y ∈ argmin<sub>y</sub> { f(x, y) : g(x, y) ≤ 0 },  X constraints
             </div>
           </div>
           <p class="muted">
@@ -105,10 +103,39 @@
 
         <div class="card">
           <h3>Solution families</h3>
-          <div class="pillRow" id="methodPills"></div>
+          <div class="pillRow" id="methodPills">
+            <!-- filled by JS -->
+          </div>
           <p class="muted">
             The site is designed so you can keep adding papers + tags and the pages update automatically.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <div class="twoCol">
+        <div class="card">
+          <h2>What you can host here</h2>
+          <ul class="bullets">
+            <li>Curated paper lists (Tier A/B/C), by topic and year</li>
+            <li>Benchmark problems + datasets</li>
+            <li>Method notes (KKT reformulation, evolutionary bilevel, ML-based BLO)</li>
+            <li>Application galleries (energy, transport, ML, security, design)</li>
+          </ul>
+          <p class="muted">
+            Everything is plain files—edit in GitHub and it’s live.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Starter curation workflow</h2>
+          <ol class="bullets">
+            <li>Add papers to <span class="mono">data/papers.json</span></li>
+            <li>Tag them (method, problem type, application)</li>
+            <li>Use the Papers page to search + filter</li>
+            <li>Expand taxonomy nodes in <span class="mono">data/taxonomy.json</span></li>
+          </ol>
         </div>
       </div>
     </section>
