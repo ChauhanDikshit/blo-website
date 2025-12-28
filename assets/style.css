@@ -90,8 +90,12 @@ h1{ font-size: clamp(28px, 4vw, 44px); margin:0 0 10px; }
   border-radius:14px;
   margin:12px 0;
 }
+.eq-where { margin-top: 12px; }
+.eq-where ul { margin: 6px 0 0 18px; }
+.eq-where li { margin: 6px 0; }
 .cite { font-size: 0.95em; }
 .refs li { margin: 10px 0; line-height: 1.5; }
+
 
 .btn{
   display:inline-flex;
