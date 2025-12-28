@@ -58,8 +58,8 @@
       <p>
         Bilevel optimization (BLO) problems are a class of hierarchical mathematical programs where one optimization task is nested within another.
         The decision-making process is split into two levels: an upper-level (UL, leader) problem and a lower-level (LL, follower) problem.
-        The key distinction from classical constrained optimization is that the LL problem is not a constraint in the traditional sense.
-        It is itself an optimization problem whose solution depends on the UL decisions
+        The key distinction from classical constrained optimization is that the lower-level problem is not a constraint in the traditional sense.
+        It is itself an optimization problem whose solution depends on the upper-level decisions
         <a href="#ref-bard1998practical" class="cite">[1]</a>,
         <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[2]</a>.
       </p>
@@ -92,10 +92,10 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         <div class="eq-where">
           <p><strong>where</strong></p>
           <ul>
-            <li>\(\mathbf{x_u} \in \mathbb{R}^{n_x}\): UL decision variables;</li>
-            <li>\(\mathbf{x_l} \in \mathbb{R}^{n_y}\): LL decision variables;</li>
-            <li>\(F(\mathbf{x_u},\mathbf{x_l})\): UL objective; \(f(\mathbf{x_u},\mathbf{x_l})\): LL objective;</li>
-            <li>\(G_i(\mathbf{x_u},\mathbf{x_l})\), \(g_j(\mathbf{x_u},\mathbf{x_l})\): UL/LL inequality constraints;</li>
+            <li>\(\mathbf{x_u} \in \mathbb{R}^{n_{x_u}}\): upper-level decision variables;</li>
+            <li>\(\mathbf{x_l} \in \mathbb{R}^{n_{x_l}}\): lower-level decision variables;</li>
+            <li>\(F\): upper-level objective; \(f\): lower-level objective;</li>
+            <li>\(G_i\): upper-level inequality constraints; \(g_j(\): lower-level inequality constraints;</li>
             <li>\(\mathbf{x_u}\), \(\mathbf{x_l}\): feasible domains (can be continuous, integer, or mixed-integer)
               <a href="#ref-dumouchelle2024neur2biloneuralbileveloptimization" class="cite">[4]</a>.
             </li>
@@ -105,8 +105,8 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
       </div>
 
       <p>
-        The UL decision-maker optimizes \(F\) through \(\mathbf{x_u}\), anticipating that the LL reacts optimally by minimizing \(f\).
-        The feasible set of the UL is implicitly constrained by the optimal response mapping of the LL, which can make the problem nonconvex,
+        The upper-level decision-maker optimizes \(F\) through \(\mathbf{x_u}\), anticipating that the lower-level reacts optimally by minimizing \(f\).
+        The feasible set of the upper-level is implicitly constrained by the optimal response mapping of the LL, which can make the problem nonconvex,
         nonsmooth, and even discontinuous.
       </p>
 
@@ -151,8 +151,8 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         <div class="eq-where">
           <ul>
             <li>\(\mathbf{F}: \mathbf{x_u}\times\mathbf{x_l}\to\mathbb{R}^K\), \(K\ge 2\) (multi-objective UL);</li>
-            <li>\(\mathbf{f}: \mathbf{x_u}\times\mathbf{x_l}\to\mathbb{R}^k\), \(k\ge 1\) (LL may be single- or multi-objective);</li>
-            <li>Special case: SVBLO if \(K=1\) and \(k\ge 2\) (UL single objective, LL multi-objective).</li>
+            <li>\(\mathbf{f}: \mathbf{x_u}\times\mathbf{x_l}\to\mathbb{R}^k\), \(k\ge 1\) (lower-level may be single- or multi-objective);</li>
+            <li>Special case: SVBLO if \(K=1\) and \(k\ge 2\) (upper-level single objective, lower-level multi-objective).</li>
           </ul>
           <p class="muted small">
             Different MOBLO definitions may impose additional requirements (e.g., multiple constraints), treating SVBLO as a special case
@@ -170,12 +170,12 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
       <div class="card">
         <h2>References (placeholders you can fill)</h2>
         <ol class="refs">
-          <li id="ref-bard1998practical">Bard (1998). <i>Practical Bilevel Optimization</i>. (Add full bibliographic info / DOI / link)</li>
+          <li id="ref-bard1998practical">Bard (1998). <i>Practical Bilevel Optimization</i>. (Add fulower-level bibliographic info / DOI / link)</li>
           <li id="ref-zhang2023introductionbileveloptimizationfoundations">Zhang et al. (2024). <i>IEEE Signal Processing Magazine</i>. (Already in your index refs; keep consistent)</li>
           <li id="ref-7942105">Sinha, Malo, Deb (2018). <i>IEEE Trans. Evolutionary Computation</i>. doi: 10.1109/TEVC.2017.2712906</li>
-          <li id="ref-dumouchelle2024neur2biloneuralbileveloptimization">Dumouchelle et al. (2024). (Add full bibliographic info / link)</li>
-          <li id="ref-10121701">(Add full reference for key MOBLO source / IEEE id 10121701)</li>
-          <li id="ref-eichfelder2010multiobjective">Eichfelder (2010). (Add full bibliographic info / link)</li>
+          <li id="ref-dumouchelle2024neur2biloneuralbileveloptimization">Dumouchelle et al. (2024). (Add fulower-level bibliographic info / link)</li>
+          <li id="ref-10121701">(Add fulower-level reference for key MOBLO source / IEEE id 10121701)</li>
+          <li id="ref-eichfelder2010multiobjective">Eichfelder (2010). (Add fulower-level bibliographic info / link)</li>
         </ol>
         <p class="muted small">
           Tip: keep the same <span class="mono">id="ref-..."</span> keys across pages so your citation anchors stay stable.
