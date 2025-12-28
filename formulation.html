@@ -61,7 +61,7 @@
         The key distinction from classical constrained optimization is that the lower-level problem is not a constraint in the traditional sense.
         It is itself an optimization problem whose solution depends on the upper-level decisions
         <a href="#ref-bard1998practical" class="cite">[1]</a>,
-        <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[2]</a>.
+        <a href="#ref-zhang2023introduction" class="cite">[2]</a>.
       </p>
     </div>
 
@@ -101,7 +101,7 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         \(g_j:\mathbb{R}^{n_{x_u}}\times\mathbb{R}^{n_{x_l}}\to\mathbb{R}\): lower-level inequality constraints;</li>
   <li>\(\mathbf{X}_u \subseteq \mathbb{R}^{n_{x_u}}\); \(\mathbf{X}_l \subseteq \mathbb{R}^{n_{x_l}}\).</li>
     <li>\(\mathbf{x}_u \subseteq \mathbb{R}^{n_{x_u}}\), \(\mathbf{x}_l \subseteq \mathbb{R}^{n_{x_l}}\): feasible domains (can be continuous, integer, or mixed-integer)
-      <a href="#ref-dumouchelle2024neur2biloneuralbileveloptimization" class="cite">[4]</a>.
+      <a href="#ref-dumouchelle2024neur2" class="cite">[4]</a>.
     </li>
 
     <li><strong>Note:</strong> Equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</li>
@@ -145,26 +145,23 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
     <div class="card" id="multi-objective">
       <h2>Multi-objective bilevel problems</h2>
       <p>
-        Multi-objective bilevel optimization (MOBLO) extends classical BLO by introducing multiple objectives at the UL, LL, or both.
+        Multi-objective bilevel optimization (MOBLO) extends classical BLO by introducing multiple objectives at the upper-level, lower-level, or both.
         This hierarchical multi-objective structure increases complexity: the follower’s response mapping becomes set-valued, and the leader must
         reason about trade-offs within and across levels
-        <a href="#ref-10121701" class="cite">[5]</a>.
-      </p>
-
-      <p class="muted">A common MOBLO formulation is shown in Eq. \(\eqref{eq:moblo}\).</p>
+        <a href="#ref-mejia2023mobo" class="cite">[5]</a>. Such problems arise in engineering design, economics, and resource allocation, where multiple competing criteria must be optimized simultaneously under hierarchical decision-making constraints [6]. A common MOBLO formulation is shown in Eq. \(\eqref{eq:moblo}\).</p>
 
       <div class="equation">
         <div class="math">
 \begin{equation}
 \begin{aligned}
-\min_{\mathbf{x}_u \in \mathbf{x}_u,\, \mathbf{x}_l \in \mathbf{x}_l} \ & \mathbf{F}(\mathbf{x}_u,\mathbf{x}_l)
+\min_{\mathbf{x}_u \in \mathbf{X}_u,\, \mathbf{x}_l \in \mathbf{X}_l} \ & \mathbf{F}(\mathbf{x}_u,\mathbf{x}_l)
 = \big(F_1(\mathbf{x}_u,\mathbf{x}_l), \ldots, F_K(\mathbf{x}_u,\mathbf{x}_l)\big) \\
-\text{s.t.}\quad
+\text{s.t.}\quad\begin{cases}
 & G_i(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad i\in\{1,2,\ldots,M\},\\
-& \mathbf{x}_l \in \arg\min_{\mathbf{x}_l \in \mathbf{x}_l}
+& \mathbf{x}_l \in \arg\!\min_{\mathbf{x}_l \in \mathbf{X}_l}
 \Big\{\mathbf{f}(\mathbf{x}_u,\mathbf{x}_l)
 = \big(f_1(\mathbf{x}_u,\mathbf{x}_l), \ldots, f_k(\mathbf{x}_u,\mathbf{x}_l) \big)\ \big| \\
-& \qquad\qquad\qquad\qquad g_j(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad j\in\{1,2,\ldots,m\}\Big\}.
+& \qquad\qquad\qquad\qquad g_j(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad j\in\{1,2,\ldots,m\}\Big\}.\end{cases}
 \end{aligned}
 \label{eq:moblo}
 \end{equation}
@@ -172,36 +169,34 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
 
         <div class="eq-where">
           <ul>
-            <li>\(\mathbf{F}: \mathbf{x}_u\times\mathbf{x}_l\to\mathbb{R}^K\), \(K\ge 2\) (multi-objective UL);</li>
-            <li>\(\mathbf{f}: \mathbf{x}_u\times\mathbf{x}_l\to\mathbb{R}^k\), \(k\ge 1\) (lower-level may be single- or multi-objective);</li>
-            <li>Special case: SVBLO if \(K=1\) and \(k\ge 2\) (upper-level single objective, lower-level multi-objective).</li>
+            <li>\(\mathbf{F}: \mathbf{X}_u\times\mathbf{X}_l\to\mathbb{R}^K\), \(K\ge 2\) (multi-objective upper-level);</li>
+            <li>\(\mathbf{f}: \mathbf{X}_u\times\mathbf{X}_l\to\mathbb{R}^k\), \(k\ge 1\) (lower-level may be single- or multi-objective);</li>
+            <li>Special case: SVBLO if \(K=1\) and \(k\ge 2\) (upper-level single objective, lower-level multi-objective). Different MOBLO definitions may impose additional requirements (e.g., multiple constraints), treating SVBLO as a special case
+            <a href="#ref-eichfelder2010multiobjective" class="cite">[6]</a>.</li>
           </ul>
-          <p class="muted small">
-            Different MOBLO definitions may impose additional requirements (e.g., multiple constraints), treating SVBLO as a special case
-            <a href="#ref-eichfelder2010multiobjective" class="cite">[6]</a>.
-          </p>
         </div>
       </div>
 
-      <p>
+      <!-- <p>
         Example in text: “We use the MOBLO formulation in Eq. \(\eqref{eq:moblo}\) to model leader trade-offs under a set-valued follower response.”
-      </p>
+      </p> -->
     </div>
 
     <section class="container section" id="references" style="padding:0">
       <div class="card">
         <h2>References (placeholders you can fill)</h2>
         <ol class="refs">
-          <li id="ref-bard1998practical">Bard (1998). <i>Practical Bilevel Optimization</i>. (Add fulower-level bibliographic info / DOI / link)</li>
-          <li id="ref-zhang2023introductionbileveloptimizationfoundations">Zhang et al. (2024). <i>IEEE Signal Processing Magazine</i>. (Already in your index refs; keep consistent)</li>
-          <li id="ref-7942105">Sinha, Malo, Deb (2018). <i>IEEE Trans. Evolutionary Computation</i>. doi: 10.1109/TEVC.2017.2712906</li>
-          <li id="ref-dumouchelle2024neur2biloneuralbileveloptimization">Dumouchelle et al. (2024). (Add fulower-level bibliographic info / link)</li>
-          <li id="ref-10121701">(Add fulower-level reference for key MOBLO source / IEEE id 10121701)</li>
-          <li id="ref-eichfelder2010multiobjective">Eichfelder (2010). (Add fulower-level bibliographic info / link)</li>
+          <li id="ref-bard1998practical">J. F. Bard, <i>Practical Bilevel Optimization: Algorithms and Applications</i>,<i>Nonconvex Optimization and Its Applications</i>, vol. 30, ISSN: 1571-568X, 1998, Springer, doi: <a class="link" href="https://doi.org/10.1007/978-1-4757-2836-1" target="_blank" rel="noreferrer">10.1007/978-1-4757-2836-1</a>.</li>
+          <li id="ref-zhang2023introduction">Yihua Zhang, Prashant Khanduri, Ioannis Tsaknakis, Yuguang Yao, Mingyi Hong, and Sijia Liu, “An introduction to bilevel optimization: Foundations and applications in signal processing and machine learning,”<i>IEEE Signal Processing Magazine</i>, vol. 41, no. 1, pp. 38–59, 2024.</li>
+          <li id="ref-7942105">Ankur Sinha, Pekka Malo, and Kalyanmoy Deb, “A Review on Bilevel Optimization: From Classical to Evolutionary Approaches and Applications,”
+        <i>IEEE Transactions on Evolutionary Computation</i>, vol. 22, no. 2, pp. 276–295, 2018, doi: 10.1109/TEVC.2017.2712906.</li>
+          <li id="ref-dumouchelle2024neur2">Justin Dumouchelle, Julien, E., Kurtz, J., and Khalil, E. B, "Neur2bilo: Neural bilevel optimization." <i>Advances in Neural Information Processing Systems</i>, vol. 37, pp. 86688-86719, 2024.</li>
+          <li id="ref-mejia2023mobo"> Mejía-De-Dios, Jesús-Adolfo, Alejandro Rodríguez-Molina, and Efrén Mezura-Montes, "Multiobjective bilevel optimization: A survey of the state-of-the-art," <i>IEEE transactions on Systems, Man, and Cybernetics</i>, vol. 53, no. 9, pp. 5478-5490, 2023</li>
+          <li id="ref-eichfelder2010multiobjective">Eichfelder, Gabriele, "Multiobjective bilevel optimization," <i>Mathematical Programming</i>, vol. 123, no. 2, pp. 419-449, ISSN: 0025-5610; eISSN: 1436-4646, 2010, Springer, doi: <a class="link" href="https://doi.org/10.1007/s10107-008-0259-0" target="_blank" rel="noreferrer">10.1007/s10107-008-0259-0</a></li>
         </ol>
-        <p class="muted small">
+        <!-- <p class="muted small">
           Tip: keep the same <span class="mono">id="ref-..."</span> keys across pages so your citation anchors stay stable.
-        </p>
+        </p> -->
       </div>
     </section>
     
