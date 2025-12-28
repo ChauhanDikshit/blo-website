@@ -122,23 +122,27 @@
           <ul class="bullets">
             <li>
           <strong>Nested optimization</strong>:
-          Feasibility depends on <em>lower-level optimality</em>, not just constraints. This creates an implicit “induced region” <a href="#ref-colson2007overview" class="cite">[1]</a>, <a href="#ref-aiyoshi1981hierarchical" class="cite">[6]</a>.
+          Feasibility depends on <em>lower-level optimality</em>, not just constraints. This creates an implicit “induced region” defined through the follower’s solution mapping. <a href="#ref-colson2007overview" class="cite">[1]</a>, <a href="#ref-aiyoshi1981hierarchical" class="cite">[6]</a>.
+        
         </li>
         <li>
-          <strong>Nonconvexity & irregular geometry</strong>: The induced region is often nonconvex, disconnected, or even empty, and the objective can be nonsmooth <a href="#ref-colson2007overview" class="cite">[3]</a>.
+          <strong>Nonconvexity & irregular geometry</strong>: Even when the subproblems look simple, the induced region and the resulting upper-level landscape are often nonconvex
+          and can become nonsmooth or irregular. <a href="#ref-colson2007overview" class="cite">[3]</a>.
         </li>
         <li>
           <strong>Multiplicity & tie-breaking</strong>:
-          The follower may have <em>multiple</em> optimal responses; results depend on optimistic vs pessimistic assumptions.
+          The follower may have <em>multiple</em> optimal responses; results depend on how ties are resolved (optimistic vs pessimistic
+          bilevel semantics), and this issue becomes even more prominent in multiobjective settings <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-mejia2023mobo" class=" cite">[7]</a>.
         </li>
         <li>
-          <strong>Expensive evaluations</strong>:
-          Many algorithms require repeatedly solving the lower-level problem while searching over upper-level decisions.
+          <strong>Expensive evaluations</strong>: Many practical algorithms “nest” lower-level solves inside upper-level search, so each upper-level candidate can trigger
+          one (or many) follower optimizations—making the overall procedure computationally expensive <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-mejia2023mobo" class=" cite">[7]</a>.
         </li>
         <li>
           <strong>Hardness in theory</strong>:
-          Even restricted bilevel classes are computationally difficult; general bilevel programs can reach high complexity
-          (e.g., NP-hard and beyond in standard complexity hierarchies) <a href="#ref-jeroslow1985polynomial" class="cite">[7]</a>.
+          Even restricted bilevel classes are computationally difficult; general bilevel programs (e.g., linear–linear cases) can reach high complexity
+          (e.g., NP-hard and beyond in standard complexity hierarchies) <a href="#ref-jeroslow1985polynomial" class="cite">[8]</a>, <a href="#ref-beck2023uncertainty" class="cite">[9]</a>. 
+       
         </li>
       </ul>
       <a class="link" href="start-here.html">Learn the core concepts →</a>
@@ -259,6 +263,8 @@
 		<li id="ref-aiyoshi1981hierarchical">
 			Eitaro Aiyoshi and Kiyotaka Shimizu, "Hierarchical decentralized systems and its new solution by a barrier method." <i>IEEE Transactions on Systems, Man and Cybernetics</i>, no. 6, pp. 444-449, 1981.</li>
 		<li id="ref-jeroslow1985polynomial"> Jeroslow, Robert G. "The polynomial hierarchy and a simple model for competitive analysis." <i>Mathematical Programming</i> vol. 32, no. 2, pp. 146-164, 1985.</li>
+		<li id="ref-mejia2023mobo"> Mejía-De-Dios, Jesús-Adolfo, Alejandro Rodríguez-Molina, and Efrén Mezura-Montes, "Multiobjective bilevel optimization: A survey of the state-of-the-art." <i>IEEE transactions on Systems, Man, and Cybernetics</i>, vol. 53, no. 9, pp. 5478-5490, 2023</li>
+<li id="ref-beck2023uncertainty"> Yasmine Beck, Ivana Ljubić, and Martin Schmidt, "A survey on bilevel optimization under uncertainty." <i>European Journal of Operational Research</i>, vol. 311, no. 2, pp. 401-426, 2023.</li>
     </ol>
   </div>
 </section>
