@@ -58,8 +58,8 @@
       <p>
         Bilevel optimization (BLO) problems are a class of hierarchical mathematical programs where one optimization task is nested within another.
         The decision-making process is split into two levels: an upper-level (UL, leader) problem and a lower-level (LL, follower) problem.
-        The key distinction from classical constrained optimization is that the LL problem is not a constraint in the traditional sense;
-        it is itself an optimization problem whose solution depends on the UL decisions
+        The key distinction from classical constrained optimization is that the LL problem is not a constraint in the traditional sense.
+        It is itself an optimization problem whose solution depends on the UL decisions
         <a href="#ref-bard1998practical" class="cite">[1]</a>,
         <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[2]</a>.
       </p>
@@ -79,17 +79,14 @@
 
       <div class="equation">
         <div class="math">
-\begin{equation}
-\begin{aligned}
-\min_{\mathbf{x} \in \mathbf{X},\, \mathbf{y} \in \mathbf{Y}} \ & F(\mathbf{x}, \mathbf{y}) \\
-\text{s.t.}\quad
-& G_i(\mathbf{x},\mathbf{y}) \le 0,\quad i \in \{1,2,\ldots,M\},\\
-& \mathbf{y} \in \arg\min_{\mathbf{y} \in \mathbf{Y}}
+\begin{align}\label{eq:svblo}
+&\min_{\mathbf{x} \in \mathbf{X},\, \mathbf{y} \in \mathbf{Y}} \, F(\mathbf{x}, \mathbf{y}) \nonumber\\
+&\text{s.t.}\begin{cases}
+G_i(\mathbf{x},\mathbf{y}) \le 0,\quad i \in \{1,2,\ldots,M\},\\
+\mathbf{y} \in \arg\min_{\mathbf{y} \in \mathbf{Y}}
 \Big\{ f(\mathbf{x}, \mathbf{y}) \ \big|\ 
-g_j(\mathbf{x}, \mathbf{y}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.
-\end{aligned}
-\label{eq:svblo}
-\end{equation}
+g_j(\mathbf{x}, \mathbf{y}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases}
+\end{align}
         </div>
 
         <div class="eq-where">
