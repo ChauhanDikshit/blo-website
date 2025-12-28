@@ -80,7 +80,7 @@
       <div class="equation">
         <div class="math">
 \begin{align}
-&\min_{\mathbf{x}_u \in \mathbf{x}_u,\, \mathbf{x}_l \in \mathbf{x}_l} \, F(\mathbf{x}_u, \mathbf{x}_l) \nonumber\\
+&\min_{\mathbf{x}_u \in \mathbf{X}_u,\, \mathbf{x}_l \in \mathbf{X}_l} \, F(\mathbf{x}_u, \mathbf{x}_l) \nonumber\\
 &\text{s.t.}\begin{cases}
 G_i(\mathbf{x}_u,\mathbf{x}_l) \le 0,\quad i \in \{1,2,\ldots,M\},\\
 \mathbf{x}_l \in \arg\!\min_{\mathbf{x}_l \in \mathbf{x}_l}
@@ -90,7 +90,7 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         </div>
 
         <div class="eq-where">
-  <p><strong>where</strong></p>
+  <p>where</p>
   <ul>
     <li>\(\mathbf{x}_u \in \mathbb{R}^{n_{x_u}}\): upper-level decision variables; \(\mathbf{x}_l \in \mathbb{R}^{n_{x_l}}\): lower-level decision variables;</li>
 
@@ -99,8 +99,8 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
 
     <li>\(G_i:\mathbb{R}^{n_{x_u}}\times\mathbb{R}^{n_{x_l}}\to\mathbb{R}\): upper-level inequality constraints; 
         \(g_j:\mathbb{R}^{n_{x_u}}\times\mathbb{R}^{n_{x_l}}\to\mathbb{R}\): lower-level inequality constraints;</li>
-
-    <li>\(\mathbf{X}_u \subseteq \mathbb{R}^{n_{x_u}}\), \(\mathbf{X}_l \subseteq \mathbb{R}^{n_{x_l}}\): feasible domains (can be continuous, integer, or mixed-integer)
+  <li>\(\mathbf{X}_u \subseteq \mathbb{R}^{n_{x_u}}\); \(\mathbf{X}_l \subseteq \mathbb{R}^{n_{x_l}}\).</li>
+    <li>\(\mathbf{x}_u \subseteq \mathbb{R}^{n_{x_u}}\), \(\mathbf{x}_l \subseteq \mathbb{R}^{n_{x_l}}\): feasible domains (can be continuous, integer, or mixed-integer)
       <a href="#ref-dumouchelle2024neur2biloneuralbileveloptimization" class="cite">[4]</a>.
     </li>
 
@@ -111,7 +111,7 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
 
       <p>
         The upper-level decision-maker optimizes \(F\) through \(\mathbf{x}_u\), anticipating that the lower-level reacts optimally by minimizing \(f\).
-        The feasible set of the upper-level is implicitly constrained by the optimal response mapping of the LL, which can make the problem nonconvex,
+        The feasible set of the upper-level is implicitly constrained by the optimal response mapping of the lower-level, which can make the problem nonconvex,
         nonsmooth, and even discontinuous. We can visually see the BLO problems in <a class="link" href="#fig-bilevel">Fig. 1</a>.
       </p>
 
@@ -125,15 +125,15 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
       </figure>
     </div>
 <div class="card" id="example">
-      <h2>Example: Toll setting in transportation systems</h2>
+      <h3>Example: Toll setting in transportation systems</h3>
       <!-- <p class="muted small">
         Adapted from a common illustrative example (you can keep a footnote-style link for the public explanation).
       </p> -->
 
       <p>
-        A government chooses toll values \(\mathbf{x}\) to maximize toll revenue \(F(\mathbf{x}, \mathbf{y})\), where \(\mathbf{y}\) denotes the resulting traffic flow.
-        Travelers respond by selecting routes that minimize their travel cost \(f(\mathbf{x}, \mathbf{y})\) (including tolls and travel time).
-        The UL models revenue maximization, while the LL captures user equilibrium/route choice under network constraints.
+        A government chooses toll values \(\mathbf{x}\) to maximize toll revenue \(F(\mathbf{x}_u, \mathbf{x}_l)\), where \(\mathbf{x}_l\) denotes the resulting traffic flow.
+        Travelers respond by selecting routes that minimize their travel cost \(f(\mathbf{x}_u, \mathbf{x}_l)\) (including tolls and travel time).
+        The upper-level model maximizes revenue, while the lower-level captures user equilibrium/route choice under network constraints.
         This illustrates the nested leader–follower structure typical of BLO. <sup><a class="fn" href="#fn1" id="fnref1">[1]</a></sup>
       </p>
 
