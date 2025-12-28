@@ -61,7 +61,7 @@
 
         <div class="card heroCard">
           <h2>Quick definition</h2>
-          <p>Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level (UL)</strong> optimization problem is constrained by the optimal response of a <strong> lower-level (LL)</strong> optimization problem <a href="#ref-colson2007overview" class="cite">[1]</a>. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on LL optimality, the induced feasible set is typically nonconvex and can be disconnected, and solution quality can be sensitive to LL solution multiplicity and tie-breaking. </p>
+          <p>Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level (UL)</strong> optimization problem is constrained by the optimal response of a <strong> lower-level (LL)</strong> optimization problem <a href="#ref-colson2007overview" class="cite">[1]</a>. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on LL optimality, and the induced feasible set is typically nonconvex. It can be disconnected, and solution quality can be sensitive to the multiplicity of LL solutions and tie-breaking. </p>
             
 <p>Over the past decades, BLO has been studied from both theoretical and applied perspectives. Classical approaches exploit analytical structure through techniques such as Karush-Kuhn-Tucker (KKT)-based reformulations, penalty and value-function methods, and exact algorithms, such as branch-and-bound. While these methods can be effective for structured instances (e.g., smooth or convex LL problems), their applicability is often limited in practice by nonsmoothness, nonconvexity, discrete variables, or the lack of reliable gradients, especially when the LL problem is non-differentiable or only accessible through a black-box solver.</p>
 
@@ -85,14 +85,13 @@
       <li>\(x_l\): lower-level (follower) decision vector;</li>
       <li>\(F, G\): leader objective and constraints;</li>
       <li>\(f, g\): follower objective and constraints;</li>
-      <li>\(\arg\min\) makes the LL optimum set a <strong>constraint</strong> on \((x_u, x_l)\).</li>
+      <li>\(\arg\!\min\) makes the LL optimum set a <strong>constraint</strong> on \((x_u, x_l)\).</li>
     </ul>
 
     <p><strong>Note:</strong> Equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</p>
   </div>
 </div>
-
-          <p class="muted">
+      <p class="muted">
             This nested structure makes BLO difficult: nonconvexity, nonsmoothness, implicit constraints,
             and multiple local/global follower optima.
           </p>
