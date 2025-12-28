@@ -96,10 +96,9 @@
       <li>\(x_l\): lower-level (follower) decision vector;</li>
       <li>\(F, G\): leader objective and constraints;</li>
       <li>\(f, g\): follower objective and constraints;</li>
-      <li>\(\arg\!\min\) makes the lower-level optimum set a <strong>constraint</strong> on \((x_u, x_l)\).</li>
+      <li>\(\arg\!\min\) makes the lower-level optimum set a <strong>constraint</strong> on \((x_u, x_l)\);</li>
+		<li><strong>Note:</strong> Equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</li>
     </ul>
-
-    <p><strong>Note:</strong> Equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</p>
   </div>
 </div>        
 <p>Over the past decades, BLO has been studied from both theoretical and applied perspectives. Classical approaches exploit analytical structure through techniques such as Karush-Kuhn-Tucker (KKT)-based reformulations, penalty and value-function methods, and exact algorithms, such as branch-and-bound. While these methods can be effective for structured instances (e.g., smooth or convex lower-level problems), their applicability is often limited in practice by nonsmoothness, nonconvexity, discrete variables, or the lack of reliable gradients, especially when the lower-level problem is non-differentiable or only accessible through a black-box solver.</p>
