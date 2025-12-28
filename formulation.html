@@ -1,1 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulations · BLO Hub</title>
+  <meta name="description" content="Bilevel optimization formulations: single-objective and multi-objective bilevel optimization." />
+
+  <!-- MathJax (equation numbering + eqref) -->
+  <script>
+    window.MathJax = {
+      tex: { tags: 'ams', tagSide: 'right', tagIndent: '0.8em' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- <link rel="stylesheet" href="assets/style.css" /> -->
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">BLO Hub</a>
+      <nav class="nav">
+        <a class="navlink" href="index.html">Home</a>
+        <a class="navlink active" href="formulation.html">Formulations</a>
+        <a class="navlink" href="taxonomy.html">Taxonomy</a>
+        <a class="navlink" href="methods.html">Methods</a>
+        <a class="navlink" href="papers.html">Papers</a>
+        <a class="navlink" href="#references">References</a>
+      </nav>
+      <button class="menuBtn" id="menuBtn" aria-label="Toggle menu">☰</button>
+    </div>
+
+    <div class="mobileNav container" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="formulation.html">Formulations</a>
+      <a href="taxonomy.html">Taxonomy</a>
+      <a href="methods.html">Methods</a>
+      <a href="papers.html">Papers</a>
+      <a href="#references">References</a>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="pageHead">
+      <div>
+        <h1>Formulations</h1>
+        <p class="muted">Single-objective and multi-objective bilevel optimization (BLO) formulations, with numbered equations you can cite in text.</p>
+      </div>
+      <div class="rightTools">
+        <a class="btn" href="papers.html">Browse papers</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 id="fundamentals">Fundamentals of BLO</h2>
+      <p>
+        Bilevel optimization (BLO) problems are a class of hierarchical mathematical programs where one optimization task is nested within another.
+        The decision-making process is split into two levels: an upper-level (UL, leader) problem and a lower-level (LL, follower) problem.
+        The key distinction from classical constrained optimization is that the LL problem is not a constraint in the traditional sense;
+        it is itself an optimization problem whose solution depends on the UL decisions
+        <a href="#ref-bard1998practical" class="cite">[1]</a>,
+        <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[2]</a>.
+      </p>
+    </div>
+
+    <div class="card" id="single-objective">
+      <h2>Single-objective bilevel problems</h2>
+      <p>
+        At its core, BLO is a mathematical program where an optimization problem functions as a constraint for another optimization problem
+        <a href="#ref-7942105" class="cite">[3]</a>.
+        The leader optimizes its objective, subject to constraints that include the follower’s best possible reaction.
+      </p>
+
+      <p class="muted">
+        Below, Eq. \(\eqref{eq:svblo}\) is a standard single-objective bilevel form (often studied due to analytical tractability for certain subclasses).
+      </p>
+
+      <div class="equation">
+        <div class="math">
+\begin{equation}
+\begin{aligned}
+\min_{\mathbf{x} \in \mathbf{X},\, \mathbf{y} \in \mathbf{Y}} \ & F(\mathbf{x}, \mathbf{y}) \\
+\text{s.t.}\quad
+& G_i(\mathbf{x},\mathbf{y}) \le 0,\quad i \in \{1,2,\ldots,M\},\\
+& \mathbf{y} \in \arg\min_{\mathbf{y} \in \mathbf{Y}}
+\Big\{ f(\mathbf{x}, \mathbf{y}) \ \big|\ 
+g_j(\mathbf{x}, \mathbf{y}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.
+\end{aligned}
+\label{eq:svblo}
+\end{equation}
+        </div>
+
+        <div class="eq-where">
+          <p><strong>where</strong></p>
+          <ul>
+            <li>\(\mathbf{x} \in \mathbb{R}^{n_x}\): UL decision variables;</li>
+            <li>\(\mathbf{y} \in \mathbb{R}^{n_y}\): LL decision variables;</li>
+            <li>\(F(\mathbf{x},\mathbf{y})\): UL objective; \(f(\mathbf{x},\mathbf{y})\): LL objective;</li>
+            <li>\(G_i(\mathbf{x},\mathbf{y})\), \(g_j(\mathbf{x},\mathbf{y})\): UL/LL inequality constraints;</li>
+            <li>\(\mathbf{X}\), \(\mathbf{Y}\): feasible domains (can be continuous, integer, or mixed-integer)
+              <a href="#ref-dumouchelle2024neur2biloneuralbileveloptimization" class="cite">[4]</a>.
+            </li>
+            <li><strong>Note:</strong> equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>
+        The UL decision-maker optimizes \(F\) through \(\mathbf{x}\), anticipating that the LL reacts optimally by minimizing \(f\).
+        The feasible set of the UL is implicitly constrained by the optimal response mapping of the LL, which can make the problem nonconvex,
+        nonsmooth, and even discontinuous.
+      </p>
+
+      <p class="muted">
+        If you include the figure below, create an <span class="mono">images/</span> folder in the repo and upload the PNG there.
+      </p>
+
+      <figure class="card" style="padding:14px">
+        <img src="images/bilevel_figure2.png" alt="General representation of BLO problems" style="max-width:100%; border-radius:12px" />
+        <figcaption class="muted small">Figure: General representation of BLO problems.</figcaption>
+      </figure>
+    </div>
+
+    <div class="card" id="multi-objective">
+      <h2>Multi-objective bilevel problems</h2>
+      <p>
+        Multi-objective bilevel optimization (MOBLO) extends classical BLO by introducing multiple objectives at the UL, LL, or both.
+        This hierarchical multi-objective structure increases complexity: the follower’s response mapping becomes set-valued, and the leader must
+        reason about trade-offs within and across levels
+        <a href="#ref-10121701" class="cite">[5]</a>.
+      </p>
+
+      <p class="muted">A common MOBLO formulation is shown in Eq. \(\eqref{eq:moblo}\).</p>
+
+      <div class="equation">
+        <div class="math">
+\begin{equation}
+\begin{aligned}
+\min_{\mathbf{x} \in \mathbf{X},\, \mathbf{y} \in \mathbf{Y}} \ & \mathbf{F}(\mathbf{x},\mathbf{y})
+= \big(F_1(\mathbf{x},\mathbf{y}), \ldots, F_K(\mathbf{x},\mathbf{y})\big) \\
+\text{s.t.}\quad
+& G_i(\mathbf{x}, \mathbf{y})\le 0,\quad i\in\{1,2,\ldots,M\},\\
+& \mathbf{y} \in \arg\min_{\mathbf{y} \in \mathbf{Y}}
+\Big\{\mathbf{f}(\mathbf{x},\mathbf{y})
+= \big(f_1(\mathbf{x},\mathbf{y}), \ldots, f_k(\mathbf{x},\mathbf{y}) \big)\ \big| \\
+& \qquad\qquad\qquad\qquad g_j(\mathbf{x}, \mathbf{y})\le 0,\quad j\in\{1,2,\ldots,m\}\Big\}.
+\end{aligned}
+\label{eq:moblo}
+\end{equation}
+        </div>
+
+        <div class="eq-where">
+          <ul>
+            <li>\(\mathbf{F}: \mathbf{X}\times\mathbf{Y}\to\mathbb{R}^K\), \(K\ge 2\) (multi-objective UL);</li>
+            <li>\(\mathbf{f}: \mathbf{X}\times\mathbf{Y}\to\mathbb{R}^k\), \(k\ge 1\) (LL may be single- or multi-objective);</li>
+            <li>Special case: SVBLO if \(K=1\) and \(k\ge 2\) (UL single objective, LL multi-objective).</li>
+          </ul>
+          <p class="muted small">
+            Different MOBLO definitions may impose additional requirements (e.g., multiple constraints), treating SVBLO as a special case
+            <a href="#ref-eichfelder2010multiobjective" class="cite">[6]</a>.
+          </p>
+        </div>
+      </div>
+
+      <p>
+        Example in text: “We use the MOBLO formulation in Eq. \(\eqref{eq:moblo}\) to model leader trade-offs under a set-valued follower response.”
+      </p>
+    </div>
+
+    <section class="container section" id="references" style="padding:0">
+      <div class="card">
+        <h2>References (placeholders you can fill)</h2>
+        <ol class="refs">
+          <li id="ref-bard1998practical">Bard (1998). <i>Practical Bilevel Optimization</i>. (Add full bibliographic info / DOI / link)</li>
+          <li id="ref-zhang2023introductionbileveloptimizationfoundations">Zhang et al. (2024). <i>IEEE Signal Processing Magazine</i>. (Already in your index refs; keep consistent)</li>
+          <li id="ref-7942105">Sinha, Malo, Deb (2018). <i>IEEE Trans. Evolutionary Computation</i>. doi: 10.1109/TEVC.2017.2712906</li>
+          <li id="ref-dumouchelle2024neur2biloneuralbileveloptimization">Dumouchelle et al. (2024). (Add full bibliographic info / link)</li>
+          <li id="ref-10121701">(Add full reference for key MOBLO source / IEEE id 10121701)</li>
+          <li id="ref-eichfelder2010multiobjective">Eichfelder (2010). (Add full bibliographic info / link)</li>
+        </ol>
+        <p class="muted small">
+          Tip: keep the same <span class="mono">id="ref-..."</span> keys across pages so your citation anchors stay stable.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="muted">© <span id="year"></span> BLO Hub · Built on GitHub Pages</div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
 
