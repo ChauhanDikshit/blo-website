@@ -92,10 +92,10 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         <div class="eq-where">
           <p><strong>where</strong></p>
           <ul>
-            <li>\(\mathbf{x_u} \in \mathbb{R}^{n_{x_u}}\): upper-level decision variables;</li>
-            <li>\(\mathbf{x_l} \in \mathbb{R}^{n_{x_l}}\): lower-level decision variables;</li>
-            <li>\(F\): upper-level objective; \(f\): lower-level objective;</li>
-            <li>\(G_i\): upper-level inequality constraints; \(g_j(\): lower-level inequality constraints;</li>
+            <li>\(\mathbf{x_u} \in \mathbb{R}^{n_{x_u}}\): upper-level decision variables; \(\mathbf{x_l} \in \mathbb{R}^{n_{x_l}}\): lower-level decision variables;</li>
+            <li>\(F: \mathbb{R}^{n_{x_u}}\times \mathbb{R}^{n_{x_l}}\rightarrow \mathbb{R}\): upper-level objective; \(f: \mathbb{R}^{n_{x_u}}\times \mathbb{R}^{n_{x_l}}\rightarrow \mathbb{R}\): lower-level objective;</li>
+            <li>\(G_i: \mathbb{R}^{n_{x_u}}\times \mathbb{R}^{n_{x_l}}\rightarrow \mathbb{R}\): upper-level inequality constraints; \(g_j: \mathbb{R}^{n_{x_u}}\times \mathbb{R}^{n_{x_l}}\rightarrow \mathbb{R}\): lower-level inequality constraints;</li>
+            <li>(\mathbf{X_u}\subsecteq \mathbb{R}^{n_{x_u}}\), \(\mathbf{X_l}\subsecteq \mathbb{R}^{n_{x_l}}\)</li>
             <li>\(\mathbf{x_u}\), \(\mathbf{x_l}\): feasible domains (can be continuous, integer, or mixed-integer)
               <a href="#ref-dumouchelle2024neur2biloneuralbileveloptimization" class="cite">[4]</a>.
             </li>
@@ -119,7 +119,24 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         <figcaption class="muted small">Fig. 1: General representation of BLO problems.</figcaption>
       </figure>
     </div>
+<div class="card" id="example">
+      <h2>Example: Toll setting in transportation systems</h2>
+      <!-- <p class="muted small">
+        Adapted from a common illustrative example (you can keep a footnote-style link for the public explanation).
+      </p> -->
 
+      <p>
+        A government chooses toll values \(\mathbf{x}\) to maximize toll revenue \(F(\mathbf{x}, \mathbf{y})\), where \(\mathbf{y}\) denotes the resulting traffic flow.
+        Travelers respond by selecting routes that minimize their travel cost \(f(\mathbf{x}, \mathbf{y})\) (including tolls and travel time).
+        The UL models revenue maximization, while the LL captures user equilibrium/route choice under network constraints.
+        This illustrates the nested leader–follower structure typical of BLO. <sup><a class="fn" href="#fn1" id="fnref1">[1]</a></sup>
+      </p>
+
+      <p class="muted small">
+        Public explainer link:
+        <a class="link" href="https://en.wikipedia.org/wiki/Bilevel_optimization" target="_blank" rel="noreferrer">Wikipedia: Bilevel optimization</a>
+      </p>
+    </div>
     <div class="card" id="multi-objective">
       <h2>Multi-objective bilevel problems</h2>
       <p>
@@ -182,6 +199,19 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         </p>
       </div>
     </section>
+    
+  <section class="footnotes">
+  <hr />
+  <ol>
+    <li id="fn1">
+      Public explainer:
+      <a class="link" href="https://en.wikipedia.org/wiki/Bilevel_optimization" target="_blank" rel="noreferrer">
+        Wikipedia: Bilevel optimization
+      </a>
+      <a class="fn-back" href="#fnref1">↩︎</a>
+    </li>
+  </ol>
+</section>
 
     <footer class="footer">
       <div class="container">
