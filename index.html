@@ -108,11 +108,28 @@
         <div class="card">
           <h3>Why is BLO hard?</h3>
           <ul class="bullets">
-            <li><strong>Nested optimization</strong> creates an implicit feasible region.</li>
-            <li><strong>Nonconvexity & discontinuity</strong> appear even with simple pieces.</li>
-            <li><strong>Multiplicity</strong>: follower may have multiple optima (pessimistic/optimistic).</li>
-            <li><strong>Computational complexity</strong> is often high (frequently NP-hard / Σp2-hard in general settings).</li>
-          </ul>
+            <li>
+          <strong>Nested optimization</strong>:
+          feasibility depends on <em>lower-level optimality</em>, not just constraints—this creates an implicit “induced region”.
+        </li>
+        <li>
+          <strong>Nonconvexity & irregular geometry</strong>: The induced region is often nonconvex, disconnected, or even empty, and the objective can be nonsmooth.
+        </li>
+        <li>
+          <strong>Multiplicity & tie-breaking</strong>:
+          The follower may have <em>multiple</em> optimal responses; results depend on optimistic vs pessimistic assumptions.
+        </li>
+        <li>
+          <strong>Expensive evaluations</strong>:
+          Many algorithms require repeatedly solving the lower-level problem while searching over upper-level decisions.
+        </li>
+        <li>
+          <strong>Hardness in theory</strong>:
+          Even restricted bilevel classes are computationally difficult; general bilevel programs can reach high complexity
+          (e.g., NP-hard and beyond in standard complexity hierarchies).
+        </li>
+      </ul>
+      <a class="link" href="start-here.html">Learn the core concepts →</a>
         </div>
 
         <div class="card">
