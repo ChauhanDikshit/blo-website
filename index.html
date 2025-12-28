@@ -63,7 +63,7 @@
           <h2>Quick definition</h2>
           <p>Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level (UL)</strong> optimization problem is constrained by the optimal response of a <strong> lower-level (LL)</strong> optimization problem <a href="#ref-colson2007overview" class="cite">[1]</a>. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on LL optimality, the induced feasible set is typically nonconvex and can be disconnected, and solution quality can be sensitive to LL solution multiplicity and tie-breaking. </p>
             
-<p>Over the past decades, BLO has been studied from both theoretical and applied perspectives. Classical approaches exploit analytical structure through techniques such as Karush–Kuhn–Tucker (KKT)–based reformulations, penalty and value-function methods, and exact algorithms, such as branch-and-bound. While these methods can be effective for structured instances (e.g., smooth or convex LL problems), their applicability is often limited in practice by nonsmoothness, nonconvexity, discrete variables, or the lack of reliable gradients, especially when the LL problem is non-differentiable or only accessible through a black-box solver.</p>
+<p>Over the past decades, BLO has been studied from both theoretical and applied perspectives. Classical approaches exploit analytical structure through techniques such as Karush-Kuhn-Tucker (KKT)-based reformulations, penalty and value-function methods, and exact algorithms, such as branch-and-bound. While these methods can be effective for structured instances (e.g., smooth or convex LL problems), their applicability is often limited in practice by nonsmoothness, nonconvexity, discrete variables, or the lack of reliable gradients, especially when the LL problem is non-differentiable or only accessible through a black-box solver.</p>
 
 <p>To address these limitations, the evolutionary computation community has developed metaheuristic and population-based approaches for BLO. Evolutionary algorithms (EAs) are a branch of metaheuristic algorithms, including genetic algorithms (GA), differential evolution (DE), particle swarm optimization (PSO), and co-evolutionary strategies, which are attractive for complex, multimodal, and black-box settings because they are derivative-free and can explore diverse regions of the search space. However, their flexibility comes at a cost: EAs often require many function evaluations, and the nested evaluation of LL optima can make them computationally expensive when LL solves are costly <a href="#ref-7942105" class=" cite">[2]</a>.</p>
 
@@ -77,6 +77,8 @@
    x_l \in \arg\!\min_{x_l}\{ f(x_u, x_l): g(x_u, x_l)\le 0 \}
 		\end{cases}
   \end{align}
+            <p>where $x_u:$ upper-level (leader) decision vector;</p><p>$x_l:$ lower-level (follower) decision vector</p><p>$F, G:$ leader objective and constraints</p><p>$f, g:$ follower objective and constraints</p><p>$\arg\!\min makes the LL optimum set a <strong>constraint</strong> on $(x_u, x_l)$</p>
+            <p><strong>Note:</strong>equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</p>
 </div>
 
           <p class="muted">
@@ -116,7 +118,7 @@
             <!-- filled by JS -->
           </div>
           <p class="muted">
-            The site is designed so you can keep adding papers + tags and the pages update automatically.
+            The site is designed so you can keep adding papers + tags, and the pages update automatically.
           </p>
         </div>
       </div>
