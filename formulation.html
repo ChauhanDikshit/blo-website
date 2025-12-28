@@ -148,20 +148,19 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         Multi-objective bilevel optimization (MOBLO) extends classical BLO by introducing multiple objectives at the upper-level, lower-level, or both.
         This hierarchical multi-objective structure increases complexity: the follower’s response mapping becomes set-valued, and the leader must
         reason about trade-offs within and across levels
-        <a href="#ref-mejia2023mobo" class="cite">[5]</a>. Such problems arise in engineering design, economics, and resource allocation, where multiple competing criteria must be optimized simultaneously under hierarchical decision-making constraints [6]. A common MOBLO formulation is shown in Eq. \(\eqref{eq:moblo}\).</p>
+        <a href="#ref-mejia2023mobo" class="cite">[5]</a>. Such problems arise in engineering design, economics, and resource allocation, where multiple competing criteria must be optimized simultaneously under hierarchical decision-making constraints. A common MOBLO formulation is shown in Eq. \(\eqref{eq:moblo}\).</p>
 
       <div class="equation">
         <div class="math">
 \begin{equation}
 \begin{aligned}
-\min_{\mathbf{x}_u \in \mathbf{X}_u,\, \mathbf{x}_l \in \mathbf{X}_l} \ & \mathbf{F}(\mathbf{x}_u,\mathbf{x}_l)
+&\min_{\mathbf{x}_u \in \mathbf{X}_u,\, \mathbf{x}_l \in \mathbf{X}_l} \ & \mathbf{F}(\mathbf{x}_u,\mathbf{x}_l)
 = \big(F_1(\mathbf{x}_u,\mathbf{x}_l), \ldots, F_K(\mathbf{x}_u,\mathbf{x}_l)\big) \\
-\text{s.t.}\quad\begin{cases}
-& G_i(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad i\in\{1,2,\ldots,M\},\\
-& \mathbf{x}_l \in \arg\!\min_{\mathbf{x}_l \in \mathbf{X}_l}
+&\text{s.t.}\begin{cases}
+G_i(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad i\in\{1,2,\ldots,M\},\\
+\mathbf{x}_l \in \arg\!\min_{\mathbf{x}_l \in \mathbf{X}_l}
 \Big\{\mathbf{f}(\mathbf{x}_u,\mathbf{x}_l)
-= \big(f_1(\mathbf{x}_u,\mathbf{x}_l), \ldots, f_k(\mathbf{x}_u,\mathbf{x}_l) \big)\ \big| \\
-& \qquad\qquad\qquad\qquad g_j(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad j\in\{1,2,\ldots,m\}\Big\}.\end{cases}
+= \big(f_1(\mathbf{x}_u,\mathbf{x}_l), \ldots, f_k(\mathbf{x}_u,\mathbf{x}_l) \big)\ \big| g_j(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad j\in\{1,2,\ldots,m\}\Big\}.\end{cases}
 \end{aligned}
 \label{eq:moblo}
 \end{equation}
@@ -189,8 +188,8 @@ g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
           <li id="ref-bard1998practical">J. F. Bard, <i>Practical Bilevel Optimization: Algorithms and Applications</i>,<i>Nonconvex Optimization and Its Applications</i>, vol. 30, ISSN: 1571-568X, 1998, Springer, doi: <a class="link" href="https://doi.org/10.1007/978-1-4757-2836-1" target="_blank" rel="noreferrer">10.1007/978-1-4757-2836-1</a>.</li>
           <li id="ref-zhang2023introduction">Yihua Zhang, Prashant Khanduri, Ioannis Tsaknakis, Yuguang Yao, Mingyi Hong, and Sijia Liu, “An introduction to bilevel optimization: Foundations and applications in signal processing and machine learning,”<i>IEEE Signal Processing Magazine</i>, vol. 41, no. 1, pp. 38–59, 2024.</li>
           <li id="ref-7942105">Ankur Sinha, Pekka Malo, and Kalyanmoy Deb, “A Review on Bilevel Optimization: From Classical to Evolutionary Approaches and Applications,”
-        <i>IEEE Transactions on Evolutionary Computation</i>, vol. 22, no. 2, pp. 276–295, 2018, doi: 10.1109/TEVC.2017.2712906.</li>
-          <li id="ref-dumouchelle2024neur2">Justin Dumouchelle, Julien, E., Kurtz, J., and Khalil, E. B, "Neur2bilo: Neural bilevel optimization." <i>Advances in Neural Information Processing Systems</i>, vol. 37, pp. 86688-86719, 2024.</li>
+        <i>IEEE Transactions on Evolutionary Computation</i>, vol. 22, no. 2, pp. 276–295, 2018.</li>
+          <li id="ref-dumouchelle2024neur2">Justin Dumouchelle, Julien, E., Kurtz, J., and Khalil, E. B., "Neur2bilo: Neural bilevel optimization." <i>Advances in Neural Information Processing Systems</i>, vol. 37, pp. 86688-86719, 2024.</li>
           <li id="ref-mejia2023mobo"> Mejía-De-Dios, Jesús-Adolfo, Alejandro Rodríguez-Molina, and Efrén Mezura-Montes, "Multiobjective bilevel optimization: A survey of the state-of-the-art," <i>IEEE transactions on Systems, Man, and Cybernetics</i>, vol. 53, no. 9, pp. 5478-5490, 2023</li>
           <li id="ref-eichfelder2010multiobjective">Eichfelder, Gabriele, "Multiobjective bilevel optimization," <i>Mathematical Programming</i>, vol. 123, no. 2, pp. 419-449, ISSN: 0025-5610; eISSN: 1436-4646, 2010, Springer, doi: <a class="link" href="https://doi.org/10.1007/s10107-008-0259-0" target="_blank" rel="noreferrer">10.1007/s10107-008-0259-0</a></li>
         </ol>
