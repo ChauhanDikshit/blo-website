@@ -80,32 +80,37 @@
       <div class="equation">
         <div class="math">
 \begin{align}
-&\min_{\mathbf{x_u} \in \mathbf{X_u},\, \mathbf{x_l} \in \mathbf{X_l}} \, F(\mathbf{x_u}, \mathbf{x_l}) \nonumber\\
+&\min_{\mathbf{x}_u \in \mathbf{x}_u,\, \mathbf{x}_l \in \mathbf{x}_l} \, F(\mathbf{x}_u, \mathbf{x}_l) \nonumber\\
 &\text{s.t.}\begin{cases}
-G_i(\mathbf{x_u},\mathbf{x_l}) \le 0,\quad i \in \{1,2,\ldots,M\},\\
-\mathbf{x_l} \in \arg\!\min_{\mathbf{x_l} \in \mathbf{x_l}}
-\Big\{ f(\mathbf{x_u}, \mathbf{x_l}) \ \big|\ 
-g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases}\label{eq:svblo}
+G_i(\mathbf{x}_u,\mathbf{x}_l) \le 0,\quad i \in \{1,2,\ldots,M\},\\
+\mathbf{x}_l \in \arg\!\min_{\mathbf{x}_l \in \mathbf{x}_l}
+\Big\{ f(\mathbf{x}_u, \mathbf{x}_l) \ \big|\ 
+g_j(\mathbf{x}_u, \mathbf{x}_l) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases}\label{eq:svblo}
 \end{align}
         </div>
 
         <div class="eq-where">
-          <p><strong>where</strong></p>
-          <ul>
-            <li>\(\mathbf{x_u} \in \mathbb{R}^{n_{x_u}}\): upper-level decision variables; \(\mathbf{x_l} \in \mathbb{R}^{n_{x_l}}\): lower-level decision variables;</li>
-            <li>\(F: \mathbb{R}^{n_{x_u}}\times \mathbb{R}^{n_{x_l}}\rightarrow \mathbb{R}\): upper-level objective; \(f: \mathbb{R}^{n_{x_u}}\times \mathbb{R}^{n_{x_l}}\rightarrow \mathbb{R}\): lower-level objective;</li>
-            <li>\(G_i: \mathbb{R}^{n_{x_u}}\times \mathbb{R}^{n_{x_l}}\rightarrow \mathbb{R}\): upper-level inequality constraints; \(g_j: \mathbb{R}^{n_{x_u}}\times \mathbb{R}^{n_{x_l}}\rightarrow \mathbb{R}\): lower-level inequality constraints;</li>
-            <li>(\mathbf{X_u}\subsecteq \mathbb{R}^{n_{x_u}}\), \(\mathbf{X_l}\subsecteq \mathbb{R}^{n_{x_l}}\)</li>
-            <li>\(\mathbf{x_u}\), \(\mathbf{x_l}\): feasible domains (can be continuous, integer, or mixed-integer)
-              <a href="#ref-dumouchelle2024neur2biloneuralbileveloptimization" class="cite">[4]</a>.
-            </li>
-            <li><strong>Note:</strong> equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</li>
-          </ul>
-        </div>
+  <p><strong>where</strong></p>
+  <ul>
+    <li>\(\mathbf{x}_u \in \mathbb{R}^{n_{x_u}}\): upper-level decision variables; \(\mathbf{x}_l \in \mathbb{R}^{n_{x_l}}\): lower-level decision variables;</li>
+
+    <li>\(F:\mathbb{R}^{n_{x_u}}\times\mathbb{R}^{n_{x_l}}\to\mathbb{R}\): upper-level objective; 
+        \(f:\mathbb{R}^{n_{x_u}}\times\mathbb{R}^{n_{x_l}}\to\mathbb{R}\): lower-level objective;</li>
+
+    <li>\(G_i:\mathbb{R}^{n_{x_u}}\times\mathbb{R}^{n_{x_l}}\to\mathbb{R}\): upper-level inequality constraints; 
+        \(g_j:\mathbb{R}^{n_{x_u}}\times\mathbb{R}^{n_{x_l}}\to\mathbb{R}\): lower-level inequality constraints;</li>
+
+    <li>\(\mathbf{X}_u \subseteq \mathbb{R}^{n_{x_u}}\), \(\mathbf{X}_l \subseteq \mathbb{R}^{n_{x_l}}\): feasible domains (can be continuous, integer, or mixed-integer)
+      <a href="#ref-dumouchelle2024neur2biloneuralbileveloptimization" class="cite">[4]</a>.
+    </li>
+
+    <li><strong>Note:</strong> Equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</li>
+  </ul>
+</div>
       </div>
 
       <p>
-        The upper-level decision-maker optimizes \(F\) through \(\mathbf{x_u}\), anticipating that the lower-level reacts optimally by minimizing \(f\).
+        The upper-level decision-maker optimizes \(F\) through \(\mathbf{x}_u\), anticipating that the lower-level reacts optimally by minimizing \(f\).
         The feasible set of the upper-level is implicitly constrained by the optimal response mapping of the LL, which can make the problem nonconvex,
         nonsmooth, and even discontinuous. We can visually see the BLO problems in <a class="link" href="#fig-bilevel">Fig. 1</a>.
       </p>
@@ -132,10 +137,10 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         This illustrates the nested leader–follower structure typical of BLO. <sup><a class="fn" href="#fn1" id="fnref1">[1]</a></sup>
       </p>
 
-      <p class="muted small">
+      <!-- <p class="muted small">
         Public explainer link:
         <a class="link" href="https://en.wikipedia.org/wiki/Bilevel_optimization" target="_blank" rel="noreferrer">Wikipedia: Bilevel optimization</a>
-      </p>
+      </p> -->
     </div>
     <div class="card" id="multi-objective">
       <h2>Multi-objective bilevel problems</h2>
@@ -152,14 +157,14 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
         <div class="math">
 \begin{equation}
 \begin{aligned}
-\min_{\mathbf{x_u} \in \mathbf{x_u},\, \mathbf{x_l} \in \mathbf{x_l}} \ & \mathbf{F}(\mathbf{x_u},\mathbf{x_l})
-= \big(F_1(\mathbf{x_u},\mathbf{x_l}), \ldots, F_K(\mathbf{x_u},\mathbf{x_l})\big) \\
+\min_{\mathbf{x}_u \in \mathbf{x}_u,\, \mathbf{x}_l \in \mathbf{x}_l} \ & \mathbf{F}(\mathbf{x}_u,\mathbf{x}_l)
+= \big(F_1(\mathbf{x}_u,\mathbf{x}_l), \ldots, F_K(\mathbf{x}_u,\mathbf{x}_l)\big) \\
 \text{s.t.}\quad
-& G_i(\mathbf{x_u}, \mathbf{x_l})\le 0,\quad i\in\{1,2,\ldots,M\},\\
-& \mathbf{x_l} \in \arg\min_{\mathbf{x_l} \in \mathbf{x_l}}
-\Big\{\mathbf{f}(\mathbf{x_u},\mathbf{x_l})
-= \big(f_1(\mathbf{x_u},\mathbf{x_l}), \ldots, f_k(\mathbf{x_u},\mathbf{x_l}) \big)\ \big| \\
-& \qquad\qquad\qquad\qquad g_j(\mathbf{x_u}, \mathbf{x_l})\le 0,\quad j\in\{1,2,\ldots,m\}\Big\}.
+& G_i(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad i\in\{1,2,\ldots,M\},\\
+& \mathbf{x}_l \in \arg\min_{\mathbf{x}_l \in \mathbf{x}_l}
+\Big\{\mathbf{f}(\mathbf{x}_u,\mathbf{x}_l)
+= \big(f_1(\mathbf{x}_u,\mathbf{x}_l), \ldots, f_k(\mathbf{x}_u,\mathbf{x}_l) \big)\ \big| \\
+& \qquad\qquad\qquad\qquad g_j(\mathbf{x}_u, \mathbf{x}_l)\le 0,\quad j\in\{1,2,\ldots,m\}\Big\}.
 \end{aligned}
 \label{eq:moblo}
 \end{equation}
@@ -167,8 +172,8 @@ g_j(\mathbf{x_u}, \mathbf{x_l}) \le 0,\ j \in \{1,2,\ldots,m\} \Big\}.\end{cases
 
         <div class="eq-where">
           <ul>
-            <li>\(\mathbf{F}: \mathbf{x_u}\times\mathbf{x_l}\to\mathbb{R}^K\), \(K\ge 2\) (multi-objective UL);</li>
-            <li>\(\mathbf{f}: \mathbf{x_u}\times\mathbf{x_l}\to\mathbb{R}^k\), \(k\ge 1\) (lower-level may be single- or multi-objective);</li>
+            <li>\(\mathbf{F}: \mathbf{x}_u\times\mathbf{x}_l\to\mathbb{R}^K\), \(K\ge 2\) (multi-objective UL);</li>
+            <li>\(\mathbf{f}: \mathbf{x}_u\times\mathbf{x}_l\to\mathbb{R}^k\), \(k\ge 1\) (lower-level may be single- or multi-objective);</li>
             <li>Special case: SVBLO if \(K=1\) and \(k\ge 2\) (upper-level single objective, lower-level multi-objective).</li>
           </ul>
           <p class="muted small">
