@@ -1,1 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Methods · BLO Hub</title>
+  <meta name="description" content="Solution methods for bilevel optimization: classical, evolutionary algorithms, ML-based methods, and hybrids." />
+
+  <!-- MathJax (optional for inline math, not required for this page but handy) -->
+  <script>
+    window.MathJax = { tex: { tags: 'ams', tagSide: 'right', tagIndent: '0.8em' } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">BLO Hub</a>
+      <nav class="nav">
+        <a class="navlink" href="index.html">Home</a>
+        <a class="navlink" href="formulation.html">Formulations</a>
+        <a class="navlink" href="taxonomy.html">Taxonomy</a>
+        <a class="navlink active" href="methods.html">Methods</a>
+        <a class="navlink" href="papers.html">Papers</a>
+        <a class="navlink" href="#references">References</a>
+      </nav>
+      <button class="menuBtn" id="menuBtn" aria-label="Toggle menu">☰</button>
+    </div>
+
+    <div class="mobileNav container" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="formulation.html">Formulations</a>
+      <a href="taxonomy.html">Taxonomy</a>
+      <a href="methods.html">Methods</a>
+      <a href="papers.html">Papers</a>
+      <a href="#references">References</a>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="pageHead">
+      <div>
+        <h1>Solution Methods</h1>
+        <p class="muted">
+          A practical organization of BLO solution approaches: <strong>Classical</strong>, <strong>Evolutionary Algorithms</strong>,
+          <strong>Machine Learning</strong>, and <strong>Hybrid EA–ML</strong>.
+        </p>
+      </div>
+      <div class="rightTools">
+        <a class="btn" href="papers.html">Browse papers</a>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2 id="classical">Classical methods</h2>
+        <p>
+          Classical BLO algorithms exploit analytical structure to reduce bilevel problems to single-level forms or to solve them exactly in
+          restricted settings. Typical ideas include:
+        </p>
+        <ul class="bullets">
+          <li><strong>KKT / MPEC reformulations</strong> (often when the follower is convex and satisfies regularity conditions).</li>
+          <li><strong>Value-function and penalty methods</strong> (encode the LL optimality condition indirectly).</li>
+          <li><strong>Exact algorithms</strong> such as branch-and-bound for certain mixed-integer bilevel classes.</li>
+        </ul>
+        <p class="muted small">
+          Strength: strong guarantees on structured instances. Weakness: can fail or become impractical with nonconvexity, nonsmoothness, discreteness, or black-box LL solvers.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 id="ea">Evolutionary algorithms (EAs)</h2>
+        <p>
+          EAs are derivative-free and naturally handle discontinuities, multimodality, and black-box objectives—making them attractive for many real-world BLO cases.
+          Common EA families used in bilevel settings include GA/DE/PSO and co-evolution strategies
+          <a href="#ref-7942105" class="cite">[1]</a>.
+        </p>
+        <ul class="bullets">
+          <li><strong>Nested evaluation</strong>: each UL candidate triggers LL optimization (expensive).</li>
+          <li><strong>Approximation strategies</strong>: reuse LL solutions, surrogate LL models, or partial LL solves.</li>
+          <li><strong>Multiobjective extensions</strong>: maintain Pareto sets at one or both levels.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2 id="ml">Machine learning based methods</h2>
+        <p>
+          ML-based BLO approaches have grown rapidly due to automatic differentiation, larger datasets, and the need for scalable optimization pipelines
+          <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[2]</a>.
+        </p>
+        <ul class="bullets">
+          <li><strong>Differentiable bilevel optimization</strong>: implicit differentiation or unrolled optimization for gradient-based updates.</li>
+          <li><strong>Surrogate modeling</strong>: learn approximate mappings (e.g., UL→LL response) to reduce LL solve cost.</li>
+          <li><strong>RL / policy optimization</strong>: bilevel structure appears in meta-learning and hyperparameter tuning.</li>
+        </ul>
+        <p class="muted small">
+          Strength: scalability on suitable classes. Weakness: assumptions (smoothness, differentiability, stable unrolling) may not hold for many discrete or black-box settings.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 id="hybrid">Hybrid EA–ML</h2>
+        <p>
+          Hybrid strategies aim to combine the robustness of EAs with the efficiency of learning-based components. Common hybrid patterns:
+        </p>
+        <ul class="bullets">
+          <li><strong>EA + learned surrogate</strong> for LL objective/constraints or response mapping.</li>
+          <li><strong>EA + differentiable components</strong> for partially-structured problems (mixed discrete/continuous).</li>
+          <li><strong>Adaptive algorithm selection</strong> (bandits / meta-learning) to choose operators or LL solver effort.</li>
+        </ul>
+        <p class="muted small">
+          Goal: reduce LL evaluation cost while keeping good global exploration.
+        </p>
+      </div>
+    </div>
+
+    <div class="card" id="example">
+      <h2>Example: Toll setting in transportation systems</h2>
+      <p class="muted small">
+        Adapted from a common illustrative example (you can keep a footnote-style link for the public explanation).
+      </p>
+
+      <p>
+        A government chooses toll values \(\mathbf{x}\) to maximize toll revenue \(F(\mathbf{x}, \mathbf{y})\), where \(\mathbf{y}\) denotes the resulting traffic flow.
+        Travelers respond by selecting routes that minimize their travel cost \(f(\mathbf{x}, \mathbf{y})\) (including tolls and travel time).
+        The UL models revenue maximization, while the LL captures user equilibrium / route choice under network constraints.
+        This illustrates the nested leader–follower structure typical of BLO.
+      </p>
+
+      <p class="muted small">
+        Public explainer link:
+        <a class="link" href="https://en.wikipedia.org/wiki/Bilevel_optimization" target="_blank" rel="noreferrer">Wikipedia: Bilevel optimization</a>
+      </p>
+    </div>
+
+    <section class="container section" id="references" style="padding:0">
+      <div class="card">
+        <h2>References</h2>
+        <ol class="refs">
+          <li id="ref-7942105">
+            A. Sinha, P. Malo, and K. Deb, “A Review on Bilevel Optimization: From Classical to Evolutionary Approaches and Applications,”
+            <i>IEEE Transactions on Evolutionary Computation</i>, vol. 22, no. 2, pp. 276–295, 2018, doi: 10.1109/TEVC.2017.2712906.
+          </li>
+          <li id="ref-zhang2023introductionbileveloptimizationfoundations">
+            Y. Zhang et al., “An introduction to bilevel optimization: Foundations and applications in signal processing and machine learning,”
+            <i>IEEE Signal Processing Magazine</i>, vol. 41, no. 1, pp. 38–59, 2024.
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="muted">© <span id="year"></span> BLO Hub · Built on GitHub Pages</div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
 
