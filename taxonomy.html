@@ -76,14 +76,13 @@
         <li>
           <strong>Based on coupling structure:</strong>
           (i) <em>Decoupled</em>: UL constraints do not involve LL variables and LL constraints do not involve UL variables; objectives may still be interdependent.
-          (ii) <em>Fully coupled</em>: UL and LL share variables or constraints, creating a tightly interconnected structure—often realistic in system-level design but
-          typically harder to solve
+          (ii) <em>Fully coupled</em>: UL and LL share variables or constraints, creating a tightly interconnected structure—often realistic in system-level design but typically harder to solve
           <a href="#ref-colson2007overview" class="cite">[2]</a>,
           <a href="#ref-henke2025coupling" class="cite">[4]</a>.
         </li>
 
         <li>
-          <strong>Based on number of criteria in the LL:</strong>
+          <strong>Based on the number of criteria in the LL:</strong>
           If the LL has multiple conflicting criteria, it yields a set of Pareto-optimal solutions. Because it is not known a priori which LL Pareto solution(s)
           will support UL optimality, the LL often needs to provide a diverse Pareto set—making the problem more challenging
           <a href="#ref-deb-bilevel" class="cite">[5]</a>.
@@ -100,7 +99,7 @@
         <li>
           <strong>Based on determinism:</strong>
           (i) <em>Deterministic</em>: all variables and parameters are known exactly (common in theory).
-          (ii) <em>Stochastic or robust</em>: parameters are uncertain; solutions must account for variability/risk—via distributions (stochastic) or worst-case
+          (ii) <em>Stochastic or robust</em>: parameters are uncertain; solutions must account for variability/risk, via distributions (stochastic) or worst-case
           realizations (robust)
           <a href="#ref-beck2023survey" class="cite">[7]</a>,
           <a href="#ref-lu2018uncertainty" class="cite">[8]</a>.
@@ -108,7 +107,7 @@
       </ul>
 
       <p class="muted">
-        The mathematical equations for each category are presented in <em>Section I</em> of the Supplementary File. These taxonomies highlight the modeling diversity
+        The mathematical equations for each category are presented in <em>next section</em>. These taxonomies highlight the modeling diversity
         encountered in real-world applications (e.g., supply chains, policy design, adversarial learning, and automated control).
       </p>
     </section>
@@ -116,10 +115,10 @@
     <!-- Formulation-based classification -->
 <section class="card" id="taxonomy-formulations">
   <h2>BLO problems classification: formulations</h2>
-  <p class="muted">
+  <!-- <p class="muted">
     This section complements the narrative taxonomy by showing how each category changes the mathematical structure of the bilevel model.
     Equations are numbered automatically and can be referenced using \(\eqref{...}\).
-  </p>
+  </p> -->
 
   <h3>Classification based on number of followers</h3>
   <p>
@@ -132,15 +131,15 @@
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:single-follower}
 \begin{aligned}
-\min_{\mathbf{x}\in\mathbf{X},\,\mathbf{y}\in\mathbf{Y}}\ & F(\mathbf{x},\mathbf{y}) \\
-\text{s.t.}\ & \mathbf{y} \in \arg\min_{\mathbf{y}\in\mathbf{Y}} f(\mathbf{x},\mathbf{y}).
+&\min_{\mathbf{x}_u\in\mathbf{X}_u,\,\mathbf{x}_l\in\mathbf{X}_l}\ & F(\mathbf{x}_u,\mathbf{x}_l) \\
+&\text{s.t.}\ & \mathbf{x}_l \in \arg\min_{\mathbf{x}_l\in\mathbf{X}_l} f(\mathbf{x}_u,\mathbf{x}_l).
 \end{aligned}
 \end{equation}
   </div></div>
 
   <h4>(ii) Multi-follower BLO problems</h4>
   <p>
-    The leader chooses \(\mathbf{x}\) anticipating follower decisions \(\mathbf{y}_1,\ldots,\mathbf{y}_m\).
+    The leader chooses \(\mathbf{x}_u\) anticipating follower decisions \(\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m}\).
     A key distinction is whether followers solve their problems independently or interact via shared constraints/strategic coupling.
   </p>
 
@@ -148,8 +147,8 @@
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:multi-follower-independent}
 \begin{aligned}
-\min_{\mathbf{x}\in\mathbf{X}}\ & F(\mathbf{x},\mathbf{y}_1,\ldots,\mathbf{y}_m) \\
-\text{s.t.}\ & \mathbf{y}_i \in \arg\min_{\mathbf{y}_i\in\mathbf{Y}_i} f_i(\mathbf{x},\mathbf{y}_i), \quad i\in\{1,\ldots,m\}.
+\min_{\mathbf{x}_u\in\mathbf{X}_u}\ & F(\mathbf{x}_u,\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m}) \\
+\text{s.t.}\ & \mathbf{x}_{l_i} \in \arg\min_{\mathbf{x}_{l_i}\in\mathbf{X}_{l_i}} f_i(\mathbf{x}_u,\mathbf{x}_{l_i}), \quad i\in\{1,\ldots,m\}.
 \end{aligned}
 \end{equation}
   </div></div>
@@ -157,7 +156,7 @@
   <p class="muted small"><strong>Interacting followers (generalized Nash):</strong></p>
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:multi-follower-interacting}
-\mathbf{y}_i \in \mathbf{Y}_i(\mathbf{x},\mathbf{y}_{-i}), \quad \text{(constraints can be shared among followers)}.
+\mathbf{x}_{l_i} \in \mathbf{X}_{l_i}(\mathbf{x}_u,\mathbf{x}_{l_{-i}}), \quad \text{(constraints can be shared among followers)}.
 \end{equation}
   </div></div>
 
@@ -170,7 +169,7 @@
   <h3>Classification based on coupling structure</h3>
   <p>
     Coupling describes where upper-level and lower-level variables appear in constraints. Even if constraints are decoupled,
-    objectives can still depend on both \(\mathbf{x}\) and \(\mathbf{y}\).
+    objectives can still depend on both \(\mathbf{x}_u\) and \(\mathbf{x}_l\).
   </p>
 
   <h4>(i) Decoupled structure</h4>
@@ -180,10 +179,10 @@
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:decoupled}
 \begin{aligned}
-\min_{\mathbf{x}\in\mathbf{X}}\ & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\ & \mathbf{x}\in\mathbf{X} \quad (\text{no }\mathbf{y}\text{ in UL constraints}),\\
-& \mathbf{y}\in \arg\min_{\mathbf{y}\in\mathbf{Y}} \{ f(\mathbf{x},\mathbf{y}) \mid \mathbf{y}\in\mathbf{Y} \}
-\quad (\text{no }\mathbf{x}\text{ in LL constraints}).
+\min_{\mathbf{x}_u\in\mathbf{X}_u}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
+\text{s.t.}\ & \mathbf{x}_u\in\mathbf{x}_u \quad (\text{no }\mathbf{x}_l\text{ in UL constraints}),\\
+& \mathbf{x}_l\in \arg\min_{\mathbf{x}_l\in\mathbf{X}_l} \{ f(\mathbf{x}_u,\mathbf{x}_l) \mid \mathbf{x}_l\in\mathbf{X}_l \}
+\quad (\text{no }\mathbf{x}_u\text{ in LL constraints}).
 \end{aligned}
 \end{equation}
   </div></div>
@@ -191,14 +190,14 @@
   <h4>(ii) Fully coupled structure</h4>
   <p class="muted small">
     <strong>Differentiation:</strong> UL and LL constraints share variables → stronger coupling and typically harder problems.
-    When KKT reformulation applies (convex/smooth LL), it introduces complementarity constraints.
+    When the KKT reformulation applies (convex/smooth LL), it introduces complementarity constraints.
   </p>
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:fully-coupled}
 \begin{aligned}
-\min_{\mathbf{x}\in\mathbf{X}}\ & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\ & G(\mathbf{x},\mathbf{y})\le 0,\\
-& \mathbf{y}\in \arg\min_{\mathbf{y}\in\mathbf{Y}} \{ f(\mathbf{x},\mathbf{y}) \mid g(\mathbf{x},\mathbf{y})\le 0\}.
+\min_{\mathbf{x}_u\in\mathbf{X}_u}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
+\text{s.t.}\ & G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
+& \mathbf{x}_l\in \arg\min_{\mathbf{x}_l\in\mathbf{X}_l} \{ f(\mathbf{x}_u,\mathbf{x}_l) \mid g(\mathbf{x}_u,\mathbf{x}_l)\le 0\}.
 \end{aligned}
 \end{equation}
   </div></div>
@@ -216,8 +215,8 @@
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:optimistic}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{y}}\ & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\ & \mathbf{y}\in S(\mathbf{x}) := \arg\min_{\mathbf{v}} f(\mathbf{x},\mathbf{v}).
+\min_{\mathbf{x}_u,\mathbf{x}_l}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
+\text{s.t.}\ & \mathbf{x}_l\in S(\mathbf{x}_u) := \arg\min_{\mathbf{v}} f(\mathbf{x}_u,\mathbf{v}).
 \end{aligned}
 \end{equation}
   </div></div>
@@ -227,8 +226,8 @@
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:pessimistic}
 \begin{aligned}
-\min_{\mathbf{x}}\ \max_{\mathbf{y}\in S(\mathbf{x})}\ & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\ & S(\mathbf{x}) := \arg\min_{\mathbf{v}} f(\mathbf{x},\mathbf{v}).
+\min_{\mathbf{x}_u}\ \max_{\mathbf{x}_l\in S(\mathbf{x}_u)}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
+\text{s.t.}\ & S(\mathbf{x}_u) := \arg\min_{\mathbf{v}} f(\mathbf{x}_u,\mathbf{v}).
 \end{aligned}
 \end{equation}
   </div></div>
@@ -245,8 +244,8 @@
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:deterministic}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{y}}\ & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\ & \mathbf{y}\in \arg\min_{\mathbf{v}} f(\mathbf{x},\mathbf{v}).
+\min_{\mathbf{x}_u,\mathbf{x}_l}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
+\text{s.t.}\ & \mathbf{x}_l\in \arg\min_{\mathbf{v}} f(\mathbf{x}_u,\mathbf{v}).
 \end{aligned}
 \end{equation}
   </div></div>
@@ -256,8 +255,8 @@
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:stochastic}
 \begin{aligned}
-\min_{\mathbf{x}}\ & \mathbb{E}_{\xi}\big[F(\mathbf{x},\mathbf{y}(\xi))\big]\\
-\text{s.t.}\ & \mathbf{y}(\xi)\in \arg\min_{\mathbf{v}} \mathbb{E}_{\xi}\big[f(\mathbf{x},\mathbf{v},\xi)\big].
+\min_{\mathbf{x}_u}\ & \mathbb{E}_{\xi}\big[F(\mathbf{x}_u,\mathbf{x}_l(\xi))\big]\\
+\text{s.t.}\ & \mathbf{x}_l(\xi)\in \arg\min_{\mathbf{v}} \mathbb{E}_{\xi}\big[f(\mathbf{x}_u,\mathbf{v},\xi)\big].
 \end{aligned}
 \end{equation}
   </div></div>
@@ -267,8 +266,8 @@
   <div class="equation"><div class="math">
 \begin{equation}\label{eq:robust}
 \begin{aligned}
-\min_{\mathbf{x}}\ \max_{\xi\in\mathbf{U}}\ & F(\mathbf{x},\mathbf{y}(\xi),\xi)\\
-\text{s.t.}\ & \mathbf{y}(\xi)\in \arg\min_{\mathbf{v}} f(\mathbf{x},\mathbf{v},\xi).
+\min_{\mathbf{x}_u}\ \max_{\xi\in\mathbf{U}}\ & F(\mathbf{x}_u,\mathbf{x}_l(\xi),\xi)\\
+\text{s.t.}\ & \mathbf{x}_l(\xi)\in \arg\min_{\mathbf{v}} f(\mathbf{x}_u,\mathbf{v},\xi).
 \end{aligned}
 \end{equation}
   </div></div>
