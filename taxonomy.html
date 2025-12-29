@@ -54,229 +54,268 @@
     </div>
 
     <!-- Narrative taxonomy -->
-    <section class="card">
-      <h2>Taxonomy of bilevel problems</h2>
+    <section class="card" id="taxonomy-narrative">
+    <h2>Taxonomy of bilevel problems (with equations)</h2>
 
-      <p>
-        Bilevel optimization (BLO) problems can be categorized based on various structural and behavioral characteristics
-        <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[1]</a>.
-        These taxonomies help guide algorithm selection and highlight the complexity of modeling and solving such problems.
-      </p>
+    <p>
+      Bilevel optimization (BLO) problems can be categorized using structural and behavioral characteristics
+      <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[1]</a>.
+      This taxonomy is useful for (i) selecting algorithms, (ii) anticipating computational difficulty, and (iii) reporting
+      modeling assumptions (e.g., optimistic vs pessimistic) clearly.
+    </p>
 
-      <ul class="bullets">
-        <li>
-          <strong>Based on number of followers:</strong>
-          (i) <em>Single-follower</em>: the BLO problem contains a single LL decision-maker (the most commonly studied case).
-          (ii) <em>Multi-follower</em>: multiple independent or interacting followers each solve an optimization problem; common in decentralized systems,
-          multi-agent planning, and markets
-          <a href="#ref-colson2007overview" class="cite">[2]</a>,
-          <a href="#ref-avraamidou2018novel" class="cite">[3]</a>.
-        </li>
+    <ul class="bullets">
 
-        <li>
-          <strong>Based on coupling structure:</strong>
-          (i) <em>Decoupled</em>: UL constraints do not involve LL variables and LL constraints do not involve UL variables; objectives may still be interdependent.
-          (ii) <em>Fully coupled</em>: UL and LL share variables or constraints, creating a tightly interconnected structure—often realistic in system-level design but typically harder to solve
-          <a href="#ref-colson2007overview" class="cite">[2]</a>,
-          <a href="#ref-henke2025coupling" class="cite">[4]</a>.
-        </li>
+      <!-- 1) Number of followers -->
+      <li>
+        <strong>Based on number of followers:</strong>
+        This category specifies how many lower-level (LL) decision-makers respond to a single upper-level (UL) leader.
 
-        <li>
-          <strong>Based on the number of criteria in the LL:</strong>
-          If the LL has multiple conflicting criteria, it yields a set of Pareto-optimal solutions. Because it is not known a priori which LL Pareto solution(s)
-          will support UL optimality, the LL often needs to provide a diverse Pareto set—making the problem more challenging
-          <a href="#ref-deb-bilevel" class="cite">[5]</a>.
-        </li>
-
-        <li>
-          <strong>Based on LL model selection (optimistic vs pessimistic):</strong>
-          When the LL has multiple optimal solutions,
-          (i) <em>Optimistic</em>: the leader assumes the follower selects a solution most favorable to the leader (cooperative/coordination settings).
-          (ii) <em>Pessimistic</em>: the leader assumes the follower selects the least favorable solution (security/adversarial/robust settings)
-          <a href="#ref-liu2018pessimistic" class="cite">[6]</a>.
-        </li>
-
-        <li>
-          <strong>Based on determinism:</strong>
-          (i) <em>Deterministic</em>: all variables and parameters are known exactly (common in theory).
-          (ii) <em>Stochastic or robust</em>: parameters are uncertain; solutions must account for variability/risk, via distributions (stochastic) or worst-case
-          realizations (robust)
-          <a href="#ref-beck2023survey" class="cite">[7]</a>,
-          <a href="#ref-lu2018uncertainty" class="cite">[8]</a>.
-        </li>
-      </ul>
-
-      <p class="muted">
-        The mathematical equations for each category are presented in <em>next section</em>. These taxonomies highlight the modeling diversity
-        encountered in real-world applications (e.g., supply chains, policy design, adversarial learning, and automated control).
-      </p>
-    </section>
-
-    <!-- Formulation-based classification -->
-<section class="card" id="taxonomy-formulations">
-  <h2>BLO problems classification: formulations</h2>
-  <!-- <p class="muted">
-    This section complements the narrative taxonomy by showing how each category changes the mathematical structure of the bilevel model.
-    Equations are numbered automatically and can be referenced using \(\eqref{...}\).
-  </p> -->
-
-  <h3>Classification based on number of followers</h3>
-  <p>
-    This axis describes whether the leader interacts with a single follower or multiple followers. Multi-follower settings may be
-    independent (separable LL problems) or interacting (game-theoretic).
-  </p>
-
-  <h4>(i) Single-follower BLO problems</h4>
-  <p class="muted small"><strong>Key property:</strong> Only one lower-level optimization problem.</p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:single-follower}
+        <ul class="bullets">
+          <li>
+            <em>(i) Single-follower BLO</em>: A single follower solves one LL optimization problem in response to the leader:
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_single_follower}
 \begin{aligned}
-&\min_{\mathbf{x}_u\in\mathbf{X}_u,\,\mathbf{x}_l\in\mathbf{X}_l}\ & F(\mathbf{x}_u,\mathbf{x}_l) \\
-&\text{s.t.}\ & \mathbf{x}_l \in \arg\min_{\mathbf{x}_l\in\mathbf{X}_l} f(\mathbf{x}_u,\mathbf{x}_l).
+\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
+\text{s.t.}\quad & G(\mathbf{x},\mathbf{y})\le 0,\\
+& \mathbf{y}\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
 \end{aligned}
 \end{equation}
-  </div></div>
+            </div></div>
 
-  <h4>(ii) Multi-follower BLO problems</h4>
-  <p>
-    The leader chooses \(\mathbf{x}_u\) anticipating follower decisions \(\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m}\).
-    A key distinction is whether followers solve their problems independently or interact via shared constraints/strategic coupling.
-  </p>
+            <p class="muted small">
+              <strong>Interpretation:</strong> the leader anticipates the follower’s best response \(\mathbf{y}^*(\mathbf{x})\) (or a set \(S(\mathbf{x})\) if non-unique).<br/>
+              <strong>Where it appears:</strong> leader–follower games, pricing, interdiction, and ML tasks (e.g., hyperparameter tuning as UL and training as LL).<br/>
+              <strong>Method implications:</strong> KKT/duality or differentiable BLO is often viable when LL is convex/smooth; nested or derivative-free methods are used for discrete/nonconvex/black-box LL.
+            </p>
+          </li>
 
-  <p class="muted small"><strong>Independent followers:</strong></p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:multi-follower-independent}
+          <li>
+            <em>(ii) Multi-follower BLO</em>: Multiple followers solve LL problems, either independently or with interactions (markets, decentralized control, multi-agent systems)
+            <a href="#ref-colson2007overview" class="cite">[2]</a>,
+            <a href="#ref-avraamidou2018novel" class="cite">[3]</a>.
+
+            <p class="muted small"><strong>Independent followers (separable LLs):</strong></p>
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_multi_follower_ind}
 \begin{aligned}
-\min_{\mathbf{x}_u\in\mathbf{X}_u}\ & F(\mathbf{x}_u,\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m}) \\
-\text{s.t.}\ & \mathbf{x}_{l_i} \in \arg\min_{\mathbf{x}_{l_i}\in\mathbf{X}_{l_i}} f_i(\mathbf{x}_u,\mathbf{x}_{l_i}), \quad i\in\{1,\ldots,m\}.
+\min_{\mathbf{x}} \quad & F(\mathbf{x},\mathbf{y}_1,\ldots,\mathbf{y}_m)\\
+\text{s.t.}\quad & \mathbf{y}_i \in \arg\min_{\mathbf{v}_i}
+\left\{ f_i(\mathbf{x},\mathbf{v}_i)\ \big|\ g_i(\mathbf{x},\mathbf{v}_i)\le 0 \right\},
+\quad i=1,\ldots,m .
 \end{aligned}
 \end{equation}
-  </div></div>
+            </div></div>
 
-  <p class="muted small"><strong>Interacting followers (generalized Nash):</strong></p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:multi-follower-interacting}
-\mathbf{x}_{l_i} \in \mathbf{X}_{l_i}(\mathbf{x}_u,\mathbf{x}_{l_{-i}}), \quad \text{(constraints can be shared among followers)}.
+            <p class="muted small">
+              <strong>Interpretation:</strong> each follower reacts separately; evaluation typically requires \(m\) LL solves per UL candidate.
+            </p>
+
+            <p class="muted small"><strong>Interacting followers (Generalized Nash / equilibrium-type LL):</strong></p>
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_multi_follower_int}
+\mathbf{y}_i \in \arg\min_{\mathbf{v}_i\in \mathbf{Y}_i(\mathbf{x},\mathbf{y}_{-i})}
+f_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})
+\quad \text{s.t.}\quad
+g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
+\quad i=1,\ldots,m,
 \end{equation}
-  </div></div>
+            </div></div>
 
-  <p class="muted">
-    Practical takeaway: single-follower BLO uses one LL response mapping; multi-follower BLO may require computing an equilibrium across multiple followers.
-  </p>
+            <p class="muted small">
+              where \(\mathbf{y}_{-i}=(\mathbf{y}_1,\ldots,\mathbf{y}_{i-1},\mathbf{y}_{i+1},\ldots,\mathbf{y}_m)\).<br/>
+              <strong>Interpretation:</strong> the LL outcome is an equilibrium concept rather than independent optima.<br/>
+              <strong>Method implications:</strong> decomposition/penalty/equilibrium reformulations are common; uniqueness/existence assumptions matter more.
+            </p>
+          </li>
+        </ul>
+      </li>
 
-  <hr/>
+      <!-- 2) Coupling structure -->
+      <li>
+        <strong>Based on coupling structure:</strong>
+        Coupling describes how UL and LL constraints depend on each other’s variables, strongly influencing tractability.
 
-  <h3>Classification based on coupling structure</h3>
-  <p>
-    Coupling describes where upper-level and lower-level variables appear in constraints. Even if constraints are decoupled,
-    objectives can still depend on both \(\mathbf{x}_u\) and \(\mathbf{x}_l\).
-  </p>
-
-  <h4>(i) Decoupled structure</h4>
-  <p class="muted small">
-    <strong>Differentiation:</strong> Constraints are independent across levels; objectives may remain coupled.
-  </p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:decoupled}
+        <ul class="bullets">
+          <li>
+            <em>(i) Decoupled constraints</em>: UL constraints involve only \(\mathbf{x}\) and LL constraints involve only \(\mathbf{y}\), while objectives may remain coupled:
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_decoupled}
 \begin{aligned}
-\min_{\mathbf{x}_u\in\mathbf{X}_u}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
-\text{s.t.}\ & \mathbf{x}_u\in\mathbf{x}_u \quad (\text{no }\mathbf{x}_l\text{ in UL constraints}),\\
-& \mathbf{x}_l\in \arg\min_{\mathbf{x}_l\in\mathbf{X}_l} \{ f(\mathbf{x}_u,\mathbf{x}_l) \mid \mathbf{x}_l\in\mathbf{X}_l \}
-\quad (\text{no }\mathbf{x}_u\text{ in LL constraints}).
+\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
+\text{s.t.}\quad & G(\mathbf{x})\le 0,\\
+& \mathbf{y}\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v})\ \big|\ g(\mathbf{v})\le 0 \right\}.
 \end{aligned}
 \end{equation}
-  </div></div>
+            </div></div>
 
-  <h4>(ii) Fully coupled structure</h4>
-  <p class="muted small">
-    <strong>Differentiation:</strong> UL and LL constraints share variables → stronger coupling and typically harder problems.
-    When the KKT reformulation applies (convex/smooth LL), it introduces complementarity constraints.
-  </p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:fully-coupled}
+            <p class="muted small">
+              <strong>Interpretation:</strong> feasibility sets are structurally simpler, but bilevel difficulty persists via the LL optimality mapping.<br/>
+              <strong>Method implications:</strong> LL feasibility does not change with \(\mathbf{x}\); however \(\mathbf{x}\mapsto \mathbf{y}^*(\mathbf{x})\) can still be nonsmooth or set-valued.
+            </p>
+          </li>
+
+          <li>
+            <em>(ii) Fully coupled constraints</em>: UL and LL constraints share variables (the most general and often most realistic case)
+            <a href="#ref-colson2007overview" class="cite">[2]</a>,
+            <a href="#ref-henke2025coupling" class="cite">[4]</a>:
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_fully_coupled}
 \begin{aligned}
-\min_{\mathbf{x}_u\in\mathbf{X}_u}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
-\text{s.t.}\ & G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
-& \mathbf{x}_l\in \arg\min_{\mathbf{x}_l\in\mathbf{X}_l} \{ f(\mathbf{x}_u,\mathbf{x}_l) \mid g(\mathbf{x}_u,\mathbf{x}_l)\le 0\}.
+\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
+\text{s.t.}\quad & G(\mathbf{x},\mathbf{y})\le 0,\\
+& \mathbf{y}\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v})\ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
 \end{aligned}
 \end{equation}
-  </div></div>
+            </div></div>
 
-  <hr/>
+            <p class="muted small">
+              <strong>Interpretation:</strong> \(\mathbf{x}\) can alter LL feasibility and the LL optimum set; regime switches are common.<br/>
+              <strong>Method implications:</strong> KKT/MPEC reformulations often lead to complementarity constraints; discrete/nonconvex LL usually requires specialized or heuristic approaches.
+            </p>
+          </li>
+        </ul>
+      </li>
 
-  <h3>Classification based on solution nature</h3>
-  <p>
-    If the lower-level has multiple optimal solutions, the leader must adopt a tie-breaking convention.
-    The two standard semantics are optimistic and pessimistic bilevel optimization.
-  </p>
-
-  <h4>(i) Optimistic BLO problems</h4>
-  <p class="muted small">UL assumes LL chooses an optimum most favorable to UL.</p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:optimistic}
+      <!-- 3) Multiobjective LL -->
+      <li>
+        <strong>Based on number of criteria in LL (multiobjective LL):</strong>
+        If the LL has multiple conflicting objectives, the LL “solution” becomes a Pareto-optimal set
+        <a href="#ref-deb-bilevel" class="cite">[5]</a>.
+        <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_multiobj_LL}
 \begin{aligned}
-\min_{\mathbf{x}_u,\mathbf{x}_l}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
-\text{s.t.}\ & \mathbf{x}_l\in S(\mathbf{x}_u) := \arg\min_{\mathbf{v}} f(\mathbf{x}_u,\mathbf{v}).
+\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
+\text{s.t.}\quad & \mathbf{y}\in \mathcal{P}(\mathbf{x})
+:= \left\{ \mathbf{y}\in\mathbf{Y}\ \big|\ \mathbf{y}\ \text{is Pareto-optimal for}\ 
+\min_{\mathbf{v}\in\mathbf{Y}} \ \mathbf{f}(\mathbf{x},\mathbf{v})\right\}.
 \end{aligned}
 \end{equation}
-  </div></div>
+        </div></div>
 
-  <h4>(ii) Pessimistic BLO problems</h4>
-  <p class="muted small">UL prepares for worst-case LL optimal behavior.</p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:pessimistic}
+        <p class="muted small">
+          <strong>Interpretation:</strong> the LL reaction is a set \(\mathcal{P}(\mathbf{x})\); a selection rule is needed to evaluate the UL objective.<br/>
+          <strong>Why challenging:</strong> it is not known <em>a priori</em> which LL Pareto points induce UL optimality; algorithms may need a diverse LL Pareto approximation.<br/>
+          <strong>Method implications:</strong> must define (and report) LL preference/selection (scalarization, reference point, representative set, etc.).
+        </p>
+      </li>
+
+      <!-- 4) Tie-breaking -->
+      <li>
+        <strong>Based on LL model selection (tie-breaking):</strong>
+        When the LL has multiple optimal solutions, the modeling choice defines tie-breaking. Let
+        \[
+          S(\mathbf{x}) := \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
+        \]
+
+        <ul class="bullets">
+          <li>
+            <em>(i) Optimistic bilevel</em>:
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_optimistic}
 \begin{aligned}
-\min_{\mathbf{x}_u}\ \max_{\mathbf{x}_l\in S(\mathbf{x}_u)}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
-\text{s.t.}\ & S(\mathbf{x}_u) := \arg\min_{\mathbf{v}} f(\mathbf{x}_u,\mathbf{v}).
+\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
+\text{s.t.}\quad & G(\mathbf{x},\mathbf{y})\le 0,\\
+& \mathbf{y}\in S(\mathbf{x}).
 \end{aligned}
 \end{equation}
-  </div></div>
+            </div></div>
+            <p class="muted small">
+              <strong>Interpretation:</strong> if \(S(\mathbf{x})\) is multi-valued, the follower selects an LL-optimal \(\mathbf{y}\) most favorable to the leader.<br/>
+              <strong>Method implications:</strong> often more tractable; widely used in benchmarks and algorithm development.
+            </p>
+          </li>
 
-  <hr/>
-
-  <h3>Classification based on determinism</h3>
-  <p>
-    This axis captures whether model parameters are fixed (deterministic) or uncertain (stochastic/robust).
-  </p>
-
-  <h4>(i) Deterministic BLO problems</h4>
-  <p class="muted small">All data are known precisely.</p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:deterministic}
+          <li>
+            <em>(ii) Pessimistic bilevel</em>:
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_pessimistic}
 \begin{aligned}
-\min_{\mathbf{x}_u,\mathbf{x}_l}\ & F(\mathbf{x}_u,\mathbf{x}_l)\\
-\text{s.t.}\ & \mathbf{x}_l\in \arg\min_{\mathbf{v}} f(\mathbf{x}_u,\mathbf{v}).
+\min_{\mathbf{x}} \ \max_{\mathbf{y}\in S(\mathbf{x})} \quad & F(\mathbf{x},\mathbf{y})\\
+\text{s.t.}\quad & \mathbf{x}\in \mathbf{X}.
 \end{aligned}
 \end{equation}
-  </div></div>
+            </div></div>
+            <p class="muted small">
+              <strong>Interpretation:</strong> the leader plans against the worst LL-optimal response
+              <a href="#ref-liu2018pessimistic" class="cite">[6]</a>.<br/>
+              <strong>Method implications:</strong> typically harder; solutions may be sensitive to how the inner maximization over \(S(\mathbf{x})\) is computed.
+            </p>
+          </li>
+        </ul>
+      </li>
 
-  <h4>(ii) Stochastic BLO problems</h4>
-  <p class="muted small">Randomness \(\xi\) introduces expectation-based objectives.</p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:stochastic}
+      <!-- 5) Determinism -->
+      <li>
+        <strong>Based on determinism (deterministic / stochastic / robust):</strong>
+        This category specifies whether parameters are known exactly or uncertain
+        <a href="#ref-beck2023survey" class="cite">[7]</a>,
+        <a href="#ref-lu2018uncertainty" class="cite">[8]</a>.
+
+        <ul class="bullets">
+          <li>
+            <em>(i) Deterministic BLO</em>:
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_deterministic}
 \begin{aligned}
-\min_{\mathbf{x}_u}\ & \mathbb{E}_{\xi}\big[F(\mathbf{x}_u,\mathbf{x}_l(\xi))\big]\\
-\text{s.t.}\ & \mathbf{x}_l(\xi)\in \arg\min_{\mathbf{v}} \mathbb{E}_{\xi}\big[f(\mathbf{x}_u,\mathbf{v},\xi)\big].
+\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
+\text{s.t.}\quad & G(\mathbf{x},\mathbf{y})\le 0,\\
+& \mathbf{y}\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
 \end{aligned}
 \end{equation}
-  </div></div>
+            </div></div>
+            <p class="muted small"><strong>Interpretation:</strong> all data are fixed and known.</p>
+          </li>
 
-  <h4>(iii) Robust BLO problems</h4>
-  <p class="muted small">Uncertainty set \(\mathbf{U}\) → worst-case decisions.</p>
-  <div class="equation"><div class="math">
-\begin{equation}\label{eq:robust}
+          <li>
+            <em>(ii) Stochastic BLO</em>:
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_stochastic}
 \begin{aligned}
-\min_{\mathbf{x}_u}\ \max_{\xi\in\mathbf{U}}\ & F(\mathbf{x}_u,\mathbf{x}_l(\xi),\xi)\\
-\text{s.t.}\ & \mathbf{x}_l(\xi)\in \arg\min_{\mathbf{v}} f(\mathbf{x}_u,\mathbf{v},\xi).
+\min_{\mathbf{x}} \quad & \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}, \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
+\text{s.t.}\quad & \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}) \in 
+\arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
+\quad \forall \boldsymbol{\xi}.
 \end{aligned}
 \end{equation}
-  </div></div>
+            </div></div>
+            <p class="muted small">
+              <strong>Interpretation:</strong> uncertainty \(\boldsymbol{\xi}\) is realized and the follower reacts; the leader optimizes expected performance.
+            </p>
+          </li>
 
-  <p class="muted">
-    Summary: deterministic → no uncertainty; stochastic → expectation over distributions; robust → worst-case realizations.
-  </p>
-</section>
+          <li>
+            <em>(iii) Robust BLO</em>:
+            <div class="equation"><div class="math">
+\begin{equation}\label{eq:tax_robust}
+\begin{aligned}
+\min_{\mathbf{x}} \quad & \max_{\boldsymbol{\xi}\in\mathcal{U}}
+F\!\left(\mathbf{x}, \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
+\text{s.t.}\quad & \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}) \in 
+\arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
+\quad \forall \boldsymbol{\xi}\in\mathcal{U}.
+\end{aligned}
+\end{equation}
+            </div></div>
+            <p class="muted small"><strong>Interpretation:</strong> the leader optimizes against worst-case realizations in \(\mathcal{U}\).</p>
+          </li>
+        </ul>
+      </li>
 
+    </ul>
+
+    <p class="muted">
+      <strong>Website note (recommended):</strong>
+      When adding a paper/problem to the website, always report:
+      (i) single vs multi-follower,
+      (ii) decoupled vs coupled constraints,
+      (iii) optimistic vs pessimistic (if LL non-unique),
+      and (iv) deterministic vs stochastic/robust.
+      These choices can change both the problem definition and the appropriate algorithms.
+    </p>
+  </section>
+    
     <!-- JSON taxonomy tree + usage -->
     <div class="grid2">
       <div class="card">
