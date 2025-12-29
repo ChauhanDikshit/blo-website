@@ -4,29 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Taxonomy · BLO Hub</title>
-  <!-- <link rel="stylesheet" href="assets/style.css" /> -->
+  <meta name="description" content="Taxonomy of bilevel optimization problems: structural and behavioral categories with references." />
+
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
+
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="index.html">BLO Hub</a>
       <nav class="nav">
         <a class="navlink" href="index.html">Home</a>
-        <a class="navlink" href="taxonomy.html">Taxonomy</a>
+        <a class="navlink active" href="taxonomy.html">Taxonomy</a>
         <a class="navlink" href="formulation.html">Formulations</a>
-        <a class="navlink active" href="methods.html">Methods</a>
+        <a class="navlink" href="methods.html">Methods</a>
         <a class="navlink" href="papers.html">Papers</a>
         <a class="navlink" href="#references">References</a>
       </nav>
       <button class="menuBtn" id="menuBtn" aria-label="Toggle menu">☰</button>
     </div>
+
     <div class="mobileNav container" id="mobileNav">
-      <a class="navlink" href="index.html">Home</a>
-        <a class="navlink" href="taxonomy.html">Taxonomy</a>
-        <a class="navlink" href="formulation.html">Formulations</a>
-        <a class="navlink active" href="methods.html">Methods</a>
-        <a class="navlink" href="papers.html">Papers</a>
-        <a class="navlink" href="#references">References</a>
+      <a href="index.html">Home</a>
+      <a href="taxonomy.html">Taxonomy</a>
+      <a href="formulation.html">Formulations</a>
+      <a href="methods.html">Methods</a>
+      <a href="papers.html">Papers</a>
+      <a href="#references">References</a>
     </div>
   </header>
 
@@ -34,29 +38,141 @@
     <div class="pageHead">
       <div>
         <h1>Taxonomy</h1>
-        <p class="muted">Edit <span class="mono">data/taxonomy.json</span> to expand nodes.</p>
+        <p class="muted">
+          Two views: (i) a structured JSON taxonomy tree, and (ii) a narrative taxonomy that explains common categorizations in bilevel optimization.
+        </p>
       </div>
       <div class="rightTools">
         <a class="btn" href="data/taxonomy.json" target="_blank" rel="noreferrer">View JSON</a>
       </div>
     </div>
 
+    <!-- Narrative taxonomy -->
+    <section class="card">
+      <h2>Taxonomy of bilevel problems</h2>
+
+      <p>
+        Bilevel optimization (BLO) problems can be categorized based on various structural and behavioral characteristics
+        <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[1]</a>.
+        These taxonomies help guide algorithm selection and highlight the complexity of modeling and solving such problems.
+      </p>
+
+      <ul class="bullets">
+        <li>
+          <strong>Based on number of followers:</strong>
+          (i) <em>Single-follower</em>: the BLO problem contains a single LL decision-maker (the most commonly studied case).
+          (ii) <em>Multi-follower</em>: multiple independent or interacting followers each solve an optimization problem; common in decentralized systems,
+          multi-agent planning, and markets
+          <a href="#ref-colson2007overview" class="cite">[2]</a>,
+          <a href="#ref-avraamidou2018novel" class="cite">[3]</a>.
+        </li>
+
+        <li>
+          <strong>Based on coupling structure:</strong>
+          (i) <em>Decoupled</em>: UL constraints do not involve LL variables and LL constraints do not involve UL variables; objectives may still be interdependent.
+          (ii) <em>Fully coupled</em>: UL and LL share variables or constraints, creating a tightly interconnected structure—often realistic in system-level design but
+          typically harder to solve
+          <a href="#ref-colson2007overview" class="cite">[2]</a>,
+          <a href="#ref-henke2025coupling" class="cite">[4]</a>.
+        </li>
+
+        <li>
+          <strong>Based on number of criteria in the LL:</strong>
+          If the LL has multiple conflicting criteria, it yields a set of Pareto-optimal solutions. Because it is not known a priori which LL Pareto solution(s)
+          will support UL optimality, the LL often needs to provide a diverse Pareto set—making the problem more challenging
+          <a href="#ref-deb-bilevel" class="cite">[5]</a>.
+        </li>
+
+        <li>
+          <strong>Based on LL model selection (optimistic vs pessimistic):</strong>
+          When the LL has multiple optimal solutions,
+          (i) <em>Optimistic</em>: the leader assumes the follower selects a solution most favorable to the leader (cooperative/coordination settings).
+          (ii) <em>Pessimistic</em>: the leader assumes the follower selects the least favorable solution (security/adversarial/robust settings)
+          <a href="#ref-liu2018pessimistic" class="cite">[6]</a>.
+        </li>
+
+        <li>
+          <strong>Based on determinism:</strong>
+          (i) <em>Deterministic</em>: all variables and parameters are known exactly (common in theory).
+          (ii) <em>Stochastic or robust</em>: parameters are uncertain; solutions must account for variability/risk—via distributions (stochastic) or worst-case
+          realizations (robust)
+          <a href="#ref-beck2023survey" class="cite">[7]</a>,
+          <a href="#ref-lu2018uncertainty" class="cite">[8]</a>.
+        </li>
+      </ul>
+
+      <p class="muted">
+        The mathematical equations for each category are presented in <em>Section I</em> of the Supplementary File. These taxonomies highlight the modeling diversity
+        encountered in real-world applications (e.g., supply chains, policy design, adversarial learning, and automated control).
+      </p>
+    </section>
+
+    <!-- JSON taxonomy tree + usage -->
     <div class="grid2">
       <div class="card">
-        <h2>Categories</h2>
+        <h2>Categories (JSON tree)</h2>
         <div id="taxList" class="tree"></div>
       </div>
 
       <div class="card">
         <h2>How to use this</h2>
         <ul class="bullets">
-          <li>Keep taxonomy nodes stable (good for tags).</li>
+          <li>Keep taxonomy node IDs stable (good for long-term tagging).</li>
           <li>Tag papers with these node IDs (e.g., <span class="mono">ml.l2o</span>).</li>
-          <li>Add short notes per node later (you can extend JSON).</li>
+          <li>Add short node descriptions in <span class="mono">data/taxonomy.json</span> later.</li>
         </ul>
-        <div class="muted small">Tip: use consistent naming: <span class="mono">classical</span>, <span class="mono">evolutionary</span>, <span class="mono">ml</span>, <span class="mono">applications</span>.</div>
+        <div class="muted small">
+          Tip: use consistent naming roots such as <span class="mono">classical</span>, <span class="mono">evolutionary</span>, <span class="mono">ml</span>,
+          <span class="mono">applications</span>.
+        </div>
       </div>
     </div>
+
+    <!-- References -->
+    <section class="card" id="references">
+      <h2>References</h2>
+      <ol class="refs">
+        <li id="ref-zhang2023introductionbileveloptimizationfoundations">
+          Y. Zhang et al., “An introduction to bilevel optimization: Foundations and applications in signal processing and machine learning,”
+          <i>IEEE Signal Processing Magazine</i>, vol. 41, no. 1, pp. 38–59, 2024.
+        </li>
+
+        <li id="ref-colson2007overview">
+          B. Colson, P. Marcotte, and G. Savard, “An overview of bilevel optimization,” <i>Annals of Operations Research</i>, vol. 153, pp. 235–256, 2007.
+        </li>
+
+        <!-- Placeholders (replace with your formatted entries when ready) -->
+        <li id="ref-avraamidou2018novel">
+          Avraamidou et al. (2018). (Add full bibliographic details / DOI / link)
+        </li>
+
+        <li id="ref-henke2025coupling">
+          Henke et al. (2025). (Add full bibliographic details / DOI / link)
+        </li>
+
+        <li id="ref-deb-bilevel">
+          Deb et al. “(deb-bilevel)” (Add full bibliographic details / DOI / link)
+        </li>
+
+        <li id="ref-liu2018pessimistic">
+          Liu et al. (2018). (Add full bibliographic details / DOI / link)
+        </li>
+
+        <li id="ref-beck2023survey">
+          Beck et al. (2023). (Add full bibliographic details / DOI / link)
+        </li>
+
+        <li id="ref-lu2018uncertainty">
+          Lu et al. (2018). (Add full bibliographic details / DOI / link)
+        </li>
+      </ol>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="muted">© <span id="year"></span> BLO Hub · Built on GitHub Pages</div>
+      </div>
+    </footer>
   </main>
 
   <script src="assets/app.js"></script>
