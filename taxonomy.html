@@ -55,7 +55,7 @@
 
     <!-- Narrative taxonomy -->
     <section class="card" id="taxonomy-narrative">
-    <h2>Taxonomy of bilevel problems (with equations)</h2>
+    <h2>Taxonomy of bilevel problems</h2>
 
     <p>
       Bilevel optimization (BLO) problems can be categorized using structural and behavioral characteristics
@@ -69,63 +69,64 @@
       <!-- 1) Number of followers -->
       <li>
         <strong>Based on number of followers:</strong>
-        This category specifies how many lower-level (LL) decision-makers respond to a single upper-level (UL) leader.
+        This category specifies how many lower-level decision-makers respond to a single upper-level leader.
 
         <ul class="bullets">
           <li>
-            <em>(i) Single-follower BLO</em>: A single follower solves one LL optimization problem in response to the leader:
+            <em>(i) Single-follower BLO</em>: A single follower solves one lower-level optimization problem in response to the leader (the most commonly studied case):
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_single_follower}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\quad & G(\mathbf{x},\mathbf{y})\le 0,\\
-& \mathbf{y}\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
+&\min_{\mathbf{x}_u,\mathbf{x}_l}\, F(\mathbf{x}_u,\mathbf{x}_l)\\
+   &    \text{s.t.}   \begin{cases}
+ G(\mathbf{x}_u\mathbf{x}_l)\le 0,\\
+\mathbf{x}_l\in \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l)\le 0 \right\}.\end{cases}
 \end{aligned}
 \end{equation}
             </div></div>
 
             <p class="muted small">
-              <strong>Interpretation:</strong> the leader anticipates the follower’s best response \(\mathbf{y}^*(\mathbf{x})\) (or a set \(S(\mathbf{x})\) if non-unique).<br/>
-              <strong>Where it appears:</strong> leader–follower games, pricing, interdiction, and ML tasks (e.g., hyperparameter tuning as UL and training as LL).<br/>
-              <strong>Method implications:</strong> KKT/duality or differentiable BLO is often viable when LL is convex/smooth; nested or derivative-free methods are used for discrete/nonconvex/black-box LL.
+              <i>Interpretation:</i> the leader anticipates the follower's best response \(\mathbf{x}_l^*\) <!--(or a set \(S(\mathbf{x})\) if non-unique)-->.<br/>
+              <i>Where it appears:</i> leader–follower games, pricing, interdiction, and ML tasks (e.g., hyperparameter tuning as upper-level and training as lower-level).<br/>
+              <i>Method implications:</i> KKT/duality or differentiable BLO is often viable when the lower-level is convex/smooth; nested or derivative-free methods are used for discrete/nonconvex/black-box lower-level.
             </p>
           </li>
 
           <li>
-            <em>(ii) Multi-follower BLO</em>: Multiple followers solve LL problems, either independently or with interactions (markets, decentralized control, multi-agent systems)
+            <em>(ii) Multi-follower BLO</em>: Multiple followers solve lower-level problems, either independently or with interactions (markets, decentralized control, multi-agent systems)
             <a href="#ref-colson2007overview" class="cite">[2]</a>,
             <a href="#ref-avraamidou2018novel" class="cite">[3]</a>.
 
-            <p class="muted small"><strong>Independent followers (separable LLs):</strong></p>
+            <p class="muted small"><strong>Independent followers (separable lower-levels):</strong></p>
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_multi_follower_ind}
 \begin{aligned}
-\min_{\mathbf{x}} \quad & F(\mathbf{x},\mathbf{y}_1,\ldots,\mathbf{y}_m)\\
-\text{s.t.}\quad & \mathbf{y}_i \in \arg\min_{\mathbf{v}_i}
-\left\{ f_i(\mathbf{x},\mathbf{v}_i)\ \big|\ g_i(\mathbf{x},\mathbf{v}_i)\le 0 \right\},
-\quad i=1,\ldots,m .
+&\min_{\mathbf{x}_u} F(\mathbf{x}_u,\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m})\\
+&\text{s.t.}\begin{cases}G(\mathbf{x}_u\mathbf{x}_l)\le 0,\\
+              \mathbf{x}_{l_i} \in \arg\!\min_{\mathbf{x}_{l_i}\left\{ f_i(\mathbf{x}_u,\mathbf{x}_{l_i})\ \big|\ g_i(\mathbf{x}_u,\mathbf{x}_{l_i})\le 0 \right\},
+\quad i=1,\ldots,m.\end{cases}
 \end{aligned}
 \end{equation}
             </div></div>
 
             <p class="muted small">
-              <strong>Interpretation:</strong> each follower reacts separately; evaluation typically requires \(m\) LL solves per UL candidate.
+              <i>Interpretation:</i> each follower reacts separately; evaluation typically requires \(m\) lower-level solves per upper-level candidate.
             </p>
 
-            <p class="muted small"><strong>Interacting followers (Generalized Nash / equilibrium-type LL):</strong></p>
+            <p class="muted small"><strong>Interacting followers (Generalized Nash / equilibrium-type lower-level):</strong></p>
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_multi_follower_int}
-\mathbf{y}_i \in \arg\min_{\mathbf{v}_i\in \mathbf{Y}_i(\mathbf{x},\mathbf{y}_{-i})}
-f_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})
+\mathbf{x}_{l_i} \in \arg\!\min_{\mathbf{x}_{l_i}\in \mathbf{X}_{l_i}(\mathbf{x}_u,\mathbf{x}_{l_{-i}})}
+f_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})
 \quad \text{s.t.}\quad
-g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
+g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 \quad i=1,\ldots,m,
 \end{equation}
             </div></div>
 
             <p class="muted small">
               where \(\mathbf{y}_{-i}=(\mathbf{y}_1,\ldots,\mathbf{y}_{i-1},\mathbf{y}_{i+1},\ldots,\mathbf{y}_m)\).<br/>
-              <strong>Interpretation:</strong> the LL outcome is an equilibrium concept rather than independent optima.<br/>
+              <strong>Interpretation:</strong> the lower-level outcome is an equilibrium concept rather than independent optima.<br/>
               <strong>Method implications:</strong> decomposition/penalty/equilibrium reformulations are common; uniqueness/existence assumptions matter more.
             </p>
           </li>
@@ -135,11 +136,11 @@ g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
       <!-- 2) Coupling structure -->
       <li>
         <strong>Based on coupling structure:</strong>
-        Coupling describes how UL and LL constraints depend on each other’s variables, strongly influencing tractability.
+        Coupling describes how UL and lower-level constraints depend on each other’s variables, strongly influencing tractability.
 
         <ul class="bullets">
           <li>
-            <em>(i) Decoupled constraints</em>: UL constraints involve only \(\mathbf{x}\) and LL constraints involve only \(\mathbf{y}\), while objectives may remain coupled:
+            <em>(i) Decoupled constraints</em>: UL constraints involve only \(\mathbf{x}\) and lower-level constraints involve only \(\mathbf{y}\), while objectives may remain coupled:
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_decoupled}
 \begin{aligned}
@@ -151,13 +152,13 @@ g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
             </div></div>
 
             <p class="muted small">
-              <strong>Interpretation:</strong> feasibility sets are structurally simpler, but bilevel difficulty persists via the LL optimality mapping.<br/>
-              <strong>Method implications:</strong> LL feasibility does not change with \(\mathbf{x}\); however \(\mathbf{x}\mapsto \mathbf{y}^*(\mathbf{x})\) can still be nonsmooth or set-valued.
+              <strong>Interpretation:</strong> feasibility sets are structurally simpler, but bilevel difficulty persists via the lower-level optimality mapping.<br/>
+              <strong>Method implications:</strong> lower-level feasibility does not change with \(\mathbf{x}\); however \(\mathbf{x}\mapsto \mathbf{y}^*(\mathbf{x})\) can stilower-level be nonsmooth or set-valued.
             </p>
           </li>
 
           <li>
-            <em>(ii) Fully coupled constraints</em>: UL and LL constraints share variables (the most general and often most realistic case)
+            <em>(ii) Fully coupled constraints</em>: UL and lower-level constraints share variables (the most general and often most realistic case)
             <a href="#ref-colson2007overview" class="cite">[2]</a>,
             <a href="#ref-henke2025coupling" class="cite">[4]</a>:
             <div class="equation"><div class="math">
@@ -171,17 +172,17 @@ g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
             </div></div>
 
             <p class="muted small">
-              <strong>Interpretation:</strong> \(\mathbf{x}\) can alter LL feasibility and the LL optimum set; regime switches are common.<br/>
-              <strong>Method implications:</strong> KKT/MPEC reformulations often lead to complementarity constraints; discrete/nonconvex LL usually requires specialized or heuristic approaches.
+              <strong>Interpretation:</strong> \(\mathbf{x}\) can alter lower-level feasibility and the lower-level optimum set; regime switches are common.<br/>
+              <strong>Method implications:</strong> KKT/MPEC reformulations often lead to complementarity constraints; discrete/nonconvex lower-level usually requires specialized or heuristic approaches.
             </p>
           </li>
         </ul>
       </li>
 
-      <!-- 3) Multiobjective LL -->
+      <!-- 3) Multiobjective lower-level -->
       <li>
-        <strong>Based on number of criteria in LL (multiobjective LL):</strong>
-        If the LL has multiple conflicting objectives, the LL “solution” becomes a Pareto-optimal set
+        <strong>Based on number of criteria in lower-level (multiobjective LL):</strong>
+        If the lower-level has multiple conflicting objectives, the lower-level “solution” becomes a Pareto-optimal set
         <a href="#ref-deb-bilevel" class="cite">[5]</a>.
         <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_multiobj_LL}
@@ -195,16 +196,16 @@ g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
         </div></div>
 
         <p class="muted small">
-          <strong>Interpretation:</strong> the LL reaction is a set \(\mathcal{P}(\mathbf{x})\); a selection rule is needed to evaluate the UL objective.<br/>
-          <strong>Why challenging:</strong> it is not known <em>a priori</em> which LL Pareto points induce UL optimality; algorithms may need a diverse LL Pareto approximation.<br/>
-          <strong>Method implications:</strong> must define (and report) LL preference/selection (scalarization, reference point, representative set, etc.).
+          <strong>Interpretation:</strong> the lower-level reaction is a set \(\mathcal{P}(\mathbf{x})\); a selection rule is needed to evaluate the UL objective.<br/>
+          <strong>Why challenging:</strong> it is not known <em>a priori</em> which lower-level Pareto points induce UL optimality; algorithms may need a diverse lower-level Pareto approximation.<br/>
+          <strong>Method implications:</strong> must define (and report) lower-level preference/selection (scalarization, reference point, representative set, etc.).
         </p>
       </li>
 
       <!-- 4) Tie-breaking -->
       <li>
-        <strong>Based on LL model selection (tie-breaking):</strong>
-        When the LL has multiple optimal solutions, the modeling choice defines tie-breaking. Let
+        <strong>Based on lower-level model selection (tie-breaking):</strong>
+        When the lower-level has multiple optimal solutions, the modeling choice defines tie-breaking. Let
         \[
           S(\mathbf{x}) := \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
         \]
@@ -265,7 +266,7 @@ g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
 \end{aligned}
 \end{equation}
             </div></div>
-            <p class="muted small"><strong>Interpretation:</strong> all data are fixed and known.</p>
+            <p class="muted small"><strong>Interpretation:</strong> alower-level data are fixed and known.</p>
           </li>
 
           <li>
@@ -276,7 +277,7 @@ g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
 \min_{\mathbf{x}} \quad & \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}, \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
 \text{s.t.}\quad & \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}) \in 
 \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
-\quad \forall \boldsymbol{\xi}.
+\quad \foralower-level \boldsymbol{\xi}.
 \end{aligned}
 \end{equation}
             </div></div>
@@ -294,7 +295,7 @@ g_i(\mathbf{x},\mathbf{v}_i,\mathbf{y}_{-i})\le 0,
 F\!\left(\mathbf{x}, \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
 \text{s.t.}\quad & \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}) \in 
 \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
-\quad \forall \boldsymbol{\xi}\in\mathcal{U}.
+\quad \foralower-level \boldsymbol{\xi}\in\mathcal{U}.
 \end{aligned}
 \end{equation}
             </div></div>
@@ -310,7 +311,7 @@ F\!\left(\mathbf{x}, \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}
       When adding a paper/problem to the website, always report:
       (i) single vs multi-follower,
       (ii) decoupled vs coupled constraints,
-      (iii) optimistic vs pessimistic (if LL non-unique),
+      (iii) optimistic vs pessimistic (if lower-level non-unique),
       and (iv) deterministic vs stochastic/robust.
       These choices can change both the problem definition and the appropriate algorithms.
     </p>
@@ -352,27 +353,27 @@ F\!\left(\mathbf{x}, \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}
 
         <!-- Placeholders (replace with your formatted entries when ready) -->
         <li id="ref-avraamidou2018novel">
-          Avraamidou et al. (2018). (Add full bibliographic details / DOI / link)
+          Avraamidou et al. (2018). (Add fulower-level bibliographic details / DOI / link)
         </li>
 
         <li id="ref-henke2025coupling">
-          Henke et al. (2025). (Add full bibliographic details / DOI / link)
+          Henke et al. (2025). (Add fulower-level bibliographic details / DOI / link)
         </li>
 
         <li id="ref-deb-bilevel">
-          Deb et al. “(deb-bilevel)” (Add full bibliographic details / DOI / link)
+          Deb et al. “(deb-bilevel)” (Add fulower-level bibliographic details / DOI / link)
         </li>
 
         <li id="ref-liu2018pessimistic">
-          Liu et al. (2018). (Add full bibliographic details / DOI / link)
+          Liu et al. (2018). (Add fulower-level bibliographic details / DOI / link)
         </li>
 
         <li id="ref-beck2023survey">
-          Beck et al. (2023). (Add full bibliographic details / DOI / link)
+          Beck et al. (2023). (Add fulower-level bibliographic details / DOI / link)
         </li>
 
         <li id="ref-lu2018uncertainty">
-          Lu et al. (2018). (Add full bibliographic details / DOI / link)
+          Lu et al. (2018). (Add fulower-level bibliographic details / DOI / link)
         </li>
       </ol>
     </section>
