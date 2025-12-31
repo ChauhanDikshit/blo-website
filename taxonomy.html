@@ -69,7 +69,9 @@
       <!-- 1) Number of followers -->
       <li>
         <strong>Based on number of followers:</strong>
-        This category specifies how many lower-level decision-makers respond to a single upper-level leader.
+        This category specifies how many lower-level decision-makers respond to a single upper-level leader 
+            <a href="#ref-colson2007overview" class="cite">[2]</a>,
+            <a href="#ref-avraamidou2018novel" class="cite">[3]</a>.
 
         <ul class="bullets">
           <li>
@@ -93,9 +95,7 @@
           </li>
 
           <li>
-            <em>(ii) Multi-follower BLO</em>: Multiple followers solve lower-level problems, either independently or with interactions (markets, decentralized control, multi-agent systems)
-            <a href="#ref-colson2007overview" class="cite">[2]</a>,
-            <a href="#ref-avraamidou2018novel" class="cite">[3]</a>.
+            <em>(ii) Multi-follower BLO</em>: Multiple followers solve lower-level problems, either independently or with interactions (markets, decentralized control, multi-agent systems).
 
             <p class="muted small"><strong>Independent followers (separable lower-levels):</strong></p>
             <div class="equation"><div class="math">
@@ -140,7 +140,8 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
       <!-- 2) Coupling structure -->
       <li>
         <strong>Based on coupling structure:</strong>
-        Coupling describes how upper-level and lower-level constraints depend on each other’s variables, strongly influencing tractability.
+        Coupling describes how upper-level and lower-level constraints depend on each other’s variables, strongly influencing tractability <a href="#ref-colson2007overview" class="cite">[2]</a>,
+            <a href="#ref-henke2025coupling" class="cite">[4]</a>.
 
         <ul class="bullets">
           <li>
@@ -162,9 +163,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
           </li>
 
           <li>
-            <em>(ii) Fully coupled constraints</em>: The upper-level and lower-level constraints share variables (the most general and often most realistic case)
-            <a href="#ref-colson2007overview" class="cite">[2]</a>,
-            <a href="#ref-henke2025coupling" class="cite">[4]</a>:
+            <em>(ii) Fully coupled constraints</em>: The upper-level and lower-level constraints share variables (the most general and often most realistic case):
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_fully_coupled}
 \begin{aligned}
@@ -191,7 +190,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
         <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_multiobj_LL}
 \begin{aligned}
-&\min_{\mathbf{x},\mathbf{x}_l} F(\mathbf{x},\mathbf{x}_l)\\
+&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x}_u,\mathbf{x}_l)\\
 &\text{s.t.}\begin{cases} G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
           \mathbf{x}_l\in \mathcal{P}(\mathbf{x}_u)
 := \left\{ \mathbf{x}_l\in\mathbf{X}_l\ \big|\ \mathbf{x}_l\ \text{is Pareto-optimal for}\ 
@@ -210,7 +209,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
       <!-- 4) Tie-breaking -->
       <li>
         <strong>Based on lower-level model selection (tie-breaking):</strong>
-        When the lower-level has multiple optimal solutions, the modeling choice defines tie-breaking. Let
+        When the lower-level has multiple optimal solutions, the modeling choice defines tie-breaking <a href="#ref-liu2018pessimistic" class="cite">[6]</a>. Let
         \[
           S(\mathbf{x}_l) := \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l)\le 0 \right\}.
         \]
@@ -221,7 +220,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_optimistic}
 \begin{aligned}
-&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x},\mathbf{x}_l)\\
+&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x}_u,\mathbf{x}_l)\\
 &\text{s.t.}\begin{cases} G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
 \mathbf{x}_l\in S(\mathbf{x}_u).\end{cases}
 \end{aligned}
@@ -234,12 +233,12 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
           </li>
 
           <li>
-            <em>(ii) Pessimistic bilevel</em>: The upper-level assumes that the lower-level selects the solution that is least favorable to the upper-level. This is often used in security, adversarial, or robust optimization settings <a href="#ref-liu2018pessimistic" class="cite">[6]</a>.
+            <em>(ii) Pessimistic bilevel</em>: The upper-level assumes that the lower-level selects the solution that is least favorable to the upper-level. This is often used in security, adversarial, or robust optimization settings.
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_pessimistic}
 \begin{aligned}
 &\min_{\mathbf{x}_u} \! \max_{\mathbf{x}_l\in S(\mathbf{x}_u)} F(\mathbf{x}_u,\mathbf{x}_l)\\
-&\text{s.t.}\mathbf{x}_u\in \mathbf{X}_u.
+&\text{s.t.}\,\mathbf{x}_u\in \mathbf{X}_u.
 \end{aligned}
 \end{equation}
             </div></div>
@@ -267,7 +266,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 \begin{aligned}
 &\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x},\mathbf{x}_l)\\
 &\text{s.t.}\begin{cases} G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
-& \mathbf{x}_l\in \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l)\le 0 \right\}.\end{cases}
+\mathbf{x}_l\in \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l)\le 0 \right\}.\end{cases}
 \end{aligned}
 \end{equation}
             </div></div>
@@ -275,14 +274,14 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
           </li>
 
           <li>
-            <em>(ii) Stochastic BLO</em>:
+            <em>(ii) Stochastic/Robust BLO</em>: Parameters are uncertain, and solutions must account for variability or risk. Stochastic bilevel models incorporate randomness (e.g., expectations over distributions), while robust models seek solutions resilient to worst-case realizations
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_stochastic}
 \begin{aligned}
 &\min_{\mathbf{x}_u} \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}_u, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
 &\text{s.t.}\, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}) \in 
 \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi}) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi})\le 0 \right\},
-\quad \forall\, a lower-level ~\boldsymbol{\xi}.
+\quad \forall\, \text{a lower-level} ~\boldsymbol{\xi}.
 \end{aligned}
 \end{equation}
             </div></div>
@@ -292,7 +291,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
           </li>
 
           <li>
-            <em>(iii) Robust BLO</em>:
+            <p> Robust BLO:</p>
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_robust}
 \begin{aligned}
@@ -300,7 +299,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 F\!\left(\mathbf{x}_u, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
 &\text{s.t.}\, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}) \in 
 \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi}) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi})\le 0 \right\},
-\quad \forall\, a lower-level~ \boldsymbol{\xi}\in\mathcal{U}.
+\quad \forall\, \text{a lower-level}~ \boldsymbol{\xi}\in\mathcal{U}.
 \end{aligned}
 \end{equation}
             </div></div>
