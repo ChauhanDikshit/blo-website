@@ -102,8 +102,9 @@
 \begin{equation}\label{eq:tax_multi_follower_ind}
 \begin{aligned}
 &\min_{\mathbf{x}_u} F(\mathbf{x}_u,\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m})\\
-&\text{s.t.}\begin{cases}G(\mathbf{x}_u\mathbf{x}_l)\le 0,\\
-              \mathbf{x}_{l_i} \in \arg\!\min_{\mathbf{x}_{l_i}\left\{ f_i(\mathbf{x}_u,\mathbf{x}_{l_i})\ \big|\ g_i(\mathbf{x}_u,\mathbf{x}_{l_i})\le 0 \right\},
+&\text{s.t.}\begin{cases}
+              G(\mathbf{x}_u,\,\mathbf{x}_l)\le 0,\\
+              \mathbf{x}_{l_i} \in \arg\!\min_{\mathbf{x}_{l_i}}\left\{ f_i(\mathbf{x}_u,\mathbf{x}_{l_i})\ \big|\ g_i(\mathbf{x}_u,\mathbf{x}_{l_i})\le 0 \right\},
 \quad i=1,\ldots,m.\end{cases}
 \end{aligned}
 \end{equation}
@@ -116,18 +117,21 @@
             <p class="muted small"><strong>Interacting followers (Generalized Nash / equilibrium-type lower-level):</strong></p>
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_multi_follower_int}
-\mathbf{x}_{l_i} \in \arg\!\min_{\mathbf{x}_{l_i}\in \mathbf{X}_{l_i}(\mathbf{x}_u,\mathbf{x}_{l_{-i}})}
-f_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})
-\quad \text{s.t.}\quad
+\begin{aligned}
+&\min_{\mathbf{x}_u} F(\mathbf{x}_u,\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m})\\
+&\text{s.t.}\begin{cases}
+              G(\mathbf{x}_u,\,\mathbf{x}_l)\le 0,\\
+              \mathbf{x}_{l_i} \in \arg\!\min_{\mathbf{x}_{l_i}\in \mathbf{X}_{l_i}(\mathbf{x}_u,\mathbf{x}_{l_{-i}})}
+f_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\\
 g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
-\quad i=1,\ldots,m,
-\end{equation}
+\quad i=1,\ldots,m,\end{cases}
+\end{aligned}\end{equation}
             </div></div>
 
             <p class="muted small">
-              where \(\mathbf{y}_{-i}=(\mathbf{y}_1,\ldots,\mathbf{y}_{i-1},\mathbf{y}_{i+1},\ldots,\mathbf{y}_m)\).<br/>
-              <strong>Interpretation:</strong> the lower-level outcome is an equilibrium concept rather than independent optima.<br/>
-              <strong>Method implications:</strong> decomposition/penalty/equilibrium reformulations are common; uniqueness/existence assumptions matter more.
+              where \(\mathbf{x}_{l_{-i}}=(\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_{i-1}},\mathbf{x}_{l_{i+1}},\ldots,\mathbf{x}_{l_m})\).<br/>
+              <i>Interpretation:</i> the lower-level outcome is an equilibrium concept rather than independent optima.<br/>
+              <i>Method implications:</i> decomposition/penalty/equilibrium reformulations are common; uniqueness/existence assumptions matter more.
             </p>
           </li>
         </ul>
@@ -136,24 +140,24 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
       <!-- 2) Coupling structure -->
       <li>
         <strong>Based on coupling structure:</strong>
-        Coupling describes how UL and lower-level constraints depend on each other’s variables, strongly influencing tractability.
+        Coupling describes how upper-level and lower-level constraints depend on each other’s variables, strongly influencing tractability.
 
         <ul class="bullets">
           <li>
-            <em>(i) Decoupled constraints</em>: UL constraints involve only \(\mathbf{x}\) and lower-level constraints involve only \(\mathbf{y}\), while objectives may remain coupled:
+            <em>(i) Decoupled constraints</em>: The upper-level constraints involve only \(\mathbf{x}_u\) and lower-level constraints involve only \(\mathbf{x}_l\), while objectives may remain coupled:
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_decoupled}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\quad & G(\mathbf{x})\le 0,\\
-& \mathbf{y}\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v})\ \big|\ g(\mathbf{v})\le 0 \right\}.
+&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x}_u,\mathbf{x}_l)\\
+&\text{s.t.}\begin{cases} G(\mathbf{x}_u)\le 0,\\
+ \mathbf{x}_l\in \arg\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l)\ \big|\ g(\mathbf{x}_l)\le 0 \right\}.\end{cases}
 \end{aligned}
 \end{equation}
             </div></div>
 
             <p class="muted small">
-              <strong>Interpretation:</strong> feasibility sets are structurally simpler, but bilevel difficulty persists via the lower-level optimality mapping.<br/>
-              <strong>Method implications:</strong> lower-level feasibility does not change with \(\mathbf{x}\); however \(\mathbf{x}\mapsto \mathbf{y}^*(\mathbf{x})\) can stilower-level be nonsmooth or set-valued.
+              <i>Interpretation:</i> feasibility sets are structurally simpler, but bilevel difficulty persists via the lower-level optimality mapping.<br/>
+              <i>Method implications:</i> lower-level feasibility does not change with \(\mathbf{x}_u\); however \(\mathbf{x}_u\mapsto \mathbf{x}_l^*(\mathbf{x}_u)\) can stilower-level be nonsmooth or set-valued.
             </p>
           </li>
 
@@ -164,9 +168,9 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_fully_coupled}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\quad & G(\mathbf{x},\mathbf{y})\le 0,\\
-& \mathbf{y}\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v})\ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
+\min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
+\text{s.t.}\quad & G(\mathbf{x},\mathbf{x}_l)\le 0,\\
+& \mathbf{x}_l\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v})\ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
 \end{aligned}
 \end{equation}
             </div></div>
@@ -187,10 +191,10 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
         <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_multiobj_LL}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\quad & \mathbf{y}\in \mathcal{P}(\mathbf{x})
-:= \left\{ \mathbf{y}\in\mathbf{Y}\ \big|\ \mathbf{y}\ \text{is Pareto-optimal for}\ 
-\min_{\mathbf{v}\in\mathbf{Y}} \ \mathbf{f}(\mathbf{x},\mathbf{v})\right\}.
+\min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
+\text{s.t.}\quad & \mathbf{x}_l\in \mathcal{P}(\mathbf{x})
+:= \left\{ \mathbf{x}_l\in\mathbf{x}_l\ \big|\ \mathbf{x}_l\ \text{is Pareto-optimal for}\ 
+\min_{\mathbf{v}\in\mathbf{x}_l} \ \mathbf{f}(\mathbf{x},\mathbf{v})\right\}.
 \end{aligned}
 \end{equation}
         </div></div>
@@ -216,14 +220,14 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_optimistic}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\quad & G(\mathbf{x},\mathbf{y})\le 0,\\
-& \mathbf{y}\in S(\mathbf{x}).
+\min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
+\text{s.t.}\quad & G(\mathbf{x},\mathbf{x}_l)\le 0,\\
+& \mathbf{x}_l\in S(\mathbf{x}).
 \end{aligned}
 \end{equation}
             </div></div>
             <p class="muted small">
-              <strong>Interpretation:</strong> if \(S(\mathbf{x})\) is multi-valued, the follower selects an LL-optimal \(\mathbf{y}\) most favorable to the leader.<br/>
+              <strong>Interpretation:</strong> if \(S(\mathbf{x})\) is multi-valued, the follower selects an LL-optimal \(\mathbf{x}_l\) most favorable to the leader.<br/>
               <strong>Method implications:</strong> often more tractable; widely used in benchmarks and algorithm development.
             </p>
           </li>
@@ -233,7 +237,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_pessimistic}
 \begin{aligned}
-\min_{\mathbf{x}} \ \max_{\mathbf{y}\in S(\mathbf{x})} \quad & F(\mathbf{x},\mathbf{y})\\
+\min_{\mathbf{x}} \ \max_{\mathbf{x}_l\in S(\mathbf{x})} \quad & F(\mathbf{x},\mathbf{x}_l)\\
 \text{s.t.}\quad & \mathbf{x}\in \mathbf{X}.
 \end{aligned}
 \end{equation}
@@ -260,9 +264,9 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_deterministic}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{y}} \quad & F(\mathbf{x},\mathbf{y})\\
-\text{s.t.}\quad & G(\mathbf{x},\mathbf{y})\le 0,\\
-& \mathbf{y}\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
+\min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
+\text{s.t.}\quad & G(\mathbf{x},\mathbf{x}_l)\le 0,\\
+& \mathbf{x}_l\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
 \end{aligned}
 \end{equation}
             </div></div>
@@ -274,8 +278,8 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_stochastic}
 \begin{aligned}
-\min_{\mathbf{x}} \quad & \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}, \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
-\text{s.t.}\quad & \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}) \in 
+\min_{\mathbf{x}} \quad & \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}, \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
+\text{s.t.}\quad & \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}) \in 
 \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
 \quad \foralower-level \boldsymbol{\xi}.
 \end{aligned}
@@ -292,8 +296,8 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 \begin{equation}\label{eq:tax_robust}
 \begin{aligned}
 \min_{\mathbf{x}} \quad & \max_{\boldsymbol{\xi}\in\mathcal{U}}
-F\!\left(\mathbf{x}, \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
-\text{s.t.}\quad & \mathbf{y}^*(\mathbf{x},\boldsymbol{\xi}) \in 
+F\!\left(\mathbf{x}, \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
+\text{s.t.}\quad & \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}) \in 
 \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
 \quad \foralower-level \boldsymbol{\xi}\in\mathcal{U}.
 \end{aligned}
