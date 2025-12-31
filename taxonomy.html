@@ -253,24 +253,25 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 
       <!-- 5) Determinism -->
       <li>
-        <strong>Based on determinism (deterministic / stochastic / robust):</strong>
+        <strong>Based on determinism (deterministic/stochastic/robust):</strong>
         This category specifies whether parameters are known exactly or uncertain
         <a href="#ref-beck2023survey" class="cite">[7]</a>,
         <a href="#ref-lu2018uncertainty" class="cite">[8]</a>.
 
         <ul class="bullets">
           <li>
-            <em>(i) Deterministic BLO</em>:
+            <em>(i) Deterministic BLO</em>: All variables, parameters, and functions involved are known exactly. This classical setting is common in theoretical research.
+            
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_deterministic}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
-\text{s.t.}\quad & G(\mathbf{x},\mathbf{x}_l)\le 0,\\
-& \mathbf{x}_l\in \arg\!\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
+&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x},\mathbf{x}_l)\\
+&\text{s.t.}\begin{cases} G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
+& \mathbf{x}_l\in \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l)\le 0 \right\}.\end{cases}
 \end{aligned}
 \end{equation}
             </div></div>
-            <p class="muted small"><strong>Interpretation:</strong> alower-level data are fixed and known.</p>
+            <p class="muted small"><i>Interpretation:</i> alower-level data are fixed and known.</p>
           </li>
 
           <li>
@@ -278,15 +279,15 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_stochastic}
 \begin{aligned}
-\min_{\mathbf{x}} \quad & \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}, \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
-\text{s.t.}\quad & \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}) \in 
-\arg\!\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
-\quad \foralower-level \boldsymbol{\xi}.
+&\min_{\mathbf{x}_u} \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}_u, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
+&\text{s.t.}\, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}) \in 
+\arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi}) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi})\le 0 \right\},
+\quad \forall alower-level ~\boldsymbol{\xi}.
 \end{aligned}
 \end{equation}
             </div></div>
             <p class="muted small">
-              <strong>Interpretation:</strong> uncertainty \(\boldsymbol{\xi}\) is realized and the follower reacts; the leader optimizes expected performance.
+              <i>Interpretation:</i> uncertainty \(\boldsymbol{\xi}\) is realized and the follower reacts; the leader optimizes expected performance.
             </p>
           </li>
 
@@ -295,15 +296,15 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_robust}
 \begin{aligned}
-\min_{\mathbf{x}} \quad & \max_{\boldsymbol{\xi}\in\mathcal{U}}
-F\!\left(\mathbf{x}, \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
-\text{s.t.}\quad & \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}) \in 
-\arg\!\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
-\quad \foralower-level \boldsymbol{\xi}\in\mathcal{U}.
+&\min_{\mathbf{x}_u}\!\max_{\boldsymbol{\xi}\in\mathcal{U}}
+F\!\left(\mathbf{x}_u, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
+&\text{s.t.}\, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}) \in 
+\arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi}) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi})\le 0 \right\},
+\quad \forall alower-level~ \boldsymbol{\xi}\in\mathcal{U}.
 \end{aligned}
 \end{equation}
             </div></div>
-            <p class="muted small"><strong>Interpretation:</strong> the leader optimizes against worst-case realizations in \(\mathcal{U}\).</p>
+            <p class="muted small"><i>Interpretation:</i> the leader optimizes against worst-case realizations in \(\mathcal{U}\).</p>
           </li>
         </ul>
       </li>
