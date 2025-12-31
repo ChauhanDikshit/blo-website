@@ -101,7 +101,7 @@
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_multi_follower_ind}
 \begin{aligned}
-&\min_{\mathbf{x}_u} F(\mathbf{x}_u,\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m})\\
+&\min_{\mathbf{x}_u, \mathbf{x}_{l_i}} F(\mathbf{x}_u,\mathbf{x}_{l_1},\ldots,\mathbf{x}_{l_m})\\
 &\text{s.t.}\begin{cases}
               G(\mathbf{x}_u,\,\mathbf{x}_l)\le 0,\\
               \mathbf{x}_{l_i} \in \arg\!\min_{\mathbf{x}_{l_i}}\left\{ f_i(\mathbf{x}_u,\mathbf{x}_{l_i})\ \big|\ g_i(\mathbf{x}_u,\mathbf{x}_{l_i})\le 0 \right\},
@@ -150,7 +150,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 \begin{aligned}
 &\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x}_u,\mathbf{x}_l)\\
 &\text{s.t.}\begin{cases} G(\mathbf{x}_u)\le 0,\\
- \mathbf{x}_l\in \arg\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l)\ \big|\ g(\mathbf{x}_l)\le 0 \right\}.\end{cases}
+ \mathbf{x}_l\in \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l)\ \big|\ g(\mathbf{x}_l)\le 0 \right\}.\end{cases}
 \end{aligned}
 \end{equation}
             </div></div>
@@ -162,22 +162,22 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
           </li>
 
           <li>
-            <em>(ii) Fully coupled constraints</em>: UL and lower-level constraints share variables (the most general and often most realistic case)
+            <em>(ii) Fully coupled constraints</em>: The upper-level and lower-level constraints share variables (the most general and often most realistic case)
             <a href="#ref-colson2007overview" class="cite">[2]</a>,
             <a href="#ref-henke2025coupling" class="cite">[4]</a>:
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_fully_coupled}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
-\text{s.t.}\quad & G(\mathbf{x},\mathbf{x}_l)\le 0,\\
-& \mathbf{x}_l\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v})\ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
+&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x}_u,\mathbf{x}_l)\\
+&\text{s.t.}\begin{cases} G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
+\mathbf{x}_l\in \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l)\ \big|\ g(\mathbf{x}_u,\mathbf{x}_l)\le 0 \right\}.\end{cases}
 \end{aligned}
 \end{equation}
             </div></div>
 
             <p class="muted small">
-              <strong>Interpretation:</strong> \(\mathbf{x}\) can alter lower-level feasibility and the lower-level optimum set; regime switches are common.<br/>
-              <strong>Method implications:</strong> KKT/MPEC reformulations often lead to complementarity constraints; discrete/nonconvex lower-level usually requires specialized or heuristic approaches.
+              <i>Interpretation:</i> \(\mathbf{x}_u\) can alter lower-level feasibility and the lower-level optimum set; regime switches are common.<br/>
+              <i>Method implications:</i> KKT/MPEC reformulations often lead to complementarity constraints; discrete/nonconvex lower-level problems usually require specialized or heuristic approaches.
             </p>
           </li>
         </ul>
@@ -185,24 +185,25 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 
       <!-- 3) Multiobjective lower-level -->
       <li>
-        <strong>Based on number of criteria in lower-level (multiobjective LL):</strong>
+        <strong>Based on the number of criteria in lower-level (multiobjective lower-level):</strong>
         If the lower-level has multiple conflicting objectives, the lower-level “solution” becomes a Pareto-optimal set
         <a href="#ref-deb-bilevel" class="cite">[5]</a>.
         <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_multiobj_LL}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
-\text{s.t.}\quad & \mathbf{x}_l\in \mathcal{P}(\mathbf{x})
-:= \left\{ \mathbf{x}_l\in\mathbf{x}_l\ \big|\ \mathbf{x}_l\ \text{is Pareto-optimal for}\ 
-\min_{\mathbf{v}\in\mathbf{x}_l} \ \mathbf{f}(\mathbf{x},\mathbf{v})\right\}.
+&\min_{\mathbf{x},\mathbf{x}_l} F(\mathbf{x},\mathbf{x}_l)\\
+&\text{s.t.}\begin{cases} G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
+          \mathbf{x}_l\in \mathcal{P}(\mathbf{x}_u)
+:= \left\{ \mathbf{x}_l\in\mathbf{X}_l\ \big|\ \mathbf{x}_l\ \text{is Pareto-optimal for}\ 
+\min_{\mathbf{x}_l\in\mathbf{X}_l} \ \mathbf{f}(\mathbf{x}_u,\mathbf{x}_l)\right\}.\end{cases}
 \end{aligned}
 \end{equation}
         </div></div>
 
         <p class="muted small">
-          <strong>Interpretation:</strong> the lower-level reaction is a set \(\mathcal{P}(\mathbf{x})\); a selection rule is needed to evaluate the UL objective.<br/>
-          <strong>Why challenging:</strong> it is not known <em>a priori</em> which lower-level Pareto points induce UL optimality; algorithms may need a diverse lower-level Pareto approximation.<br/>
-          <strong>Method implications:</strong> must define (and report) lower-level preference/selection (scalarization, reference point, representative set, etc.).
+          <i>Interpretation:</i> the lower-level reaction is a set \(\mathcal{P}(\mathbf{x}_u)\); a selection rule is needed to evaluate the upper-level objective.<br/>
+          <i>Why challenging:</i> it is not known <em>a priori</em> which lower-level Pareto points induce upper-level optimality; algorithms may need a diverse lower-level Pareto approximation.<br/>
+          <i>Method implications:</i> must define (and report) lower-level preference/selection (scalarization, reference point, representative set, etc.).
         </p>
       </li>
 
@@ -211,41 +212,40 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
         <strong>Based on lower-level model selection (tie-breaking):</strong>
         When the lower-level has multiple optimal solutions, the modeling choice defines tie-breaking. Let
         \[
-          S(\mathbf{x}) := \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
+          S(\mathbf{x}_l) := \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l)\le 0 \right\}.
         \]
 
         <ul class="bullets">
           <li>
-            <em>(i) Optimistic bilevel</em>:
+            <em>(i) Optimistic bilevel</em>: The upper-level assumes that the lower-level will choose a solution that is most favorable to the upper-level. This is suitable when cooperation or coordination is expected.
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_optimistic}
 \begin{aligned}
-\min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
-\text{s.t.}\quad & G(\mathbf{x},\mathbf{x}_l)\le 0,\\
-& \mathbf{x}_l\in S(\mathbf{x}).
+&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x},\mathbf{x}_l)\\
+&\text{s.t.}\begin{cases} G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
+\mathbf{x}_l\in S(\mathbf{x}_u).\end{cases}
 \end{aligned}
 \end{equation}
             </div></div>
             <p class="muted small">
-              <strong>Interpretation:</strong> if \(S(\mathbf{x})\) is multi-valued, the follower selects an LL-optimal \(\mathbf{x}_l\) most favorable to the leader.<br/>
-              <strong>Method implications:</strong> often more tractable; widely used in benchmarks and algorithm development.
+              <i>Interpretation:</i> if \(S(\mathbf{x}_u)\) is multi-valued, the follower selects an lower-level-optimal \(\mathbf{x}_l\) most favorable to the leader.<br/>
+              <i>Method implications:</i> often more tractable; widely used in benchmarks and algorithm development.
             </p>
           </li>
 
           <li>
-            <em>(ii) Pessimistic bilevel</em>:
+            <em>(ii) Pessimistic bilevel</em>: The upper-level assumes that the lower-level selects the solution that is least favorable to the upper-level. This is often used in security, adversarial, or robust optimization settings <a href="#ref-liu2018pessimistic" class="cite">[6]</a>.
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_pessimistic}
 \begin{aligned}
-\min_{\mathbf{x}} \ \max_{\mathbf{x}_l\in S(\mathbf{x})} \quad & F(\mathbf{x},\mathbf{x}_l)\\
-\text{s.t.}\quad & \mathbf{x}\in \mathbf{X}.
+&\min_{\mathbf{x}_u} \! \max_{\mathbf{x}_l\in S(\mathbf{x}_u)} F(\mathbf{x}_u,\mathbf{x}_l)\\
+&\text{s.t.}\mathbf{x}_u\in \mathbf{X}_u.
 \end{aligned}
 \end{equation}
             </div></div>
             <p class="muted small">
-              <strong>Interpretation:</strong> the leader plans against the worst LL-optimal response
-              <a href="#ref-liu2018pessimistic" class="cite">[6]</a>.<br/>
-              <strong>Method implications:</strong> typically harder; solutions may be sensitive to how the inner maximization over \(S(\mathbf{x})\) is computed.
+              <i>Interpretation:</i> the leader plans against the worst lower-level-optimal response.<br/>
+              <i>Method implications:</i> typically harder; solutions may be sensitive to how the inner maximization over \(S(\mathbf{x}_u)\) is computed.
             </p>
           </li>
         </ul>
@@ -266,7 +266,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 \begin{aligned}
 \min_{\mathbf{x},\mathbf{x}_l} \quad & F(\mathbf{x},\mathbf{x}_l)\\
 \text{s.t.}\quad & G(\mathbf{x},\mathbf{x}_l)\le 0,\\
-& \mathbf{x}_l\in \arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
+& \mathbf{x}_l\in \arg\!\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v}) \ \big|\ g(\mathbf{x},\mathbf{v})\le 0 \right\}.
 \end{aligned}
 \end{equation}
             </div></div>
@@ -280,7 +280,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 \begin{aligned}
 \min_{\mathbf{x}} \quad & \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}, \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
 \text{s.t.}\quad & \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}) \in 
-\arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
+\arg\!\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
 \quad \foralower-level \boldsymbol{\xi}.
 \end{aligned}
 \end{equation}
@@ -298,7 +298,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 \min_{\mathbf{x}} \quad & \max_{\boldsymbol{\xi}\in\mathcal{U}}
 F\!\left(\mathbf{x}, \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
 \text{s.t.}\quad & \mathbf{x}_l^*(\mathbf{x},\boldsymbol{\xi}) \in 
-\arg\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
+\arg\!\min_{\mathbf{v}} \left\{ f(\mathbf{x},\mathbf{v},\boldsymbol{\xi}) \ \big|\ g(\mathbf{x},\mathbf{v},\boldsymbol{\xi})\le 0 \right\},
 \quad \foralower-level \boldsymbol{\xi}\in\mathcal{U}.
 \end{aligned}
 \end{equation}
