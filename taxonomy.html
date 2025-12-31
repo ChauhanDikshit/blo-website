@@ -264,7 +264,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
             <div class="equation"><div class="math">
 \begin{equation}\label{eq:tax_deterministic}
 \begin{aligned}
-&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x},\mathbf{x}_l)\\
+&\min_{\mathbf{x}_u,\mathbf{x}_l} F(\mathbf{x}_u,\mathbf{x}_l)\\
 &\text{s.t.}\begin{cases} G(\mathbf{x}_u,\mathbf{x}_l)\le 0,\\
 \mathbf{x}_l\in \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l)\le 0 \right\}.\end{cases}
 \end{aligned}
@@ -281,7 +281,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 &\min_{\mathbf{x}_u} \mathbb{E}_{\boldsymbol{\xi}}\!\left[ F\!\left(\mathbf{x}_u, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}), \boldsymbol{\xi}\right) \right]\\
 &\text{s.t.}\, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}) \in 
 \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi}) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi})\le 0 \right\},
-\quad \forall\, \text{a lower-level} ~\boldsymbol{\xi}.
+\quad \forall\, \text{lower-level} ~\boldsymbol{\xi}.
 \end{aligned}
 \end{equation}
             </div></div>
@@ -299,7 +299,7 @@ g_i(\mathbf{x}_u,\mathbf{x}_{l_i},\mathbf{x}_{l_{-i}})\le 0,
 F\!\left(\mathbf{x}_u, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}), \boldsymbol{\xi}\right)\\
 &\text{s.t.}\, \mathbf{x}_l^*(\mathbf{x}_u,\boldsymbol{\xi}) \in 
 \arg\!\min_{\mathbf{x}_l} \left\{ f(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi}) \ \big|\ g(\mathbf{x}_u,\mathbf{x}_l,\boldsymbol{\xi})\le 0 \right\},
-\quad \forall\, \text{a lower-level}~ \boldsymbol{\xi}\in\mathcal{U}.
+\quad \forall\, \text{lower-level}~ \boldsymbol{\xi}\in\mathcal{U}.
 \end{aligned}
 \end{equation}
             </div></div>
