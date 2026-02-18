@@ -101,7 +101,7 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
 
         <p class="muted small">
           In linear bilevel classes, this pathway often leads to MILP-style reformulations (e.g., via linearization of complementarity),
-          which can then be solved with branch-and-bound on small-to-medium structured instances
+          which can then be solved with branch-and-bound (B&B) on small-to-medium structured instances
           <a href="#ref-bard1998practical" class="cite">[5]</a>.
         </p>
 
@@ -110,7 +110,7 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
         <h3>Descent methods (hypergradient-based classical schemes)</h3>
         <p>
           Descent methods seek directions that improve the UL objective while respecting that the LL must remain optimal.
-          In smooth settings (e.g., nonconvex–strongly-convex bilevel), hypergradients can be obtained by implicit differentiation or by
+          In smooth settings (e.g., nonconvex-strongly-convex bilevel), hypergradients can be obtained by implicit differentiation or by
           controlled approximation of the LL solution mapping
           <a href="#ref-ghadimi2018approximation" class="cite">[6]</a>.
         </p>
@@ -128,7 +128,7 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
         </div></div>
 
         <p class="muted small">
-          These ideas connect directly to modern differentiable BLO (implicit gradients / unrolling),
+          These ideas connect directly to modern differentiable BLO (implicit gradients/unrolling),
           but classical variants emphasize algorithmic safeguards (feasibility maintenance, subproblem checks, and step control).
         </p>
 
@@ -191,33 +191,167 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
           These methods complement EA-style black-box solvers by adding theory in smooth settings; EAs can remain preferable when the landscape is nonsmooth,
           discrete, heavily constrained, or highly rugged.
         </p>
-      </div>
-
-        
-        <ul class="bullets">
-          <li><strong>KKT/MPEC reformulations</strong> (often when the follower is convex and satisfies regularity conditions).</li>
-          <li><strong>Value-function and penalty methods</strong> (encode the LL optimality condition indirectly).</li>
-          <li><strong>Exact algorithms</strong> such as branch-and-bound for certain mixed-integer bilevel classes.</li>
-        </ul>
         <p class="muted small">
           Strength: strong guarantees on structured instances. Weakness: can fail or become impractical with nonconvexity, nonsmoothness, discreteness, or black-box LL solvers.
         </p>
       </div>
 
-      <div class="card">
-        <h2 id="ea">Evolutionary algorithms (EAs)</h2>
-        <p>
-          EAs are derivative-free and naturally handle discontinuities, multimodality, and black-box objectives—making them attractive for many real-world BLO cases.
-          Common EA families used in bilevel settings include GA/DE/PSO and co-evolution strategies
-          <a href="#ref-7942105" class="cite">[1]</a>.
-        </p>
-        <ul class="bullets">
-          <li><strong>Nested evaluation</strong>: each UL candidate triggers LL optimization (expensive).</li>
-          <li><strong>Approximation strategies</strong>: reuse LL solutions, surrogate LL models, or partial LL solves.</li>
-          <li><strong>Multiobjective extensions</strong>: maintain Pareto sets at one or both levels.</li>
-        </ul>
-      </div>
-    </div>
+     <div class="card">
+  <h2 id="ea">Evolutionary algorithms (EAs)</h2>
+
+  <p>
+    Due to the limitations of classical approaches, evolutionary algorithms (EAs) have become widely used for bilevel optimization (BLO)
+    <a href="#ref-turgut2023systematic" class="cite">[14]</a>,
+    <a href="#ref-chauhan2024competitive" class="cite">[15]</a>.
+    These population-based, derivative-free methods are particularly effective for non-convex, multi-modal, noisy, or black-box settings
+    <a href="#ref-7942105" class="cite">[1]</a>,
+    <a href="#ref-10121701" class="cite">[16]</a>.
+    EA-based BLO methods differ mainly in how they (i) handle the lower-level (LL) optimization, (ii) reuse structure or information across levels, and
+    (iii) control the computational cost of nested evaluations.
+  </p>
+
+  <hr/>
+
+  <h3>Taxonomy and common EA frameworks for BLO</h3>
+  <p class="muted">
+    The central difficulty is the LL “response mapping”: each upper-level (UL) candidate may require solving one (or many) LL problems. EA frameworks
+    trade off generality vs. computational cost by choosing how explicitly they solve, approximate, or co-evolve the LL response.
+  </p>
+
+  <h4>1) Nested EA</h4>
+  <p>
+    <strong>Idea:</strong> run an EA at the UL, and for each UL candidate, run a full EA at the LL to compute the follower response
+    <a href="#ref-sinha2014finding" class="cite">[17]</a>,
+    <a href="#ref-kuo2011hybrid" class="cite">[18]</a>.
+  </p>
+  <ul class="bullets">
+    <li><strong>LL handling:</strong> explicit LL optimization (EA inside EA).</li>
+    <li><strong>Strength:</strong> fully derivative-free; works for black-box / simulation-based LLs.</li>
+    <li><strong>Limitation:</strong> extremely expensive—LL evaluations dominate runtime, especially at high dimension or costly simulations
+      <a href="#ref-li2024bridging" class="cite">[19]</a>,
+      <a href="#ref-acm-3638530-3648409" class="cite">[20]</a>.
+    </li>
+  </ul>
+
+  <h4>2) Single-level reduction + EA</h4>
+  <p>
+    <strong>Idea:</strong> reduce the bilevel model to a single-level constrained problem (often via KKT/MPEC-style conditions) and then solve it with EAs
+    <a href="#ref-li2023ga" class="cite">[21]</a>,
+    <a href="#ref-camacho2022tabu" class="cite">[22]</a>,
+    <a href="#ref-10899879" class="cite">[23]</a>.
+    This can improve efficiency but relies on assumptions (e.g., convexity, smoothness, valid constraint qualifications), which may not hold in noisy or
+    simulator-based settings
+    <a href="#ref-yang2024bilevel" class="cite">[24]</a>,
+    <a href="#ref-lachhwani2022comprehensive" class="cite">[25]</a>.
+  </p>
+  <ul class="bullets">
+    <li><strong>LL handling:</strong> implicit (encoded as constraints/conditions).</li>
+    <li><strong>Strength:</strong> avoids repeated LL solves; often faster when assumptions hold.</li>
+    <li><strong>Limitation:</strong> reformulations can be brittle; complementarity constraints can be hard to handle robustly.</li>
+  </ul>
+
+  <h4>3) Co-evolutionary EAs</h4>
+  <p>
+    <strong>Idea:</strong> evolve two interacting populations simultaneously—one for UL (leader) solutions and one for LL (follower) responses—so both levels
+    adapt together
+    <a href="#ref-chaabani2018new" class="cite">[26]</a>,
+    <a href="#ref-8425468" class="cite">[27]</a>.
+    Co-evolution can explore multiple follower responses without fully solving the LL from scratch for every UL candidate.
+  </p>
+  <ul class="bullets">
+    <li><strong>LL handling:</strong> approximate via an evolving follower population.</li>
+    <li><strong>Strength:</strong> parallelizable; can maintain diverse LL responses (helpful when LL optima are non-unique).</li>
+    <li><strong>Limitation:</strong> coordination/synchronization matters—poor coupling may cause instability or premature convergence.</li>
+  </ul>
+
+  <h4>4) Surrogate-assisted EAs</h4>
+  <p>
+    <strong>Idea:</strong> learn surrogate models (e.g., GP/RBF/NN) to approximate expensive LL evaluations (objective/constraints or response mapping), and use
+    surrogates during EA search to reduce cost
+    <a href="#ref-islam2017surrogate" class="cite">[28]</a>.
+    Reliability depends on surrogate fidelity; practical designs often add uncertainty-aware sampling and periodic true re-evaluation.
+  </p>
+  <p class="muted small">
+    <strong>Remark:</strong> Surrogate-assisted EAs sit at the interface of EA and ML. The surrogate is an ML component, but the overall solver is still
+    evolutionary, so many surveys categorize them under EA-based BLO (and sometimes also as early EA–ML hybrids)
+    <a href="#ref-colson2007overview" class="cite">[4]</a>,
+    <a href="#ref-dempe2002foundations" class="cite">[29]</a>.
+  </p>
+
+  <hr/>
+
+  <h3>Representative evolutionary bilevel advances (post-2018)</h3>
+  <p>
+    Recent EA research emphasizes: (i) better scalability to higher-dimensional BLO, (ii) reducing nested LL cost via reuse/transfer/parallelism, and
+    (iii) surrogate learning or candidate preselection for expensive LL responses. Representative directions include response-approximation ideas
+    (e.g., BLEAQ)
+    <a href="#ref-sinha2017_bleaq" class="cite">[30]</a>,
+    CMA-ES-style bilevel search with distribution sharing
+    <a href="#ref-8388227" class="cite">[31]</a>,
+    and transfer-learning-based parallel bilevel EAs (e.g., TLEA)
+    <a href="#ref-9476019" class="cite">[32]</a>.
+    Multiobjective and cooperative variants have also been explored
+    <a href="#ref-9721406" class="cite">[33]</a>.
+  </p>
+
+  <hr/>
+
+  <h3>Strengths and limitations</h3>
+  <ul class="bullets">
+    <li><strong>Strengths:</strong> derivative-free; handles discrete/mixed variables; robust to nonconvexity and black-box evaluations; easy to parallelize.</li>
+    <li><strong>Limitations:</strong> high cost in nested settings; sample-inefficiency; sensitivity to parameters; scaling challenges in high dimensions; LL
+      non-uniqueness can cause unstable UL decisions.</li>
+  </ul>
+
+  <hr/>
+
+  <h3>Summary table</h3>
+  <div style="overflow:auto">
+    <table style="width:100%; border-collapse:collapse">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">Approach</th>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">LL handling</th>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">Scalability</th>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">Gradient use</th>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">Typical use cases</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Nested EA</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Direct EA solve at LL</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Poor</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">No</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">General-purpose, black-box functions</td>
+        </tr>
+        <tr>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Single-level reduction + EA</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">KKT/MPEC-style constraints</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Moderate</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Yes*</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Convex/smooth LL; structured constrained forms</td>
+        </tr>
+        <tr>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Co-evolutionary EAs</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Two interacting populations</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Moderate</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">No</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Strategic/competitive interaction; multiple LL optima</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;">Surrogate-assisted EA</td>
+          <td style="padding:8px;">Surrogate of LL or response mapping</td>
+          <td style="padding:8px;">High</td>
+          <td style="padding:8px;">No / Optional</td>
+          <td style="padding:8px;">Expensive LL evaluations; simulator-driven BLO</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted small">*: only when required by the reformulation.</p>
+</div>
+
 
     <div class="grid2">
       <div class="card">
