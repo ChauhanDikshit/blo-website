@@ -349,25 +349,248 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
     </table>
   </div>
   <p class="muted small">*: only when required by the reformulation.</p>
+</div></div>
+
+
+    <div class="card">
+  <h2 id="ml">ML for BLO problems</h2>
+
+  <p>
+    Recent advances in machine learning (ML) have reshaped bilevel optimization (BLO), especially in large-scale, data-driven settings.
+    Unlike many evolutionary approaches that treat the lower-level (LL) solver as a black box, ML-based BLO often leverages
+    <strong>differentiable programming</strong>, <strong>automatic differentiation</strong>, and <strong>gradient-informed updates</strong>.
+    This shift is driven by (i) the rise of differentiable optimization tools, (ii) the ubiquity of BLO in modern ML pipelines (e.g., hyperparameter tuning,
+    meta-learning, and neural architecture search), and (iii) the high computational cost of nested evolutionary evaluations at scale.
+  </p>
+
+  <p class="muted small">
+    At a high level, ML workflows naturally induce bilevel structure: the UL represents a generalization-driven objective (e.g., validation performance),
+    while the LL represents training/adaptation (e.g., ERM, inner-loop learning, or critic fitting).
+  </p>
+
+  <hr/>
+
+  <h3>Supervised learning-based methods</h3>
+  <p>
+    Supervised learning has enabled scalable and theoretically grounded BLO solvers, particularly for hyperparameter optimization (HO),
+    model selection, and meta-learning. Early work differentiated through the entire training trajectory to obtain gradients of hyperparameters
+    <a href="#ref-10.5555-3045118.3045343" class="cite">[3]</a>.
+    More recent methods reduce nested-loop overhead via single-timescale or single-loop stochastic updates (e.g., STABLE)
+    <a href="#ref-chen2022stable" class="cite">[4]</a>,
+    and improve efficiency and convergence using implicit-gradient approximations (e.g., accelerated AID)
+    <a href="#ref-chen2023aid" class="cite">[5]</a>.
+    Value-function-based reformulations provide an alternative route that can avoid expensive hypergradient computation and better handle constraints
+    <a href="#ref-10210699" class="cite">[6]</a>.
+  </p>
+
+  <ul class="bullets">
+    <li><strong>Key advantage vs EAs:</strong> gradient efficiency and scalability on large datasets / parameter spaces.</li>
+    <li><strong>Main assumption:</strong> sufficient smoothness/regularity to support stable differentiation through (approximate) LL solutions.</li>
+  </ul>
+
+  <hr/>
+
+  <h3>Deep learning and meta-learning perspectives</h3>
+
+  <h4>Generalized bilevel learning over structured spaces</h4>
+  <p>
+    Beyond finite-dimensional parameter tuning, recent research extends BLO to structured and (effectively) infinite-dimensional settings.
+    In <em>functional BLO</em>, the LL optimizes over a function space (e.g., a Hilbert space), which can preserve convexity in the inner problem while
+    enabling expressive hypothesis classes
+    <a href="#ref-petrulionyte2024functional" class="cite">[7]</a>.
+  </p>
+
+  <div class="equation"><div class="math">
+\begin{equation}\label{eq:ml-functional-blo}
+h^*_{\omega} = \arg\min_{h\in\mathcal{H}} \ \mathbb{E}_{(\mathbf{x},\mathbf{y})}\!\left[\|y-h(\mathbf{x})\|^2\right] + \frac{\omega}{2}\|h\|^2_{\mathcal{H}}.
+\end{equation}
+  </div></div>
+
+  <p>
+    Similarly, graph learning has been interpreted through BLO lenses, where message passing can be viewed as (approximate) descent steps of an LL process and
+    UL objectives guide global learning goals
+    <a href="#ref-zheng2024graph" class="cite">[8]</a>.
+    In structured decision-making and control, gradient-based frameworks combine implicit differentiation ideas with policy-gradient updates when UL gradients are not directly available
+    <a href="#ref-banker2025gradient" class="cite">[9]</a>.
+  </p>
+
+  <hr/>
+
+  <h3>Differentiable optimization in bilevel learning</h3>
+  <p>
+    Differentiable BLO is central to modern ML pipelines because UL learning requires gradients through the LL solution map.
+    Two dominant strategies are: <strong>(i) implicit differentiation</strong> and <strong>(ii) unrolled optimization</strong>
+    <a href="#ref-landry2021differentiable" class="cite">[10]</a>.
+  </p>
+
+  <h4>Implicit differentiation</h4>
+  <p>
+    If the LL optimum \(\mathbf{x}^*(\mathbf{y})\) satisfies a stationarity condition (or KKT conditions),
+    hypergradients can be computed without unrolling all LL iterations. A common template is:
+  </p>
+
+  <div class="equation"><div class="math">
+\begin{equation}\label{eq:ml-implicit-hypergradient}
+\nabla_{\mathbf{y}} F(\mathbf{x}^*(\mathbf{y}),\mathbf{y})
+\approx
+\nabla_{\mathbf{y}} F
+-
+\nabla^2_{\mathbf{x}\mathbf{y}} f \, \left(\nabla^2_{\mathbf{x}\mathbf{x}} f\right)^{-1}\! \nabla_{\mathbf{x}} F,
+\end{equation}
+  </div></div>
+
+  <p class="muted small">
+    Practical note: many large-scale methods avoid forming Hessians explicitly and instead use vector-Jacobian/Hessian-vector products and iterative linear solvers
+    <a href="#ref-franceschi2018bilevel" class="cite">[11]</a>.
+  </p>
+
+  <h4>Unrolled optimization</h4>
+  <p>
+    Unrolling treats the LL solver as a differentiable computation graph. For example, if LL uses \(T\) steps of gradient descent:
+  </p>
+
+  <div class="equation"><div class="math">
+\begin{equation}\label{eq:ml-unrolled-gd}
+\mathbf{x}_{t+1} = \mathbf{x}_{t} - \eta \nabla_{\mathbf{x}} f(\mathbf{x}_{t},\mathbf{y}), \quad t=0,1,\ldots,T-1,
+\end{equation}
+  </div></div>
+
+  <p class="muted small">
+    Unrolling is flexible and often “faithful” to the chosen LL optimizer, but memory/time scale with \(T\), which can be costly in deep networks.
+  </p>
+
+  <hr/>
+
+  <h3>Hyperparameter optimization and meta-learning</h3>
+  <p>
+    A standard HO bilevel formulation uses validation loss at the UL and training loss at the LL:
+  </p>
+
+  <div class="equation"><div class="math">
+\begin{equation}\label{eq:ml-hpo}
+\min_{\lambda}\ \mathcal{L}_{\text{val}}(\theta^*(\lambda))
+\quad \text{s.t.}\quad
+\theta^*(\lambda)=\arg\min_{\theta}\ \mathcal{L}_{\text{train}}(\theta,\lambda).
+\end{equation}
+  </div></div>
+
+  <p>
+    This viewpoint unifies HO and meta-learning (“learning to learn”), where the LL performs task adaptation and the UL enforces generalization across tasks
+    <a href="#ref-franceschi2017bridge" class="cite">[12]</a>.
+    Practical scalable first-order methods have been proposed for nonconvex bilevel learning (e.g., BOme!)
+    <a href="#ref-liu2022bome" class="cite">[13]</a>.
+  </p>
+
+  <hr/>
+
+  <h3>Neural architecture search</h3>
+  <p>
+    Differentiable NAS is naturally bilevel: the LL trains weights on training data, while the UL updates architecture parameters using validation performance.
+    DARTS-style methods relax discrete architectures into continuous mixtures via softmax weights
+    <a href="#ref-liu2018darts" class="cite">[14]</a>.
+  </p>
+
+  <div class="equation"><div class="math">
+\begin{equation}\label{eq:ml-darts-softmax}
+m_{ij}(\cdot)=\sum_{m\in\mathcal{M}}\frac{\exp(\alpha_{ij}^{m})}{\sum_{m'\in\mathcal{M}}\exp(\alpha_{ij}^{m'})}\, m(\cdot),
+\end{equation}
+  </div></div>
+
+  <p class="muted small">
+    Many follow-ups focus on stability and reducing second-order cost (e.g., Neumann-series approximations)
+    <a href="#ref-10440128" class="cite">[15]</a>.
+  </p>
+
+  <hr/>
+
+  <h3>Adversarial ML</h3>
+  <p>
+    Adversarial learning problems often have bilevel or min–max structure. In GAN-style training, the discriminator and generator optimize coupled objectives:
+  </p>
+
+  <div class="equation"><div class="math">
+\begin{equation}\label{eq:ml-gan-minmax}
+\min_{\mathbf{y}}\ \max_{\mathbf{x}}\ V(\mathbf{x},\mathbf{y})
+=
+\mathbb{E}_{u\sim p_{\text{data}}}[\log D_{\mathbf{x}}(u)]
++
+\mathbb{E}_{v\sim \mathcal{N}(0,1)}[\log(1-D_{\mathbf{x}}(G_{\mathbf{y}}(v)))].
+\end{equation}
+  </div></div>
+
+  <p>
+    BLO viewpoints help explain stability mechanisms (e.g., unrolling, regularization, bilevel tuning of adversarial components) and motivate hybrid schemes
+    that learn response mappings or surrogate the LL
+    <a href="#ref-10185941" class="cite">[16]</a>.
+  </p>
+
+  <hr/>
+
+  <h3>Summary table</h3>
+  <div style="overflow:auto">
+    <table style="width:100%; border-collapse:collapse">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">Technique</th>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">Main idea</th>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">Use cases</th>
+          <th style="text-align:left; padding:8px; border-bottom:1px solid rgba(0,0,0,0.12)">Refs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Differentiable BLO</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Implicit differentiation or unrolled optimization for hypergradients</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">HO, NAS, meta-learning</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">
+            <a href="#ref-franceschi2017bridge" class="cite">[12]</a>,
+            <a href="#ref-liu2022bome" class="cite">[13]</a>,
+            <a href="#ref-10440128" class="cite">[15]</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Supervised bilevel solvers</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Single-loop / implicit-gradient approximations with guarantees</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Tuning, meta-learning, constrained BLO</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">
+            <a href="#ref-chen2022stable" class="cite">[4]</a>,
+            <a href="#ref-chen2023aid" class="cite">[5]</a>,
+            <a href="#ref-10210699" class="cite">[6]</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Graph / functional BLO</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">Bilevel learning over structured spaces and response processes</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">GNNs, IV regression, structured learning</td>
+          <td style="padding:8px; border-bottom:1px solid rgba(0,0,0,0.08)">
+            <a href="#ref-petrulionyte2024functional" class="cite">[7]</a>,
+            <a href="#ref-zheng2024graph" class="cite">[8]</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:8px;">Adversarial BLO views</td>
+          <td style="padding:8px;">Min–max / bilevel modeling for stability and response approximation</td>
+          <td style="padding:8px;">GANs, robustness, poisoning/attacks</td>
+          <td style="padding:8px;">
+            <a href="#ref-10185941" class="cite">[16]</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr/>
+
+  <h3>Synthesis: when do ML-based bilevel solvers work best?</h3>
+  <p class="muted">
+    In practice, the dominant success factor is the <strong>geometry/regularity of the LL problem</strong>.
+    Implicit differentiation is most reliable when the LL solution is locally unique and sufficiently smooth; unrolling is more flexible but costs memory/time
+    proportional to LL iterations. Differentiable optimization layers work best when LL structure is known (e.g., convex programs),
+    while first-order single-loop or penalty-style methods trade some accuracy for stability in nonconvex LL settings.
+    A practical rule is to choose the solver family primarily by LL regularity (smooth/convex vs. nonsmooth/nonconvex vs. black-box),
+    and only then by scale and compute constraints.
+  </p>
 </div>
-
-
-    <div class="grid2">
-      <div class="card">
-        <h2 id="ml">Machine learning based methods</h2>
-        <p>
-          ML-based BLO approaches have grown rapidly due to automatic differentiation, larger datasets, and the need for scalable optimization pipelines
-          <a href="#ref-zhang2023introductionbileveloptimizationfoundations" class="cite">[2]</a>.
-        </p>
-        <ul class="bullets">
-          <li><strong>Differentiable bilevel optimization</strong>: implicit differentiation or unrolled optimization for gradient-based updates.</li>
-          <li><strong>Surrogate modeling</strong>: learn approximate mappings (e.g., UL→LL response) to reduce LL solve cost.</li>
-          <li><strong>RL / policy optimization</strong>: bilevel structure appears in meta-learning and hyperparameter tuning.</li>
-        </ul>
-        <p class="muted small">
-          Strength: scalability on suitable classes. Weakness: assumptions (smoothness, differentiability, stable unrolling) may not hold for many discrete or black-box settings.
-        </p>
-      </div>
 
       <div class="card">
         <h2 id="hybrid">Hybrid EA–ML</h2>
