@@ -356,9 +356,8 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
   <h2 id="ml">ML for BLO problems</h2>
 
   <p>
-    Recent advances in machine learning (ML) have reshaped bilevel optimization (BLO), especially in large-scale, data-driven settings.
-    Unlike many evolutionary approaches that treat the lower-level (LL) solver as a black box, ML-based BLO often leverages
-    <strong>differentiable programming</strong>, <strong>automatic differentiation</strong>, and <strong>gradient-informed updates</strong>.
+    Recent advances in machine learning (ML) have reshaped BLO, especially in large-scale, data-driven settings.
+    Unlike many evolutionary approaches that treat the LL solver as a black box, ML-based BLO often leverages differentiable programming, automatic differentiation, and gradient-informed updates.
     This shift is driven by (i) the rise of differentiable optimization tools, (ii) the ubiquity of BLO in modern ML pipelines (e.g., hyperparameter tuning,
     meta-learning, and neural architecture search), and (iii) the high computational cost of nested evolutionary evaluations at scale.
   </p>
@@ -384,7 +383,7 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
   </p>
 
   <ul class="bullets">
-    <li><strong>Key advantage vs EAs:</strong> gradient efficiency and scalability on large datasets / parameter spaces.</li>
+    <li><strong>Key advantage vs EAs:</strong> gradient efficiency and scalability on large datasets/parameter spaces.</li>
     <li><strong>Main assumption:</strong> sufficient smoothness/regularity to support stable differentiation through (approximate) LL solutions.</li>
   </ul>
 
@@ -419,7 +418,7 @@ h^*_{\omega} = \arg\min_{h\in\mathcal{H}} \ \mathbb{E}_{(\mathbf{x},\mathbf{y})}
   <h3>Differentiable optimization in bilevel learning</h3>
   <p>
     Differentiable BLO is central to modern ML pipelines because UL learning requires gradients through the LL solution map.
-    Two dominant strategies are: <strong>(i) implicit differentiation</strong> and <strong>(ii) unrolled optimization</strong>
+    Two dominant strategies are: (i) implicit differentiation and (ii) unrolled optimization
     <a href="#ref-landry2021differentiable" class="cite">[10]</a>.
   </p>
 
@@ -583,7 +582,7 @@ m_{ij}(\cdot)=\sum_{m\in\mathcal{M}}\frac{\exp(\alpha_{ij}^{m})}{\sum_{m'\in\mat
 
   <h3>Synthesis: when do ML-based bilevel solvers work best?</h3>
   <p class="muted">
-    In practice, the dominant success factor is the <strong>geometry/regularity of the LL problem</strong>.
+    In practice, the dominant success factor is the geometry/regularity of the LL problem.
     Implicit differentiation is most reliable when the LL solution is locally unique and sufficiently smooth; unrolling is more flexible but costs memory/time
     proportional to LL iterations. Differentiable optimization layers work best when LL structure is known (e.g., convex programs),
     while first-order single-loop or penalty-style methods trade some accuracy for stability in nonconvex LL settings.
