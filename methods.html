@@ -200,13 +200,12 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
   <h2 id="ea">Evolutionary algorithms (EAs)</h2>
 
   <p>
-    Due to the limitations of classical approaches, evolutionary algorithms (EAs) have become widely used for bilevel optimization (BLO)
-    <a href="#ref-turgut2023systematic" class="cite">[14]</a>,
-    <a href="#ref-chauhan2024competitive" class="cite">[15]</a>.
+    Due to the limitations of classical approaches, evolutionary algorithms (EAs) have become widely used for BLO
+    <a href="#ref-turgut2023systematic" class="cite">[14]</a>.
     These population-based, derivative-free methods are particularly effective for non-convex, multi-modal, noisy, or black-box settings
     <a href="#ref-7942105" class="cite">[1]</a>,
     <a href="#ref-10121701" class="cite">[16]</a>.
-    EA-based BLO methods differ mainly in how they (i) handle the lower-level (LL) optimization, (ii) reuse structure or information across levels, and
+    EA-based BLO methods differ mainly in how they (i) handle the LL optimization, (ii) reuse structure or information across levels, and
     (iii) control the computational cost of nested evaluations.
   </p>
 
@@ -214,7 +213,7 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
 
   <h3>Taxonomy and common EA frameworks for BLO</h3>
   <p class="muted">
-    The central difficulty is the LL “response mapping”: each upper-level (UL) candidate may require solving one (or many) LL problems. EA frameworks
+    The central difficulty is the LL “response mapping”: each UL candidate may require solving one (or many) LL problems. EA frameworks
     trade off generality vs. computational cost by choosing how explicitly they solve, approximate, or co-evolve the LL response.
   </p>
 
@@ -226,8 +225,8 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
   </p>
   <ul class="bullets">
     <li><strong>LL handling:</strong> explicit LL optimization (EA inside EA).</li>
-    <li><strong>Strength:</strong> fully derivative-free; works for black-box / simulation-based LLs.</li>
-    <li><strong>Limitation:</strong> extremely expensive—LL evaluations dominate runtime, especially at high dimension or costly simulations
+    <li><strong>Strength:</strong> fully derivative-free; works for black-box/simulation-based LLs.</li>
+    <li><strong>Limitation:</strong> extremely expensive, LL evaluations dominate runtime, especially at high dimensions or costly simulations
       <a href="#ref-li2024bridging" class="cite">[19]</a>,
       <a href="#ref-acm-3638530-3648409" class="cite">[20]</a>.
     </li>
@@ -252,7 +251,7 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
 
   <h4>3) Co-evolutionary EAs</h4>
   <p>
-    <strong>Idea:</strong> evolve two interacting populations simultaneously—one for UL (leader) solutions and one for LL (follower) responses—so both levels
+    <strong>Idea:</strong> evolve two interacting populations simultaneously, one for UL (leader) solutions and one for LL (follower) responses, so both levels
     adapt together
     <a href="#ref-chaabani2018new" class="cite">[26]</a>,
     <a href="#ref-8425468" class="cite">[27]</a>.
@@ -261,19 +260,19 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
   <ul class="bullets">
     <li><strong>LL handling:</strong> approximate via an evolving follower population.</li>
     <li><strong>Strength:</strong> parallelizable; can maintain diverse LL responses (helpful when LL optima are non-unique).</li>
-    <li><strong>Limitation:</strong> coordination/synchronization matters—poor coupling may cause instability or premature convergence.</li>
+    <li><strong>Limitation:</strong> coordination/synchronization matters, poor coupling may cause instability or premature convergence.</li>
   </ul>
 
   <h4>4) Surrogate-assisted EAs</h4>
   <p>
     <strong>Idea:</strong> learn surrogate models (e.g., GP/RBF/NN) to approximate expensive LL evaluations (objective/constraints or response mapping), and use
-    surrogates during EA search to reduce cost
+    surrogates during the EA search to reduce cost
     <a href="#ref-islam2017surrogate" class="cite">[28]</a>.
     Reliability depends on surrogate fidelity; practical designs often add uncertainty-aware sampling and periodic true re-evaluation.
   </p>
   <p class="muted small">
     <strong>Remark:</strong> Surrogate-assisted EAs sit at the interface of EA and ML. The surrogate is an ML component, but the overall solver is still
-    evolutionary, so many surveys categorize them under EA-based BLO (and sometimes also as early EA–ML hybrids)
+    evolutionary, so many surveys categorize them under EA-based BLO (and sometimes also as early EA-ML hybrids)
     <a href="#ref-colson2007overview" class="cite">[4]</a>,
     <a href="#ref-dempe2002foundations" class="cite">[29]</a>.
   </p>
@@ -299,8 +298,7 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
   <h3>Strengths and limitations</h3>
   <ul class="bullets">
     <li><strong>Strengths:</strong> derivative-free; handles discrete/mixed variables; robust to nonconvexity and black-box evaluations; easy to parallelize.</li>
-    <li><strong>Limitations:</strong> high cost in nested settings; sample-inefficiency; sensitivity to parameters; scaling challenges in high dimensions; LL
-      non-uniqueness can cause unstable UL decisions.</li>
+    <li><strong>Limitations:</strong> high cost in nested settings; sample-inefficiency; sensitivity to parameters; scaling challenges in high dimensions; LL non-uniqueness can cause unstable UL decisions.</li>
   </ul>
 
   <hr/>
@@ -343,7 +341,7 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
           <td style="padding:8px;">Surrogate-assisted EA</td>
           <td style="padding:8px;">Surrogate of LL or response mapping</td>
           <td style="padding:8px;">High</td>
-          <td style="padding:8px;">No / Optional</td>
+          <td style="padding:8px;">No/Optional</td>
           <td style="padding:8px;">Expensive LL evaluations; simulator-driven BLO</td>
         </tr>
       </tbody>
@@ -465,6 +463,90 @@ g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad
             B. Colson, P. Marcotte, and G. Savard, “A trust region method for nonlinear bilevel programming,”
             <i>Operations Research Letters</i>, vol. 33, no. 2, pp. 141–149, 2005.
           </li>
+
+          <li id="ref-turgut2023systematic">
+  Turgut et al., “(Systematic review on evolutionary bilevel optimization),” 2023. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-chauhan2024competitive">
+  Chauhan et al., “(Competitive/benchmarking study on bilevel optimization),” 2024. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-10121701">
+  “(IEEE paper, document ID 10121701),” 2023. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-sinha2014finding">
+  Sinha et al., “Finding optimal solutions to bilevel problems using evolutionary algorithms,” 2014. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-kuo2011hybrid">
+  Kuo et al., “(Hybrid bilevel evolutionary framework),” 2011. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-li2024bridging">
+  Li et al., “(Bridging evolutionary algorithms and reinforcement learning for bilevel optimization),” 2024. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-acm-3638530-3648409">
+  “(ACM paper),” doi: 10.1145/3638530.3648409.
+</li>
+
+<li id="ref-li2023ga">
+  Li et al., “(GA for single-level reduced bilevel problems),” 2023. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-camacho2022tabu">
+  Camacho et al., “(Tabu/metaheuristic for reduced bilevel formulation),” 2022. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-10899879">
+  “(IEEE paper, document ID 10899879),” 2024/2025. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-yang2024bilevel">
+  Yang et al., “(Bilevel reformulation survey / discussion),” 2024. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-lachhwani2022comprehensive">
+  Lachhwani et al., “(Comprehensive review on bilevel/assumptions/constraint qualifications),” 2022. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-chaabani2018new">
+  Chaabani et al., “(Co-evolutionary bilevel EA; E-CODBA or related),” 2018. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-8425468">
+  “(IEEE paper, document ID 8425468),” 2018. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-islam2017surrogate">
+  Islam et al., “(Surrogate-assisted evolutionary bilevel optimization),” 2017. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-dempe2002foundations">
+  S. Dempe, <i>Foundations of Bilevel Programming</i>, 2002. (Add publisher / ISBN / link)
+</li>
+
+<li id="ref-sinha2017_bleaq">
+  A. Sinha et al., “BLEAQ: Bilevel evolutionary algorithm based on quadratic approximations,” <i>European Journal of Operational Research</i>, 2017.
+</li>
+
+<li id="ref-8388227">
+  He et al., “(Bilevel CMA-ES with distribution sharing),” 2018. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-9476019">
+  Chen et al., “TLEA (transfer-learning-based parallel bilevel EA),” 2021. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-9721406">
+  “BLMOCC (bilevel multiobjective cooperative coevolution),” 2022. (Add full bibliographic details / DOI / link)
+</li>
+
+
+
+          
         </ol>
       </div>
     </section>
