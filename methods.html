@@ -58,11 +58,144 @@
       <div class="card">
         <h2 id="classical">Classical methods</h2>
         <p>
-          Classical BLO algorithms exploit analytical structure to reduce bilevel problems to single-level forms or to solve them exactly in
-          restricted settings. Typical ideas include:
+          Classical approaches exploit analytical structure to reduce bilevel problems to single-level forms or to solve them exactly in
+          restricted settings. They are most effective when the problem has a clear mathematical form (e.g., linear/convex/quadratic),
+          with assumptions such as continuity/differentiability and regularity conditions at the lower level
+          <a href="#ref-anandalingam1992hierarchical" class="cite">[3]</a>,
+          <a href="#ref-colson2007overview" class="cite">[4]</a>.
         </p>
+         <p class="muted small">
+          Practical note: if the LL is nonconvex, discrete, nonsmooth, or available only through a simulator/legacy solver, classical guarantees may not apply,
+          and one typically needs approximations (e.g., penalties, trust regions, or zeroth-order hypergradients) or derivative-free methods.
+        </p>
+
+        <hr/>
+
+        <h3>Single-level reduction via KKT conditions (KKT/MPEC)</h3>
+        <p>
+          When the LL problem is convex and satisfies constraint qualifications, the LL can be replaced by its KKT optimality conditions.
+          This yields a single-level formulation (often an MPEC), but introduces complementarity constraints that can be difficult to handle
+          <a href="#ref-sinha2018review" class="cite">[1]</a>,
+          <a href="#ref-bard1998practical" class="cite">[5]</a>.
+        </p>
+
+        <div class="equation"><div class="math">
+\begin{equation}\label{eq:classical-ll}
+\begin{aligned}
+\mathbf{y}^*(\mathbf{x}) \in \arg\min_{\mathbf{y}} \quad & f(\mathbf{x},\mathbf{y})\\
+\text{s.t.}\quad & g(\mathbf{x},\mathbf{y})\le 0.
+\end{aligned}
+\end{equation}
+        </div></div>
+
+        <p class="muted small"><strong>KKT replacement (typical):</strong></p>
+        <div class="equation"><div class="math">
+\begin{equation}\label{eq:classical-kkt}
+\begin{aligned}
+\nabla_{\mathbf{y}} f(\mathbf{x},\mathbf{y}) + \nabla_{\mathbf{y}} g(\mathbf{x},\mathbf{y})^\top \boldsymbol{\lambda} &= 0,\\
+g(\mathbf{x},\mathbf{y}) \le 0,\quad \boldsymbol{\lambda}\ge 0,\quad 
+\boldsymbol{\lambda}\odot g(\mathbf{x},\mathbf{y}) &= 0.
+\end{aligned}
+\end{equation}
+        </div></div>
+
+        <p class="muted small">
+          In linear bilevel classes, this pathway often leads to MILP-style reformulations (e.g., via linearization of complementarity),
+          which can then be solved with branch-and-bound on small-to-medium structured instances
+          <a href="#ref-bard1998practical" class="cite">[5]</a>.
+        </p>
+
+        <hr/>
+
+        <h3>Descent methods (hypergradient-based classical schemes)</h3>
+        <p>
+          Descent methods seek directions that improve the UL objective while respecting that the LL must remain optimal.
+          In smooth settings (e.g., nonconvex–strongly-convex bilevel), hypergradients can be obtained by implicit differentiation or by
+          controlled approximation of the LL solution mapping
+          <a href="#ref-ghadimi2018approximation" class="cite">[6]</a>.
+        </p>
+
+        <div class="equation"><div class="math">
+\begin{equation}\label{eq:classical-hypergradient}
+\begin{aligned}
+\nabla_{\mathbf{x}} \,F(\mathbf{x},\mathbf{y}^*(\mathbf{x}))
+&= \nabla_{\mathbf{x}}F(\mathbf{x},\mathbf{y})
++ \nabla_{\mathbf{y}}F(\mathbf{x},\mathbf{y}) \cdot \frac{d\mathbf{y}^*(\mathbf{x})}{d\mathbf{x}},\\[2pt]
+\frac{d\mathbf{y}^*(\mathbf{x})}{d\mathbf{x}}
+&= - \left[\nabla_{\mathbf{y}\mathbf{y}}^2 f(\mathbf{x},\mathbf{y}^*)\right]^{-1}\nabla_{\mathbf{x}\mathbf{y}}^2 f(\mathbf{x},\mathbf{y}^*) \quad (\text{typical strong-convex LL}).
+\end{aligned}
+\end{equation}
+        </div></div>
+
+        <p class="muted small">
+          These ideas connect directly to modern differentiable BLO (implicit gradients / unrolling),
+          but classical variants emphasize algorithmic safeguards (feasibility maintenance, subproblem checks, and step control).
+        </p>
+
+        <hr/>
+
+        <h3>Trust-region methods</h3>
+        <p>
+          Trust-region strategies build local models (approximations) of the bilevel objective inside a neighborhood (“trust region”),
+          expanding or shrinking the region depending on how accurately the local model predicts real improvement
+          <a href="#ref-yuan2015trust" class="cite">[12]</a>.
+          In bilevel settings, trust-region ideas can be combined with variational inequality (VI) views of the LL or stabilized approximations of the LL response
+          <a href="#ref-colson2005trustregion" class="cite">[13]</a>,
+          <a href="#ref-colson2007overview" class="cite">[4]</a>.
+        </p>
+
+        <hr/>
+
+        <h3>Penalty function methods</h3>
+        <p>
+          Penalty methods incorporate LL constraints or optimality conditions into the UL objective using penalty terms,
+          creating a single-level approximation solvable by standard constrained optimization toolchains.
+          Modern first-order penalty frameworks for bilevel optimization provide convergence guarantees under smoothness assumptions
+          <a href="#ref-lu2023penalty" class="cite">[9]</a>,
+          while early bilevel penalty ideas appear in Stackelberg formulations and double-penalty constructions
+          <a href="#ref-aiyoshi1984penalty" class="cite">[10]</a>,
+          <a href="#ref-ishizuka1992double" class="cite">[11]</a>.
+        </p>
+
+        <div class="equation"><div class="math">
+\begin{equation}\label{eq:classical-penalty}
+\min_{\mathbf{x},\mathbf{y}} \quad F(\mathbf{x},\mathbf{y}) \;+\; \rho \,\Phi(\mathbf{x},\mathbf{y}),
+\end{equation}
+        </div></div>
+        <p class="muted small">
+          where \(\Phi\) penalizes LL infeasibility and/or LL suboptimality (or KKT residuals), and \(\rho\) is increased to enforce the LL conditions.
+        </p>
+
+        <hr/>
+
+        <h3>Zeroth-order (black-box) bilevel methods</h3>
+        <p>
+          In many practical BLO settings (e.g., simulators, privacy-restricted learning, legacy solvers), gradients are unavailable and only noisy
+          function evaluations of \(F(\mathbf{x},\mathbf{y})\) and \(f(\mathbf{x},\mathbf{y})\) can be queried.
+          Recent fully zeroth-order bilevel methods estimate (hyper)gradients using smoothing-based estimators and then perform principled bilevel updates
+          with oracle-complexity guarantees in smooth regimes
+          <a href="#ref-aghasi2025fully" class="cite">[7]</a>,
+          <a href="#ref-aghasi2025optimal" class="cite">[8]</a>.
+        </p>
+
+        <p class="muted small"><strong>Typical smoothing estimator (illustrative):</strong></p>
+        <div class="equation"><div class="math">
+\begin{equation}\label{eq:classical-zo}
+\widehat{\nabla} F(\mathbf{x})
+= \frac{d}{\mu}\left(F(\mathbf{x}+\mu \mathbf{u})-F(\mathbf{x})\right)\mathbf{u},
+\qquad \mathbf{u}\sim \mathcal{N}(0,I),
+\end{equation}
+        </div></div>
+
+        <p class="muted small">
+          These methods complement EA-style black-box solvers by adding theory in smooth settings; EAs can remain preferable when the landscape is nonsmooth,
+          discrete, heavily constrained, or highly rugged.
+        </p>
+      </div>
+
+        
         <ul class="bullets">
-          <li><strong>KKT / MPEC reformulations</strong> (often when the follower is convex and satisfies regularity conditions).</li>
+          <li><strong>KKT/MPEC reformulations</strong> (often when the follower is convex and satisfies regularity conditions).</li>
           <li><strong>Value-function and penalty methods</strong> (encode the LL optimality condition indirectly).</li>
           <li><strong>Exact algorithms</strong> such as branch-and-bound for certain mixed-integer bilevel classes.</li>
         </ul>
@@ -146,9 +279,57 @@
             A. Sinha, P. Malo, and K. Deb, “A Review on Bilevel Optimization: From Classical to Evolutionary Approaches and Applications,”
             <i>IEEE Transactions on Evolutionary Computation</i>, vol. 22, no. 2, pp. 276–295, 2018, doi: 10.1109/TEVC.2017.2712906.
           </li>
+
           <li id="ref-zhang2023introductionbileveloptimizationfoundations">
             Y. Zhang et al., “An introduction to bilevel optimization: Foundations and applications in signal processing and machine learning,”
             <i>IEEE Signal Processing Magazine</i>, vol. 41, no. 1, pp. 38–59, 2024.
+          </li>
+
+          <!-- Added for "Classical methods" -->
+          <li id="ref-anandalingam1992hierarchical">
+            G. Anandalingam and T. Friesz, “Hierarchical optimization: an introduction,” <i>Annals of Operations Research</i>, vol. 34, pp. 1–11, 1992.
+          </li>
+
+          <li id="ref-colson2007overview">
+            B. Colson, P. Marcotte, and G. Savard, “An overview of bilevel optimization,” <i>Annals of Operations Research</i>, vol. 153, pp. 235–256, 2007.
+          </li>
+
+          <li id="ref-bard1998practical">
+            J. F. Bard, <i>Practical Bilevel Optimization: Algorithms and Applications</i>, Kluwer Academic Publishers, 1998.
+          </li>
+
+          <li id="ref-ghadimi2018approximation">
+            S. Ghadimi and M. Wang, “Approximation Methods for Bilevel Programming,” arXiv:1802.02246, 2018.
+          </li>
+
+          <li id="ref-aghasi2025fully">
+            A. Aghasi and S. Ghadimi, “Fully Zeroth-Order Bilevel Programming via Gaussian Smoothing,” <i>Journal of Optimization Theory and Applications</i>, vol. 205, no. 2, 2025.
+          </li>
+
+          <li id="ref-aghasi2025optimal">
+            A. Aghasi, J. Umenberger, M. Alizadeh, H. Sun, and Z. Lu, “Optimal Zeroth-Order Bilevel Optimization,” arXiv:2510.03646, 2025.
+          </li>
+
+          <li id="ref-lu2023penalty">
+            Z. Lu and S. Mei, “First-Order Penalty Methods for Bilevel Optimization,” arXiv:2311.07491, 2023.
+          </li>
+
+          <li id="ref-aiyoshi1984penalty">
+            E. Aiyoshi and K. Shimizu, “A solution method for the static constrained Stackelberg problem via penalty method,”
+            <i>IEEE Transactions on Automatic Control</i>, vol. 29, pp. 1111–1114, 1984.
+          </li>
+
+          <li id="ref-ishizuka1992double">
+            Y. Ishizuka and E. Aiyoshi, “Double penalty method for bilevel optimization problems,” <i>Annals of Operations Research</i>, vol. 34, pp. 73–88, 1992.
+          </li>
+
+          <li id="ref-yuan2015trust">
+            Y.-x. Yuan, “Recent advances in trust region algorithms,” <i>Mathematical Programming</i>, Ser. B, vol. 151, pp. 249–281, 2015.
+          </li>
+
+          <li id="ref-colson2005trustregion">
+            B. Colson, P. Marcotte, and G. Savard, “A trust region method for nonlinear bilevel programming,”
+            <i>Operations Research Letters</i>, vol. 33, no. 2, pp. 141–149, 2005.
           </li>
         </ol>
       </div>
