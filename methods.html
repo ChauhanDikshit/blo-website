@@ -593,19 +593,81 @@ m_{ij}(\cdot)=\sum_{m\in\mathcal{M}}\frac{\exp(\alpha_{ij}^{m})}{\sum_{m'\in\mat
 </div>
 
       <div class="card">
-        <h2 id="hybrid">Hybrid EA–ML</h2>
-        <p>
-          Hybrid strategies aim to combine the robustness of EAs with the efficiency of learning-based components. Common hybrid patterns:
-        </p>
-        <ul class="bullets">
-          <li><strong>EA + learned surrogate</strong> for LL objective/constraints or response mapping.</li>
-          <li><strong>EA + differentiable components</strong> for partially-structured problems (mixed discrete/continuous).</li>
-          <li><strong>Adaptive algorithm selection</strong> (bandits / meta-learning) to choose operators or LL solver effort.</li>
-        </ul>
-        <p class="muted small">
-          Goal: reduce LL evaluation cost while keeping good global exploration.
-        </p>
-      </div>
+  <h2 id="hybrid">Hybrid EA + ML methods</h2>
+
+  <p>
+    Rather than viewing ML and EAs as competing paradigms, a growing body of work integrates them to exploit complementary strengths:
+    EAs offer robustness and global exploration in rugged/discrete/black-box landscapes, while ML offers data efficiency, generalization, and gradient-informed guidance.
+    Hybrid designs are especially attractive when LL evaluations are expensive, LL solutions are non-unique, or the search space is combinatorial/mixed-integer.
+  </p>
+
+  <hr/>
+
+  <h3>Common hybrid patterns</h3>
+  <ul class="bullets">
+    <li>
+      <strong>EA + learned surrogate:</strong> learn LL objective/constraints or UL→LL response mapping to reduce nested evaluation cost
+      <a href="#ref-dumouchelle2024neur2bilo" class="cite">[17]</a>.
+    </li>
+    <li>
+      <strong>Learning-guided reformulation:</strong> learn components that enable reformulating a hard bilevel model into a tractable hybrid optimization pipeline
+      <a href="#ref-bagloee2018hybrid" class="cite">[18]</a>.
+    </li>
+    <li>
+      <strong>Neural surrogate embedded in exact solvers:</strong> train a predictor (value function / feasibility / response) and embed it inside MIP/MINLP pipelines
+      <a href="#ref-dumouchelle2024neur2bilo" class="cite">[17]</a>.
+    </li>
+    <li>
+      <strong>Hybrid learning + heuristic LL:</strong> UL uses learning to propose structure changes; LL uses problem-specific heuristics to solve the resulting combinatorial instance
+      <a href="#ref-wang2021bi" class="cite">[19]</a>.
+    </li>
+    <li>
+      <strong>Generative modeling for LL response sets:</strong> learn a distribution over LL solutions (set-valued mapping) and only verify promising candidates with the true LL solver
+      <a href="#ref-10185941" class="cite">[16]</a>.
+    </li>
+  </ul>
+
+  <hr/>
+
+  <h3>Representative examples (website-friendly)</h3>
+  <p class="muted small">
+    These examples illustrate “division of labor”: ML reduces evaluation cost or guides proposals; EA/heuristics preserve robustness in discrete or rugged spaces.
+  </p>
+
+  <ul class="bullets">
+    <li>
+      <strong>Learning-guided transportation network design:</strong> learn mappings that approximate LL behaviors to reduce computational burden and enable tractable optimization
+      <a href="#ref-bagloee2018hybrid" class="cite">[18]</a>.
+    </li>
+    <li>
+      <strong>Neur2BiLO:</strong> supervised neural approximation of leader/follower value functions embedded into mixed-integer optimization for faster bilevel solving
+      <a href="#ref-dumouchelle2024neur2bilo" class="cite">[17]</a>.
+    </li>
+    <li>
+      <strong>Bilevel learning for FFNN design:</strong> UL searches structure (e.g., binary PSO) while LL optimizes weights (e.g., LM), balancing complexity vs. generalization
+      <a href="#ref-9212586" class="cite">[20]</a>.
+    </li>
+    <li>
+      <strong>Multiobjective combinatorial BLO:</strong> indicator-based co-evolution prioritizes LL solutions that most improve UL progress under expensive LL Pareto evaluations
+      <a href="#ref-9154441" class="cite">[21]</a>.
+    </li>
+  </ul>
+
+  <hr/>
+
+  <h3>Practical guidance</h3>
+  <ul class="bullets">
+    <li><strong>If LL is expensive:</strong> prefer surrogate-assisted or response-learning hybrids with uncertainty-aware verification.</li>
+    <li><strong>If LL is discrete/combinatorial:</strong> use ML for guidance (ranking, candidate generation), but keep EA/heuristics for feasibility and robustness.</li>
+    <li><strong>If LL is smooth/convex:</strong> differentiable ML methods may dominate; hybrids help mainly when constraints/discreteness break differentiability.</li>
+  </ul>
+
+  <p class="muted small">
+    Overall takeaway: ML enhances EA pipelines by reducing LL cost and improving guidance, while EAs/heuristics provide robustness in settings
+    where gradients are unreliable or unavailable.
+  </p>
+</div>
+
     </div>
 
     <div class="card" id="example">
@@ -768,6 +830,82 @@ m_{ij}(\cdot)=\sum_{m\in\mathcal{M}}\frac{\exp(\alpha_{ij}^{m})}{\sum_{m'\in\mat
   “BLMOCC (bilevel multiobjective cooperative coevolution),” 2022. (Add full bibliographic details / DOI / link)
 </li>
 
+<li id="ref-10.5555-3045118.3045343">
+  D. Maclaurin, D. Duvenaud, and R. Adams, “Gradient-based Hyperparameter Optimization through Reversible Learning,”
+  in <i>ICML</i>, 2015, (dblp / proceedings id: 10.5555/3045118.3045343).
+</li>
+
+<li id="ref-chen2022stable">
+  Chen et al., “STABLE: single-timescale stochastic bilevel optimization,” 2022. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-chen2023aid">
+  Chen et al., “Accelerated approximate implicit differentiation for bilevel optimization,” 2023. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-10210699">
+  Liu et al., “BVFSM: value-function-based sequential minimization for bilevel optimization,” 2023/2024. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-petrulionyte2024functional">
+  Petrulionytė et al., “Functional bilevel optimization,” 2024. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-zheng2024graph">
+  Zheng et al., “Graph learning via bilevel optimization (unified viewpoint),” 2024. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-banker2025gradient">
+  Banker et al., “Gradient-based bilevel framework with implicit differentiation and RL,” 2025. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-landry2021differentiable">
+  Landry et al., “Differentiable optimization for ML / bilevel learning,” 2021. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-franceschi2018bilevel">
+  Franceschi et al., “Bilevel programming for hyperparameter optimization and meta-learning,” 2018. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-franceschi2017bridge">
+  Franceschi et al., “(Bridge between hyperparameter optimization and meta-learning via bilevel),” 2017. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-liu2022bome">
+  Liu et al., “BOme!: first-order bilevel optimization for large-scale nonconvex learning,” 2022. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-liu2018darts">
+  H. Liu, K. Simonyan, and Y. Yang, “DARTS: Differentiable Architecture Search,” 2018. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-10440128">
+  “STO-DARTS / Neumann-series hypergradient approximation,” 2023/2024 (paper id: 10440128). (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-10185941">
+  “(cGAN / adversarial bilevel surrogate mapping),” paper id: 10185941. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-dumouchelle2024neur2bilo">
+  Dumouchelle et al., “Neur2BiLO: neural bilevel optimization embedded in MIP,” 2024. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-bagloee2018hybrid">
+  Bagloee et al., “Hybrid learning + optimization for bilevel transportation network design,” 2018. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-wang2021bi">
+  Wang et al., “Learning-guided bilevel framework with heuristic LL solver,” 2021. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-9212586">
+  “Bilevel learning for self-organizing FFNNs (binary PSO + LM),” paper id: 9212586. (Add full bibliographic details / DOI / link)
+</li>
+
+<li id="ref-9154441">
+  “IB-CEMBA: indicator-based co-evolutionary migration-based bilevel algorithm,” paper id: 9154441. (Add full bibliographic details / DOI / link)
+</li>
 
 
           
