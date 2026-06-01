@@ -83,6 +83,14 @@ h1{ font-size: clamp(28px, 4vw, 44px); margin:0 0 10px; }
 .small{ font-size:.92rem; }
 .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 
+/* One-column stack layout (always vertical) */
+.stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+
 .equation{
   background: rgba(0,0,0,.18);
   border:1px dashed rgba(122,162,255,.35);
