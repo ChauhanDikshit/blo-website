@@ -5,37 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bilevel Optimization (BLO) Hub</title>
   <meta name="description" content="A community-oriented hub for bilevel optimization: definitions, taxonomy, methods, papers, and applications." />
-	<script>
-  window.MathJax = {
-    tex: {
-      tags: 'ams',              // enables (1), (2), ...
-      tagSide: 'right',
-      tagIndent: '0.8em'
-    }
-  };
-</script>
-	<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./assets/style.css" />
+
+  <!-- MathJax (equation rendering + numbering + eqref) -->
+  <script>
+    window.MathJax = {
+      tex: { tags: 'ams', tagSide: 'right', tagIndent: '0.8em' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
+
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="index.html">BLO Hub</a>
+
       <nav class="nav">
         <a class="navlink active" href="index.html">Home</a>
-		  <a class="navlink" href="taxonomy.html">Taxonomy</a>
-		<a class="navlink active" href="formulation.html">Formulations</a>
-		<a class="navlink active" href="methods.html">Methods</a>
+        <a class="navlink" href="taxonomy.html">Taxonomy</a>
+        <a class="navlink" href="formulation.html">Formulations</a>
+        <a class="navlink" href="methods.html">Methods</a>
         <a class="navlink" href="papers.html">Papers</a>
         <a class="navlink" href="#resources">Resources</a>
       </nav>
+
       <button class="menuBtn" id="menuBtn" aria-label="Toggle menu">☰</button>
     </div>
+
     <div class="mobileNav container" id="mobileNav">
       <a href="index.html">Home</a>
-		<a class="navlink" href="taxonomy.html">Taxonomy</a>
-      <a class="navlink active" href="formulation.html">Formulations</a>
-	  <a class="navlink active" href="methods.html">Methods</a>
+      <a href="taxonomy.html">Taxonomy</a>
+      <a href="formulation.html">Formulations</a>
+      <a href="methods.html">Methods</a>
       <a href="papers.html">Papers</a>
       <a href="#resources">Resources</a>
     </div>
@@ -51,6 +55,7 @@
             <strong>definitions</strong>, <strong>complexity</strong>, <strong>taxonomy</strong>,
             <strong>solution methods</strong> (classical / evolutionary / ML), and <strong>major research papers</strong>.
           </p>
+
           <div class="ctaRow">
             <a class="btn primary" href="papers.html">Browse Papers</a>
             <a class="btn" href="taxonomy.html">Explore Taxonomy</a>
@@ -74,146 +79,47 @@
 
         <div class="card heroCard">
           <h2>Quick definition</h2>
-	<p> Bilevel programs were first studied by Bracken and McGill <a href="#ref-bracken1978production" class="cite">[1]</a>, motivated by applications in military planning as well as production and marketing decision making. At the time, these models were often described as mathematical programs with optimization problems in the constraints. The terms bilevel optimization programming and multilevel optimization programming were introduced later by Candler and Norton <a href="#ref-candler1982linear" class="cite">[2]</a>. </p>
-			
-    <p>Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level</strong> optimization problem is constrained by the optimal response of a <strong> lower-level </strong> optimization problem (Eq. \(\eqref{eq:blo}\))
-		<a href="#ref-colson2007overview" class="cite">[3]</a>. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on lower-level optimality, and the induced feasible set is typically nonconvex. It can be disconnected, and solution quality can be sensitive to the multiplicity of lower-level solutions and tie-breaking. </p>
-         <div class="equation">
-			  <div class="math">
-  \begin{align}\label{eq:blo}
-  & \min_{x_u}\! F(x_u, x_l), \\&
-		\begin{cases}
-  \text{s.t. }\; G(x_u, x_l)\le 0, \\
-   x_l \in \arg\!\min_{x_l}\{ f(x_u, x_l): g(x_u, x_l)\le 0 \}
-		\end{cases}
-  \end{align}
-			  </div>
-   </div>
-			<div class="eq-where">
-    <p><strong>where</strong></p>
-    <ul>
-      <li>\(x_u\): upper-level (leader) decision vector;</li>
-      <li>\(x_l\): lower-level (follower) decision vector;</li>
-      <li>\(F, G\): leader objective and constraints;</li>
-      <li>\(f, g\): follower objective and constraints;</li>
-      <li>\(\arg\!\min\) makes the lower-level optimum set a <strong>constraint</strong> on \((x_u, x_l)\);</li>
-		<li><strong>Note:</strong> Equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</li>
-    </ul>
-  </div>
-</div>        
-<p>Over the past decades, BLO has been studied from both theoretical and applied perspectives. Classical approaches exploit analytical structure through techniques such as Karush-Kuhn-Tucker (KKT)-based reformulations, penalty and value-function methods, and exact algorithms, such as branch-and-bound. While these methods can be effective for structured instances (e.g., smooth or convex lower-level problems), their applicability is often limited in practice by nonsmoothness, nonconvexity, discrete variables, or the lack of reliable gradients, especially when the lower-level problem is non-differentiable or only accessible through a black-box solver.</p>
 
-<p>To address these limitations, the evolutionary computation community has developed metaheuristic and population-based approaches for BLO. Evolutionary algorithms (EAs) are a branch of metaheuristic algorithms, including genetic algorithms (GA), differential evolution (DE), particle swarm optimization (PSO), and co-evolutionary strategies, which are attractive for complex, multimodal, and black-box settings because they are derivative-free and can explore diverse regions of the search space. However, their flexibility comes at a cost: EAs often require many function evaluations, and the nested evaluation of lower-level optima can make them computationally expensive when lower-level solves are costly <a href="#ref-7942105" class=" cite">[4]</a>.</p>
-
-<p>More recently, BLO has seen rapid growth at the intersection with machine learning (ML) <a href="#ref-zhang2023introduction" class="cite">[5]</a>. Enabled by larger datasets, advances in automatic differentiation, and the need for scalable optimization pipelines, ML-based BLO methods include surrogate modeling (supervised learning), reinforcement learning for policy-level bilevel tasks, and deep learning–driven formulations for neural architecture search and hyperparameter optimization. In particular, differentiable bilevel frameworks, via implicit differentiation or unrolled optimization, can provide efficient gradient-based updates across both levels for suitable problem classes, substantially improving scalability and practical performance.</p>
-          
-      <p class="muted">
-            This nested structure makes BLO difficult: nonconvexity, nonsmoothness, implicit constraints,
-            and multiple local/global follower optima.
+          <p>
+            Bilevel programs were first studied by Bracken and McGill
+            <a href="#ref-bracken1978production" class="cite">[1]</a>, motivated by applications in military planning as well as production and marketing
+            decision making. The terms bilevel optimization programming and multilevel optimization programming were introduced later by Candler and Norton
+            <a href="#ref-candler1982linear" class="cite">[2]</a>.
           </p>
-        </div>
-      </div>
-    </section>
 
-    <section class="container section">
-      <div class="grid3">
-        <div class="card">
-          <h3>Why is BLO hard?</h3>
-          <ul class="bullets">
-            <li>
-          <strong>Nested optimization</strong>:
-          Feasibility depends on <em>lower-level optimality</em>, not just constraints. This creates an implicit “induced region” defined through the follower’s solution mapping. <a href="#ref-colson2007overview" class="cite">[1]</a>, <a href="#ref-aiyoshi1981hierarchical" class="cite">[6]</a>.
-        
-        </li>
-        <li>
-          <strong>Nonconvexity & irregular geometry</strong>: Even when the subproblems look simple, the induced region and the resulting upper-level landscape are often nonconvex
-          and can become nonsmooth or irregular. <a href="#ref-colson2007overview" class="cite">[3]</a>.
-        </li>
-        <li>
-          <strong>Multiplicity & tie-breaking</strong>:
-          The follower may have <em>multiple</em> optimal responses; results depend on how ties are resolved (optimistic vs pessimistic
-          bilevel semantics), and this issue becomes even more prominent in multiobjective settings <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-mejia2023mobo" class=" cite">[7]</a>.
-        </li>
-        <li>
-          <strong>Expensive evaluations</strong>: Many practical algorithms “nest” lower-level solves inside upper-level search, so each upper-level candidate can trigger
-          one (or many) follower optimizations—making the overall procedure computationally expensive <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-mejia2023mobo" class=" cite">[7]</a>.
-        </li>
-        <li>
-          <strong>Hardness in theory</strong>:
-          Even restricted bilevel classes are computationally difficult; general bilevel programs (e.g., linear–linear cases) can reach high complexity
-          (e.g., NP-hard and beyond in standard complexity hierarchies) <a href="#ref-jeroslow1985polynomial" class="cite">[8]</a>, <a href="#ref-beck2023uncertainty" class="cite">[9]</a>. 
-       
-        </li>
-      </ul>
-      <a class="link" href="start-here.html">Learn the core concepts →</a>
-        </div>
+          <p>
+            Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level</strong> optimization problem is
+            constrained by the optimal response of a <strong>lower-level</strong> optimization problem (Eq. \(\eqref{eq:blo}\))
+            <a href="#ref-colson2007overview" class="cite">[3]</a>.
+          </p>
 
-        <div class="card">
-      <h3>Common categories</h3>
-      <ul class="bullets">
-        <li>
-          <strong>Variable types</strong>: Continuous, integer, or mixed-integer decisions at the upper and/or lower level (MIBLP), including combinatorial BLO
-          problems common in network and interdiction-style applications <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-camacho2024metaheuristics" class=" cite">[10]</a>.
-        </li>
-        <li>
-          <strong>Follower structure</strong>:
-          Linear/convex vs nonconvex; smooth vs nonsmooth; and unique vs multiple follower optima, these properties strongly shape
-          what theory and algorithms apply <a href="#ref-colson2007overview" class=" cite">[3]</a>, <a href="#ref-camacho2024metaheuristics" class=" cite">[10]</a>.
-        </li>
-        <li>
-          <strong>Solution concepts</strong>:
-          Optimistic vs pessimistic bilevel; single-follower vs multi-follower; and deterministic vs stochastic/robust variants (when
-          data, constraints, or objectives are uncertain) <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-beck2023uncertainty" class=" cite">[9]</a>. 
-        </li>
-        <li>
-          <strong>Reformulation-friendly vs black-box</strong>:
-          Some problems admit single-level reductions (e.g., KKT/MPEC-style reformulations when the follower is convex and regular),
-          while others require derivative-free or simulation-based treatment <a href="#ref-colson2007overview" class=" cite">[3]</a>, <a href="#ref-zhang2023introduction" class=" cite">[5]</a>.
-        </li>
-        <li>
-          <strong>Objectives</strong>:
-          Single-objective BLO and multiobjective BLO (Pareto leader and/or Pareto follower), with additional choices
-          about how lower-level Pareto solutions are selected or summarized at the upper level <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-mejia2023mobo" class=" cite">[7]</a>.
-        </li>
-      </ul>
-      <a class="link" href="taxonomy.html">See taxonomy →</a>
-    </div>
-
-        <div class="card">
-          <h3>Solution families</h3>
-          <div class="pillRow" id="methodPills">
-            <!-- filled by JS -->
+          <div class="equation">
+            <div class="math">
+\begin{equation}\label{eq:blo}
+\begin{aligned}
+\min_{x_u}\ & F(x_u, x_l)\\
+\text{s.t.}\ & G(x_u, x_l)\le 0,\\
+& x_l \in \arg\min_{x_l}\{ f(x_u, x_l): g(x_u, x_l)\le 0 \}.
+\end{aligned}
+\end{equation}
+            </div>
           </div>
-          <p class="muted">
-            The site is designed so you can keep adding papers + tags, and the pages update automatically.
-          </p>
-        </div>
-      </div>
-    </section>
 
-    <section class="container section">
-      <div class="twoCol">
-        <div class="card">
-          <h2>What you can host here</h2>
-          <ul class="bullets">
-            <li>Curated paper lists (Tier A/B/C), by topic and year</li>
-            <li>Benchmark problems + datasets</li>
-            <li>Method notes (KKT reformulation, evolutionary bilevel, ML-based BLO)</li>
-            <li>Application galleries (energy, transport, ML, security, design)</li>
-          </ul>
-          <p class="muted">
-            Everything is plain files—edit in GitHub and it’s live.
-          </p>
-        </div>
+          <div class="eq-where">
+            <p><strong>where</strong></p>
+            <ul>
+              <li>\(x_u\): upper-level (leader) decision vector;</li>
+              <li>\(x_l\): lower-level (follower) decision vector;</li>
+              <li>\(F, G\): leader objective and constraints;</li>
+              <li>\(f, g\): follower objective and constraints;</li>
+              <li>\(\arg\min\) makes the LL optimum set a <strong>constraint</strong> on \((x_u, x_l)\);</li>
+              <li><strong>Note:</strong> equality constraints are often omitted for readability, but can be included at either level.</li>
+            </ul>
+          </div>
 
-        <div class="card">
-          <h2>Starter curation workflow</h2>
-          <ol class="bullets">
-            <li>Add papers to <span class="mono">data/papers.json</span></li>
-            <li>Tag them (method, problem type, application)</li>
-            <li>Use the Papers page to search + filter</li>
-            <li>Expand taxonomy nodes in <span class="mono">data/taxonomy.json</span></li>
-          </ol>
+          <p class="muted">
+            This nested structure makes BLO difficult: nonconvexity, nonsmoothness, implicit constraints, and multiple local/global follower optima.
+          </p>
         </div>
       </div>
     </section>
@@ -230,11 +136,12 @@
               <li><a class="link" href="taxonomy.html">Taxonomy</a></li>
             </ul>
           </div>
+
           <div>
             <h3>Contribute</h3>
             <ul class="bullets">
               <li>Open a GitHub Issue for missing papers/topics</li>
-              <li>Submit a Pulower-level Request editing JSON files</li>
+              <li>Submit a Pull Request editing JSON files</li>
               <li>Add BibTeX links later (optional)</li>
             </ul>
             <p class="muted">Tip: keep a consistent tagging scheme.</p>
@@ -242,38 +149,18 @@
         </div>
       </div>
     </section>
-    <!--References Section  -->
-  <section class="container section" id="references">
-  <div class="card">
-    <h2>References</h2>
-    <ol class="refs">
-        <li id="ref-bracken1978production">Jerome Bracken and J. T. McGill, "Production and marketing decisions with multiple objectives in a competitive environment." <i>Journal of Optimization Theory and Applications</i>, vol. 24, no. 3, pp. 449-458, 1978.</li>
-        <li id="ref-candler1982linear">Wilfred Candler and Robert Townsley, "A linear two-level programming problem." <i>Computers & Operations Research</i>, vol. 9, no. 1, pp. 59-76, 1982.</li>
-      <li id="ref-colson2007overview">
-        Benoît Colson, Patrice Marcotte, and Gilles Savard, “An overview of bilevel optimization,”
-        <i>Annals of Operations Research</i>, vol. 153, pp. 235–256, 2007.
-      </li>
 
-      <li id="ref-7942105">
-        Ankur Sinha, Pekka Malo, and Kalyanmoy Deb, “A Review on Bilevel Optimization: From Classical to Evolutionary Approaches and Applications,”
-        <i>IEEE Transactions on Evolutionary Computation</i>, vol. 22, no. 2, pp. 276–295, 2018, doi: 10.1109/TEVC.2017.2712906.
-      </li>
-
-      <li id="ref-zhang2023introduction">
-        Yihua Zhang, Prashant Khanduri, Ioannis Tsaknakis, Yuguang Yao, Mingyi Hong, and Sijia Liu, “An introduction to bilevel optimization: Foundations and applications in signal processing and machine learning,”
-        <i>IEEE Signal Processing Magazine</i>, vol. 41, no. 1, pp. 38–59, 2024.
-      </li>
-		<li id="ref-aiyoshi1981hierarchical">
-			Eitaro Aiyoshi and Kiyotaka Shimizu, "Hierarchical decentralized systems and its new solution by a barrier method." <i>IEEE Transactions on Systems, Man and Cybernetics</i>, no. 6, pp. 444-449, 1981.</li>
-		<li id="ref-jeroslow1985polynomial"> Jeroslow, Robert G. "The polynomial hierarchy and a simple model for competitive analysis." <i>Mathematical Programming</i> vol. 32, no. 2, pp. 146-164, 1985.</li>
-		<li id="ref-mejia2023mobo"> Mejía-De-Dios, Jesús-Adolfo, Alejandro Rodríguez-Molina, and Efrén Mezura-Montes, "Multiobjective bilevel optimization: A survey of the state-of-the-art." <i>IEEE transactions on Systems, Man, and Cybernetics</i>, vol. 53, no. 9, pp. 5478-5490, 2023</li>
-<li id="ref-beck2023uncertainty"> Yasmine Beck, Ivana Ljubić, and Martin Schmidt, "A survey on bilevel optimization under uncertainty." <i>European Journal of Operational Research</i>, vol. 311, no. 2, pp. 401-426, 2023.</li>
-  <li id="ref-camacho2024metaheuristics"> Camacho-Vallejo, José-Fernando, Carlos Corpus, and Juan G. Villegas, "Metaheuristics for bilevel optimization: A comprehensive review." <i>Computers & Operations Research</i>, vol. 161, pp. 106410, 2024.</li>
-  
-	
-	</ol>
-  </div>
-</section>
+    <!-- References (keep your existing list here; shortened sample below) -->
+    <section class="container section" id="references">
+      <div class="card">
+        <h2>References</h2>
+        <ol class="refs">
+          <li id="ref-bracken1978production">J. Bracken and J. T. McGill, “Production and marketing decisions with multiple objectives in a competitive environment,” <i>Journal of Optimization Theory and Applications</i>, 1978.</li>
+          <li id="ref-candler1982linear">W. Candler and R. Townsley, “A linear two-level programming problem,” <i>Computers & Operations Research</i>, 1982.</li>
+          <li id="ref-colson2007overview">B. Colson, P. Marcotte, and G. Savard, “An overview of bilevel optimization,” <i>Annals of Operations Research</i>, 2007.</li>
+        </ol>
+      </div>
+    </section>
 
     <footer class="footer">
       <div class="container">
@@ -282,6 +169,6 @@
     </footer>
   </main>
 
-  <script src="assets/app.js"></script>
+  <script src="./assets/app.js"></script>
 </body>
 </html>
