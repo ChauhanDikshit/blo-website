@@ -124,69 +124,93 @@
     </section>
 
 	  <section class="container section">
-      <div class="grid3">
-        <div class="card">
-          <h3>Why is BLO hard?</h3>
-          <ul class="bullets">
-            <li>
-          <strong>Nested optimization</strong>:
-          Feasibility depends on <em>lower-level optimality</em>, not just constraints. This creates an implicit “induced region” defined through the follower’s solution mapping. <a href="#ref-colson2007overview" class="cite">[1]</a>, <a href="#ref-aiyoshi1981hierarchical" class="cite">[6]</a>.
-        
-        </li>
+  <div class="grid2">
+    <div class="card">
+      <h3>Why is BLO hard?</h3>
+      <ul class="bullets">
         <li>
-          <strong>Nonconvexity & irregular geometry</strong>: Even when the subproblems look simple, the induced region and the resulting upper-level landscape are often nonconvex
-          and can become nonsmooth or irregular. <a href="#ref-colson2007overview" class="cite">[3]</a>.
+          <strong>Nested optimization</strong>:
+          Feasibility depends on <em>lower-level optimality</em>, not just constraints. This creates an implicit “induced region” defined through the follower’s solution mapping.
+          <a href="#ref-colson2007overview" class="cite">[3]</a>,
+          <a href="#ref-aiyoshi1981hierarchical" class="cite">[6]</a>.
         </li>
+
+        <li>
+          <strong>Nonconvexity & irregular geometry</strong>:
+          Even when the subproblems look simple, the induced region and the resulting upper-level landscape are often nonconvex
+          and can become nonsmooth or irregular.
+          <a href="#ref-colson2007overview" class="cite">[3]</a>.
+        </li>
+
         <li>
           <strong>Multiplicity & tie-breaking</strong>:
-          The follower may have <em>multiple</em> optimal responses; results depend on how ties are resolved (optimistic vs pessimistic
-          bilevel semantics), and this issue becomes even more prominent in multiobjective settings <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-mejia2023mobo" class=" cite">[7]</a>.
+          The follower may have <em>multiple</em> optimal responses; results depend on how ties are resolved (optimistic vs pessimistic semantics),
+          and this issue becomes even more prominent in multiobjective settings
+          <a href="#ref-7942105" class="cite">[4]</a>,
+          <a href="#ref-mejia2023mobo" class="cite">[7]</a>.
         </li>
+
         <li>
-          <strong>Expensive evaluations</strong>: Many practical algorithms “nest” lower-level solves inside upper-level search, so each upper-level candidate can trigger
-          one (or many) follower optimizations—making the overall procedure computationally expensive <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-mejia2023mobo" class=" cite">[7]</a>.
+          <strong>Expensive evaluations</strong>:
+          Many practical algorithms nest LL solves inside UL search, so each UL candidate can trigger one (or many) follower optimizations—making the procedure costly
+          <a href="#ref-7942105" class="cite">[4]</a>,
+          <a href="#ref-mejia2023mobo" class="cite">[7]</a>.
         </li>
+
         <li>
           <strong>Hardness in theory</strong>:
-          Even restricted bilevel classes are computationally difficult; general bilevel programs (e.g., linear–linear cases) can reach high complexity
-          (e.g., NP-hard and beyond in standard complexity hierarchies) <a href="#ref-jeroslow1985polynomial" class="cite">[8]</a>, <a href="#ref-beck2023uncertainty" class="cite">[9]</a>. 
-       
+          Even restricted bilevel classes are computationally difficult; general bilevel programs can reach high complexity
+          <a href="#ref-jeroslow1985polynomial" class="cite">[8]</a>,
+          <a href="#ref-beck2023uncertainty" class="cite">[9]</a>.
         </li>
       </ul>
-      <a class="link" href="start-here.html">Learn the core concepts →</a>
-        </div>
 
-		  <div class="card">
+      <a class="link" href="start-here.html">Learn the core concepts →</a>
+    </div>
+
+    <div class="card">
       <h3>Common categories</h3>
       <ul class="bullets">
         <li>
-          <strong>Variable types</strong>: Continuous, integer, or mixed-integer decisions at the upper and/or lower level (MIBLP), including combinatorial BLO
-          problems common in network and interdiction-style applications <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-camacho2024metaheuristics" class=" cite">[10]</a>.
+          <strong>Variable types</strong>:
+          Continuous, integer, or mixed-integer decisions at the upper and/or lower level (MIBLP), including combinatorial BLO problems
+          <a href="#ref-7942105" class="cite">[4]</a>,
+          <a href="#ref-camacho2024metaheuristics" class="cite">[10]</a>.
         </li>
+
         <li>
           <strong>Follower structure</strong>:
-          Linear/convex vs nonconvex; smooth vs nonsmooth; and unique vs multiple follower optima, these properties strongly shape
-          what theory and algorithms apply <a href="#ref-colson2007overview" class=" cite">[3]</a>, <a href="#ref-camacho2024metaheuristics" class=" cite">[10]</a>.
+          Linear/convex vs nonconvex; smooth vs nonsmooth; unique vs multiple follower optima
+          <a href="#ref-colson2007overview" class="cite">[3]</a>,
+          <a href="#ref-camacho2024metaheuristics" class="cite">[10]</a>.
         </li>
+
         <li>
           <strong>Solution concepts</strong>:
-          Optimistic vs pessimistic bilevel; single-follower vs multi-follower; and deterministic vs stochastic/robust variants (when
-          data, constraints, or objectives are uncertain) <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-beck2023uncertainty" class=" cite">[9]</a>. 
+          Optimistic vs pessimistic; single vs multi-follower; deterministic vs stochastic/robust variants
+          <a href="#ref-7942105" class="cite">[4]</a>,
+          <a href="#ref-beck2023uncertainty" class="cite">[9]</a>.
         </li>
+
         <li>
           <strong>Reformulation-friendly vs black-box</strong>:
-          Some problems admit single-level reductions (e.g., KKT/MPEC-style reformulations when the follower is convex and regular),
-          while others require derivative-free or simulation-based treatment <a href="#ref-colson2007overview" class=" cite">[3]</a>, <a href="#ref-zhang2023introduction" class=" cite">[5]</a>.
+          Some admit single-level reductions (KKT/MPEC) while others need derivative-free/simulation-based treatment
+          <a href="#ref-colson2007overview" class="cite">[3]</a>,
+          <a href="#ref-zhang2023introduction" class="cite">[5]</a>.
         </li>
+
         <li>
           <strong>Objectives</strong>:
-          Single-objective BLO and multiobjective BLO (Pareto leader and/or Pareto follower), with additional choices
-          about how lower-level Pareto solutions are selected or summarized at the upper level <a href="#ref-7942105" class=" cite">[4]</a>, <a href="#ref-mejia2023mobo" class=" cite">[7]</a>.
+          Single-objective BLO and multiobjective BLO (Pareto leader and/or follower)
+          <a href="#ref-7942105" class="cite">[4]</a>,
+          <a href="#ref-mejia2023mobo" class="cite">[7]</a>.
         </li>
       </ul>
+
       <a class="link" href="taxonomy.html">See taxonomy →</a>
     </div>
-		  </section>
+  </div>
+</section>
 
     <section class="container section" id="resources">
       <div class="card">
