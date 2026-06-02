@@ -6,6 +6,18 @@
   <title>Bilevel Optimization (BLO) Hub</title>
   <meta name="description" content="A community-oriented hub for bilevel optimization: definitions, taxonomy, methods, papers, and applications." />
 
+<script>
+  window.MathJax = {
+    tex: {
+      tags: 'ams',              // enables (1), (2), ...
+      tagSide: 'right',
+      tagIndent: '0.8em'
+    }
+  };
+</script>
+	<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="assets/style.css" />
+  
   <!-- Styles -->
   <link rel="stylesheet" href="./assets/style.css" />
 
@@ -26,8 +38,8 @@
       <nav class="nav">
         <a class="navlink active" href="index.html">Home</a>
         <a class="navlink" href="taxonomy.html">Taxonomy</a>
-        <a class="navlink" href="formulation.html">Formulations</a>
-        <a class="navlink" href="methods.html">Methods</a>
+        <a class="navlink active" href="formulation.html">Formulations</a>
+        <a class="navlink active" href="methods.html">Methods</a>
         <a class="navlink" href="papers.html">Papers</a>
         <a class="navlink" href="#resources">Resources</a>
       </nav>
@@ -37,6 +49,9 @@
 
     <div class="mobileNav container" id="mobileNav">
       <a href="index.html">Home</a>
+      <a class="navlink" href="taxonomy.html">Taxonomy</a>
+      <a class="navlink active" href="formulation.html">Formulations</a>
+	    <a class="navlink active" href="methods.html">Methods</a>
       <a href="taxonomy.html">Taxonomy</a>
       <a href="formulation.html">Formulations</a>
       <a href="methods.html">Methods</a>
@@ -53,7 +68,7 @@
           <p class="lead">
             A lightweight, editable GitHub Pages website to organize the BLO landscape:
             <strong>definitions</strong>, <strong>complexity</strong>, <strong>taxonomy</strong>,
-            <strong>solution methods</strong> (classical / evolutionary / ML), and <strong>major research papers</strong>.
+            <strong>solution methods</strong> (classical/evolutionary/ML), and <strong>major research papers</strong>.
           </p>
 
           <div class="ctaRow">
@@ -81,17 +96,12 @@
           <h2>Quick definition</h2>
 
           <p>
-            Bilevel programs were first studied by Bracken and McGill
-            <a href="#ref-bracken1978production" class="cite">[1]</a>, motivated by applications in military planning as well as production and marketing
-            decision making. The terms bilevel optimization programming and multilevel optimization programming were introduced later by Candler and Norton
+            Bilevel programs were first studied by Bracken and McGill <a href="#ref-bracken1978production" class="cite">[1]</a>, motivated by applications in military planning as well as production and marketing decision making. At the time, these models were often described as mathematical programs with optimization problems in the constraints. The terms bilevel optimization programming and multilevel optimization programming were introduced later by Candler and Norton
             <a href="#ref-candler1982linear" class="cite">[2]</a>.
           </p>
 
-          <p>
-            Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level</strong> optimization problem is
-            constrained by the optimal response of a <strong>lower-level</strong> optimization problem (Eq. \(\eqref{eq:blo}\))
-            <a href="#ref-colson2007overview" class="cite">[3]</a>.
-          </p>
+          <p>Bilevel optimization (BLO) problems have a <strong>hierarchical structure</strong> in which an <strong>upper-level</strong> optimization problem is constrained by the optimal response of a <strong> lower-level </strong> optimization problem (Eq. \(\eqref{eq:blo}\))
+		<a href="#ref-colson2007overview" class="cite">[3]</a>. Such models arise naturally in settings with interdependent decisions across levels of authority or operation, including leader–follower games, pricing and interdiction, network and infrastructure design, and modern machine learning pipelines such as hyperparameter tuning and meta-learning. The defining nested structure makes BLO challenging: feasibility depends on lower-level optimality, and the induced feasible set is typically nonconvex. It can be disconnected, and solution quality can be sensitive to the multiplicity of lower-level solutions and tie-breaking. </p>
 
           <div class="equation">
             <div class="math">
@@ -113,10 +123,14 @@
               <li>\(F, G\): leader objective and constraints;</li>
               <li>\(f, g\): follower objective and constraints;</li>
               <li>\(\arg\min\) makes the LL optimum set a <strong>constraint</strong> on \((x_u, x_l)\);</li>
-              <li><strong>Note:</strong> equality constraints are often omitted for readability, but can be included at either level.</li>
+              <li><strong>Note:</strong> equality constraints are often omitted in the generic form for readability, but they can be included at either level without changing the basic structure.</li>
             </ul>
           </div>
 
+          <p>Over the past decades, BLO has been studied from both theoretical and applied perspectives. Classical approaches exploit analytical structure through techniques such as Karush-Kuhn-Tucker (KKT)-based reformulations, penalty and value-function methods, and exact algorithms, such as branch-and-bound. While these methods can be effective for structured instances (e.g., smooth or convex lower-level problems), their applicability is often limited in practice by nonsmoothness, nonconvexity, discrete variables, or the lack of reliable gradients, especially when the lower-level problem is non-differentiable or only accessible through a black-box solver.</p>
+
+<p>To address these limitations, the evolutionary computation community has developed metaheuristic and population-based approaches for BLO. Evolutionary algorithms (EAs) are a branch of metaheuristic algorithms, including genetic algorithms (GA), differential evolution (DE), particle swarm optimization (PSO), and co-evolutionary strategies, which are attractive for complex, multimodal, and black-box settings because they are derivative-free and can explore diverse regions of the search space. However, their flexibility comes at a cost: EAs often require many function evaluations, and the nested evaluation of lower-level optima can make them computationally expensive when lower-level solves are costly <a href="#ref-7942105" class=" cite">[4]</a>.</p>
+          
           <p class="muted">
             This nested structure makes BLO difficult: nonconvexity, nonsmoothness, implicit constraints, and multiple local/global follower optima.
           </p>
