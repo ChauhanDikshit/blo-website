@@ -102,7 +102,7 @@ function renderPapers(rows){
       a.href = p.url;
       a.target = "_blank";
       a.rel = "noreferrer";
-      a.textContent = "PDF / Page";
+      a.textContent = "PDF/Page";
       tdTitle.appendChild(document.createElement("br"));
       tdTitle.appendChild(a);
     }
