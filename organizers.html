@@ -63,7 +63,7 @@
             <div><strong>Research interests</strong></div>
             <ul class="bullets">
               <li>Bilevel optimization (classical, evolutionary, ML-based)</li>
-              <li>Evolutionary computation / Differential Evolution</li>
+              <li>Evolutionary computation</li>
               <li>Machine learning for optimization</li>
               <li>Energy/transport applications (e.g., EV/V2G, scheduling, decision-making)</li>
             </ul>
@@ -90,12 +90,12 @@
           <ul class="bullets">
             <li>Curated BLO papers with consistent tags and tiers</li>
             <li>Taxonomy tree (JSON) aligned with problem structure and method families</li>
-            <li>Method summaries (Classical / EAs / ML / Hybrid) with references</li>
+            <li>Method summaries (Classical/EAs/ML/Hybrid) with references</li>
             <li>Example-driven explanations for students and researchers</li>
           </ul>
 
           <div class="muted small">
-            If you want to add co-organizers, duplicate this card and add their name, role, and links.
+            If you want to add co-organizers, duplicate this card and add their name, roles, and links.
           </div>
         </div>
       </div>
@@ -104,7 +104,7 @@
     <section class="card" id="contribute">
       <h2>How to contribute</h2>
       <p>
-        Contributions are welcome—especially adding missing papers, improving tags, and fixing references.
+        Contributions are welcome, especially adding missing papers, improving tags, and fixing references.
       </p>
 
       <ol class="bullets">
@@ -115,7 +115,7 @@
           <strong>Improve taxonomy:</strong> edit <span class="mono">data/taxonomy.json</span> to add/expand nodes (keep IDs stable).
         </li>
         <li>
-          <strong>Fix a page:</strong> open a Pull Request editing the HTML pages in the root folder.
+          <strong>Fix a page:</strong> open a Pull Request to edit the HTML pages in the root folder.
         </li>
         <li>
           <strong>Quick feedback:</strong> open a GitHub Issue describing the change you want.
@@ -123,18 +123,58 @@
       </ol>
 
       <p class="muted small">
-        Suggested rule: keep <span class="mono">method_family</span> broad (Classical / Evolutionary / ML-based BLO / Hybrid / Survey)
+        Suggested rule: keep <span class="mono">method_family</span> broad (Classical/Evolutionary/ML-based BLO/Hybrid/Survey)
         and use <span class="mono">tags</span> for fine categories (e.g., <span class="mono">kkt</span>, <span class="mono">surrogate</span>,
         <span class="mono">implicit-diff</span>, <span class="mono">nas</span>).
       </p>
     </section>
 
-    <section class="card" id="citation">
-      <h2>How to cite this hub</h2>
-      <p class="muted small">
-        If you want a citation block here (BibTeX), tell me the preferred author list + year + title format and I’ll generate it.
-      </p>
-    </section>
+   <section class="card" id="citation">
+  <h2>How to cite this hub</h2>
+  <p class="muted small">
+    If you cite BLO Hub content that is derived from our review article, please cite the paper below.
+  </p>
+
+  <hr/>
+
+  <h3>Related paper</h3>
+  <div class="card" style="padding:14px; margin-top:10px">
+    <div class="mono" style="font-weight:700">Suggested citation (paper)</div>
+    <div style="margin-top:8px">
+      Dikshit Chauhan, Hisao Ishibuchi, Kalyanmoy Deb, Anupam Trivedi, and Dipti Srinivasan,
+      “A Review on Bilevel Optimization Using Evolutionary Algorithms and Machine Learning Approaches,”
+      <i>IEEE Transactions on Evolutionary Computation</i>, 2026.
+      DOI:
+      <a class="link" href="https://doi.org/10.1109/TEVC.2026.3690256" target="_blank" rel="noreferrer">
+        10.1109/TEVC.2026.3690256
+      </a>
+    </div>
+  </div>
+
+  <h3 style="margin-top:16px">BibTeX (paper)</h3>
+  <pre class="mono" style="white-space:pre; overflow:auto; margin:0; padding:12px; border-radius:12px">@ARTICLE{11518551,
+  author={Chauhan, Dikshit and Ishibuchi, Hisao and Deb, Kalyanmoy and Trivedi, Anupam and Srinivasan, Dipti},
+  journal={IEEE Transactions on Evolutionary Computation},
+  title={A Review on Bilevel Optimization Using Evolutionary Algorithms and Machine Learning Approaches},
+  year={2026},
+  volume={},
+  number={},
+  pages={1-1},
+  keywords={Optimization;Modeling;Learning (artificial intelligence);Algorithms;Metalearning;Neural architecture search;Evolutionary computation;Design methodology;Scalability;Training;Bilevel Optimization;Evolutionary Algorithms;Machine Learning;Hyperparameter Optimization;Neural Architecture Search},
+  doi={10.1109/TEVC.2026.3690256}}
+</pre>
+</section>
+
+<script>
+  // Optional: set access date automatically on page load
+  (function(){
+    const el = document.getElementById("accessDate");
+    if(!el) return;
+    const d = new Date();
+    const iso = d.toISOString().slice(0,10);
+    el.textContent = iso;
+  })();
+</script>
 
     <footer class="footer">
       <div class="container">
