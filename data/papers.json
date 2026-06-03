@@ -285,5 +285,113 @@
     "tags": ["book", "theory", "optimality conditions", "foundations"],
     "url": "https://link.springer.com/book/10.1007/978-1-4613-0035-0",
     "note": "Foundational monograph on bilevel programming theory and methods."
-  }
+  },
+{
+  "year": 2017,
+  "title": "A Surrogate Assisted Approach for Single-Objective Bilevel Optimization",
+  "authors": ["M. M. Islam", "H. K. Singh", "T. Ray"],
+  "venue": "IEEE Transactions on Evolutionary Computation",
+  "tier": "A",
+  "method_family": "Evolutionary",
+  "problem_type": "Single-objective BLO",
+  "tags": ["surrogate-assisted", "EA", "expensive LL", "single-objective"],
+  "url": "https://doi.org/10.1109/TEVC.2017.2670659",
+  "note": "Surrogate-assisted bilevel EA framework for expensive nested evaluations."
+},
+{
+  "year": 2019,
+  "title": "Evolutionary Bilevel Optimization Based on Covariance Matrix Adaptation",
+  "authors": ["Xiaoyu He", "Yuren Zhou", "Zefeng Chen"],
+  "venue": "IEEE Transactions on Evolutionary Computation",
+  "tier": "A",
+  "method_family": "Evolutionary",
+  "problem_type": "Continuous BLO",
+  "tags": ["CMA-ES", "EA", "continuous", "efficient LL handling"],
+  "url": "https://doi.org/10.1109/TEVC.2018.2849000",
+  "note": "Bilevel CMA-ES style approach to improve efficiency on continuous bilevel problems."
+},
+{
+  "year": 2022,
+  "title": "Transfer Learning-Based Parallel Evolutionary Algorithm Framework for Bilevel Optimization",
+  "authors": ["Lei Chen", "Hai-Lin Liu", "Kay Chen Tan", "Ke Li"],
+  "venue": "IEEE Transactions on Evolutionary Computation",
+  "tier": "A",
+  "method_family": "Evolutionary",
+  "problem_type": "General BLO",
+  "tags": ["transfer learning", "parallel EA", "bilevel", "reuse"],
+  "url": "https://doi.org/10.1109/TEVC.2021.3095313",
+  "note": "Parallel EA framework that reuses knowledge across tasks/instances."
+},
+{
+  "year": 2022,
+  "title": "Cooperative Coevolution With Knowledge-Based Dynamic Variable Decomposition for Bilevel Multiobjective Optimization",
+  "authors": ["Xinye Cai", "Qi Sun", "Zhenhua Li", "Yun Xiao", "Yi Mei", "Qingfu Zhang", "Xiaoping Li"],
+  "venue": "IEEE Transactions on Evolutionary Computation",
+  "tier": "A",
+  "method_family": "Evolutionary",
+  "problem_type": "Multiobjective BLO",
+  "tags": ["multiobjective", "coevolution", "variable decomposition", "TEVC"],
+  "url": "https://doi.org/10.1109/TEVC.2022.3154057",
+  "note": "Knowledge-based dynamic variable decomposition for MOBLO."
+},
+{
+  "year": 2017,
+  "title": "Evolutionary algorithm for bilevel optimization using approximations of the lower level optimal solution mapping",
+  "authors": ["Ankur Sinha", "Pekka Malo", "Kalyanmoy Deb"],
+  "venue": "European Journal of Operational Research",
+  "tier": "A",
+  "method_family": "Evolutionary",
+  "problem_type": "Nonconvex BLO",
+  "tags": ["BLEAQ", "response approximation", "EA", "EJOR"],
+  "url": "https://doi.org/10.1016/j.ejor.2016.08.027",
+  "note": "Seminal response-mapping approximation strategy (BLEAQ line)."
+},
+{
+  "year": 1994,
+  "title": "Genetic algorithm based approach to bi-level linear programming",
+  "authors": ["R. Mathieu", "L. Pittard", "G. Anandalingam"],
+  "venue": "RAIRO - Operations Research",
+  "tier": "B",
+  "method_family": "Evolutionary",
+  "problem_type": "Linear BLO",
+  "tags": ["nested GA", "bilevel linear programming", "early EA BLO"],
+  "url": "https://doi.org/10.1051/ro/1994280100011",
+  "note": "Classic early nested GA approach for bilevel linear programming."
+},
+{
+  "year": 2016,
+  "title": "DrMAD: Distilling Reverse-Mode Automatic Differentiation for Optimizing Hyperparameters of Deep Neural Networks",
+  "authors": ["Jie Fu", "Hongyin Luo", "Jiashi Feng", "Kian Hsiang Low", "Tat-Seng Chua"],
+  "venue": "arXiv",
+  "tier": "B",
+  "method_family": "ML-based BLO",
+  "problem_type": "Continuous BLO",
+  "tags": ["hyperparameter optimization", "unrolling", "memory-efficient", "autodiff"],
+  "url": "https://arxiv.org/abs/1601.00917",
+  "note": "Memory-efficient approximate reverse-mode through optimization trajectory."
+},
+{
+  "year": 2017,
+  "title": "Forward and Reverse Gradient-Based Hyperparameter Optimization",
+  "authors": ["Luca Franceschi", "Michele Donini", "Paolo Frasconi", "Massimiliano Pontil"],
+  "venue": "ICML (PMLR)",
+  "tier": "A",
+  "method_family": "ML-based BLO",
+  "problem_type": "Continuous BLO",
+  "tags": ["hyperparameter optimization", "forward-mode", "reverse-mode", "hypergradients"],
+  "url": "https://proceedings.mlr.press/v70/franceschi17a.html",
+  "note": "Forward/reverse-mode hypergradient computation; foundational for modern differentiable HO."
+},
+{
+  "year": 2023,
+  "title": "On Penalty-based Bilevel Gradient Descent Method",
+  "authors": ["Han Shen", "Quan Xiao", "Tianyi Chen"],
+  "venue": "ICML (PMLR)",
+  "tier": "A",
+  "method_family": "ML-based BLO",
+  "problem_type": "Constrained BLO",
+  "tags": ["penalty method", "bilevel gradient descent", "constraints", "theory"],
+  "url": "https://proceedings.mlr.press/v202/shen23c.html",
+  "note": "Penalty-based bilevel gradient descent with finite-time convergence results."
+}
 ]
