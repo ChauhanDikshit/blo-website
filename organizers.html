@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Organizers · BLO Hub</title>
+  <meta name="description" content="Organizers and maintainers of the Bilevel Optimization (BLO) Hub." />
+
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">BLO Hub</a>
+
+      <nav class="nav">
+        <a class="navlink" href="index.html">Home</a>
+        <a class="navlink" href="taxonomy.html">Taxonomy</a>
+        <a class="navlink" href="formulation.html">Formulations</a>
+        <a class="navlink" href="methods.html">Methods</a>
+        <a class="navlink" href="papers.html">Papers</a>
+        <a class="navlink active" href="organizers.html">Organizers</a>
+      </nav>
+
+      <button class="menuBtn" id="menuBtn" aria-label="Toggle menu">☰</button>
+    </div>
+
+    <div class="mobileNav container" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="taxonomy.html">Taxonomy</a>
+      <a href="formulation.html">Formulations</a>
+      <a href="methods.html">Methods</a>
+      <a href="papers.html">Papers</a>
+      <a href="organizers.html">Organizers</a>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="pageHead">
+      <div>
+        <h1>Organizers</h1>
+        <p class="muted">
+          This page lists the maintainer(s) of the BLO Hub and how to contribute improvements.
+        </p>
+      </div>
+      <div class="rightTools">
+        <a class="btn" href="papers.html">Browse papers</a>
+      </div>
+    </div>
+
+    <section class="card" id="maintainers">
+      <h2>Maintainer</h2>
+
+      <div class="grid2">
+        <div>
+          <h3 style="margin:0 0 6px 0">Dikshit Chauhan</h3>
+          <div class="muted small">
+            Postdoctoral Researcher, Department of Electrical &amp; Computer Engineering (ECE), National University of Singapore (NUS)
+          </div>
+
+          <div style="margin-top:12px">
+            <div><strong>Research interests</strong></div>
+            <ul class="bullets">
+              <li>Bilevel optimization (classical, evolutionary, ML-based)</li>
+              <li>Evolutionary computation / Differential Evolution</li>
+              <li>Machine learning for optimization</li>
+              <li>Energy/transport applications (e.g., EV/V2G, scheduling, decision-making)</li>
+            </ul>
+          </div>
+
+          <div style="margin-top:12px">
+            <div><strong>Links</strong> <span class="muted small">(replace “#” with your actual links)</span></div>
+            <div style="margin-top:8px">
+              <a class="link" href="#" target="_blank" rel="noreferrer">Google Scholar</a> ·
+              <a class="link" href="#" target="_blank" rel="noreferrer">ORCID</a> ·
+              <a class="link" href="#" target="_blank" rel="noreferrer">Personal website</a> ·
+              <a class="link" href="https://github.com/ChauhanDikshit" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+
+            <p class="muted small" style="margin-top:10px">
+              Prefer not to display email publicly? Use GitHub Issues for contact (recommended).
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin:0 0 6px 0">Project scope</h3>
+          <ul class="bullets">
+            <li>Curated BLO papers with consistent tags and tiers</li>
+            <li>Taxonomy tree (JSON) aligned with problem structure and method families</li>
+            <li>Method summaries (Classical / EAs / ML / Hybrid) with references</li>
+            <li>Example-driven explanations for students and researchers</li>
+          </ul>
+
+          <div class="muted small">
+            If you want to add co-organizers, duplicate this card and add their name, role, and links.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="contribute">
+      <h2>How to contribute</h2>
+      <p>
+        Contributions are welcome—especially adding missing papers, improving tags, and fixing references.
+      </p>
+
+      <ol class="bullets">
+        <li>
+          <strong>Add a paper:</strong> edit <span class="mono">data/papers.json</span> and add a new entry (title/authors/venue/year/tags/tier/url).
+        </li>
+        <li>
+          <strong>Improve taxonomy:</strong> edit <span class="mono">data/taxonomy.json</span> to add/expand nodes (keep IDs stable).
+        </li>
+        <li>
+          <strong>Fix a page:</strong> open a Pull Request editing the HTML pages in the root folder.
+        </li>
+        <li>
+          <strong>Quick feedback:</strong> open a GitHub Issue describing the change you want.
+        </li>
+      </ol>
+
+      <p class="muted small">
+        Suggested rule: keep <span class="mono">method_family</span> broad (Classical / Evolutionary / ML-based BLO / Hybrid / Survey)
+        and use <span class="mono">tags</span> for fine categories (e.g., <span class="mono">kkt</span>, <span class="mono">surrogate</span>,
+        <span class="mono">implicit-diff</span>, <span class="mono">nas</span>).
+      </p>
+    </section>
+
+    <section class="card" id="citation">
+      <h2>How to cite this hub</h2>
+      <p class="muted small">
+        If you want a citation block here (BibTeX), tell me the preferred author list + year + title format and I’ll generate it.
+      </p>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="muted">© <span id="year"></span> BLO Hub · Built on GitHub Pages</div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="./assets/app.js"></script>
+</body>
+</html>
